@@ -15,8 +15,8 @@ private:
     int duration;
     Task* nextTask;
     Task* dependsOn; //may not need this
-    //pointer to Parent Project
-    //Time dueDate
+    int* Project; //pointer to Parent Project
+    int dueDate; //todo Write and Replace int with TaskTime class
     short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
 
 public:
@@ -30,9 +30,9 @@ public:
 
     void setDuration(int duration);
 
-    Task *getNextTask() const;
+    Task* getDependancy() const;
 
-    void setNextTask(Task *nextTask);
+    void setDependancy(Task *nextTask);
 
     Task *getDependsOn() const;
 
@@ -41,6 +41,7 @@ public:
     short getPriority() const;
 
     void setPriority(short Priority);
+    //todo is there moer here? - jer11/22
 
 };
 
