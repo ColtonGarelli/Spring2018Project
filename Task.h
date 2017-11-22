@@ -31,18 +31,17 @@ public:
 
     void setDuration(int duration);
 
-    Task* getDependancy() const;
+    Task* getDependant() const;
 
-    void setDependancy(Task *nextTask);
+    void setDependant(Task* nextTask);
 
-    Task *getDependsOn() const;
+    Task *getRoot() const;
 
-    void setDependsOn(Task *dependsOn);
+    void setRoot(Task* newRoot);
 
     short getPriority() const;
 
     void setPriority(short Priority);
-    //todo is there moer here? - jer11/22
 
 };
 

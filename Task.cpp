@@ -30,33 +30,33 @@ void Task::setDuration(int duration) {
     Task::duration = duration;
 }
 
-Task *Task::getDependancy() const {
+Task *Task::getDependant() const {
     //todo write
     //todo test
-    return nextTask;
+    return dependant;
 }
 
-void Task::setDependancy(Task *nextTask) {
+void Task::setDependant(Task *nextTask) {
     //todo test if this works
-    if (this->nextTask == nullptr){
-        this->nextTask = nextTask;
+    if (this->dependant == nullptr){
+        this->dependant = nextTask;
     }else{
-        Task* curr = this->nextTask;
-        nextTask->setDependancy(curr);
-        this->nextTask = nextTask;
+        Task* curr = this->dependant;
+        nextTask->setDependant(curr);
+        this->dependant = nextTask;
     }
 }
 
-Task *Task::getDependsOn() const {
+Task *Task::getRoot() const {
     //todo write
     //todo test
-    return dependsOn;
+    return root;
 }
 
-void Task::setDependsOn(Task *dependsOn) {
+void Task::setRoot(Task* newRoot) {
     //todo write
     //todo test
-    Task::dependsOn = dependsOn;
+    Task::root = newRoot;
 }
 
 short Task::getPriority() const {

@@ -10,6 +10,8 @@
 #include "LinkedNode.h"
 #include <string>
 
+//todo: convert this to a linked List of Tasks not Integers
+
 class IntLinkedList: public ProjectList {
 
 private:

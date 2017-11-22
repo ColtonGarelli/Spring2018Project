@@ -3,6 +3,7 @@
 // Revisions by Jeremy Block on 11/06/17
 //
 
+//todo: convert this to Linked List of tasks
 #include "IntLinkedList.h"
 
     //constructor
