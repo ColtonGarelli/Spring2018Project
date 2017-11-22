@@ -3,14 +3,14 @@ The Project management Tool that makes you the pro at projecting your projects
 
 
 # Working definitions
-    1. Dependants - the tasks that can be completed after the current task is done.
-    2. Roots - The Tasks that come before a Current Task
+1. Dependants - the tasks that can be completed after the current task is done.
+2. Roots - The Tasks that come before a Current Task
 
 the structure of this program is three parts
 
 ## 1. Model - a node structure that makes it easy to move tasks (nodes) around memory.
 
-    A task has the following private data members
+A task has the following private data members
 
 
 > [title] - String representing the task
@@ -30,27 +30,26 @@ the structure of this program is three parts
 
 ## 2. View - What displays Lists of Tasks.
 
-    Each view can help to structure the tasks into lists that need to be completed for example:
+Each view can help to structure the tasks into lists that need to be completed for example:
 
 
-   > ###"today"
-   >     - The tasks would be added to this List and displayed to the user if the task was due today or yester (or due <= 0)
-   > ###"Project 1"
-   >     - The tasks would be added to this list and displayed to the user if the task was from project 1 (1)
-   > ###"Do Now"
-   >     - The tasks would be added to the list and displayed to the user if it's roots are complete.
+###"today"
+    - The tasks would be added to this List and displayed to the user if the task was due today or yester (or due <= 0)
+###"Project 1"
+    - The tasks would be added to this list and displayed to the user if the task was from project 1 (1)
+###"Do Now"
+    - The tasks would be added to the list and displayed to the user if it's roots are complete.
 
 
-    This class should not have any data members. just methods for displaying the controller's [activeView]
+This class should not have any data members. just methods for displaying the controller's [activeView]
 
 
-## 3. **Controller**
-    The underlying Driver that arranges views and contains all the tasks in an ordered list (ordered by [priority], then by [dueDate]).
+## 3. Controller The underlying Driver that arranges views and contains all the tasks in an ordered list (ordered by [priority], then by [dueDate]).
 
-    * The controller keeps track of the day
-    * Adds tasks to the master list, and keeps it organized
-    * Calculates, Updates and re-prioritizes tasks in the view for optimal order of events based on the task's duration, the proximity of the dueDate and the amount of hours in a day.
-        [ ] it would be awesome if it would recommend tasks that you should ask for extensions on.
+* The controller keeps track of the day
+* Adds tasks to the master list, and keeps it organized
+* Calculates, Updates and re-prioritizes tasks in the view for optimal order of events based on the task's duration, the proximity of the dueDate and the amount of hours in a day.
+* * [ ] it would be awesome if it would recommend tasks that you should ask for extensions on.
 
 
 
