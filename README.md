@@ -38,15 +38,15 @@ Each view can help to structure the tasks into lists that need to be completed f
 ##### "Project 1"
 * The `Task` would be added to this list and displayed to the user if it was from project 1 ( `project == 1` )
 ##### "Do Now"
-* The `task` would be added to the list and displayed to the user if it`s roots are complete and there is enough time to complete that task.
-Of course there would be other views too. This class should not have any data members. just methods for displaying the controller`s `activeView`
+* The `task` would be added to the list and displayed to the user if it's roots are complete and there is enough time to complete that task.
+Of course there would be other views too. This class should not have any data members. just methods for displaying the controller's `activeView`
 
 
 ## 3. Controller The underlying Driver that arranges views and contains all the tasks in an ordered list (ordered by `priority`, then by `dueDate`).
 
 The controller keeps track of the day.
-Adds tasks to the master list, and keeps it organized
-Calculates, Updates and re-prioritizes tasks in the view for optimal order of events based on the task`s duration, the proximity of the dueDate and the amount of hours in a day.
+Adds tasks to the master list, and keeps it organized.
+Calculates, Updates and re-prioritizes tasks in the view for optimal order of events based on the task's duration, the proximity of the dueDate and the amount of hours in a day.
  * [ ] it would be awesome if it would recommend tasks that you should ask for extensions on.
 
 
