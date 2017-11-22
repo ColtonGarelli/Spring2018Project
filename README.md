@@ -2,13 +2,13 @@
 The Project management Tool that makes you the pro at projecting your projects
 
 
-#Working definitions:
-    **Dependants** - the tasks that can be completed after the current task is done.
-    **Roots** - The Tasks that come before a Current Task
+# Working definitions:
+    * **Dependants** - the tasks that can be completed after the current task is done.
+    * **Roots** - The Tasks that come before a Current Task
 
 the structure of this program is three parts:
 
-##1. **Model**
+## 1. **Model**
     a node structure that makes it easy to move tasks (nodes) around memory.
 
     A task has the following private data members:
