@@ -3,13 +3,12 @@ The Project management Tool that makes you the pro at projecting your projects
 
 
 # Working definitions:
-    * **Dependants** - the tasks that can be completed after the current task is done.
-    * **Roots** - The Tasks that come before a Current Task
+    1. **Dependants** - the tasks that can be completed after the current task is done.
+    2. **Roots** - The Tasks that come before a Current Task
 
 the structure of this program is three parts:
 
-## 1. **Model**
-    a node structure that makes it easy to move tasks (nodes) around memory.
+## 1. **Model** - a node structure that makes it easy to move tasks (nodes) around memory.
 
     A task has the following private data members:
 
@@ -29,18 +28,17 @@ the structure of this program is three parts:
 '''
 
 
-## 2. **View**
-    Lists of tasks.
+## 2. **View** - What displays Lists of Tasks.
 
     Each view can help to structure the tasks into lists that need to be completed for example:
 
 
-    >###"today"
-    >    - The tasks would be added to this List and displayed to the user if the task was due today or yester (or due <= 0)
-    >###"Project 1"
-    >    - The tasks would be added to this list and displayed to the user if the task was from project 1 (1)
-    >###"Do Now"
-    >    - The tasks would be added to the list and displayed to the user if it's roots are complete.
+    ###"today"
+        - The tasks would be added to this List and displayed to the user if the task was due today or yester (or due <= 0)
+    ###"Project 1"
+        - The tasks would be added to this list and displayed to the user if the task was from project 1 (1)
+    ###"Do Now"
+        - The tasks would be added to the list and displayed to the user if it's roots are complete.
 
 
     This class should not have any data members. just methods for displaying the controller's [activeView]
