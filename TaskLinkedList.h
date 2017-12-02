@@ -7,41 +7,41 @@
 #define LAB8_INTLINKEDLIST_H
 
 #include "ProjectList.h"
-#include "LinkedNode.h"
+#include "Task.h"
 #include <string>
 
 //todo: convert this to a linked List of Tasks not Integers
 
-class IntLinkedList: public ProjectList {
+class TaskLinkedList: public ProjectList {
 
 private:
     int currLength;
-    LinkedNode* front;
-    LinkedNode* end;
+    Task* front;
+    Task* end;
 public:
     /**
      * @efficiency - O(1)
      * Default constructor
      */
-    IntLinkedList();
+    TaskLinkedList();
 
     /**
      * @efficiency - O(n)
      * Copy constructor
      */
-    IntLinkedList(const IntLinkedList& listToCopy);
+    TaskLinkedList(const TaskLinkedList& listToCopy);
 
     /**
      * @efficiency - O(n)
      * Destructor
      */
-    ~IntLinkedList();
+    ~TaskLinkedList();
 
     /**
      * @efficiency - O(2n)
      * Assignment operator
      */
-    IntLinkedList& operator=(const IntLinkedList& listToCopy);
+    TaskLinkedList& operator=(const TaskLinkedList& listToCopy);
 
     /**
      * appends the new item to the end of the list

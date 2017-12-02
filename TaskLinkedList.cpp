@@ -4,29 +4,29 @@
 //
 
 //todo: convert this to Linked List of tasks
-#include "IntLinkedList.h"
+#include "TaskLinkedList.h"
 
     //constructor
-    IntLinkedList::IntLinkedList() {
+    TaskLinkedList::TaskLinkedList() {
         currLength = 0;
         front = nullptr;
         end = nullptr;
     }
     //copy constructor
-    IntLinkedList::IntLinkedList(const IntLinkedList& listToCopy){
+    TaskLinkedList::TaskLinkedList(const TaskLinkedList& listToCopy){
         currLength = listToCopy.currLength;
         if(listToCopy.front != nullptr){ // if the listToCopy is not empty
-            LinkedNode* tempNewPtr; // the address of the penultimate-ly created node
-            LinkedNode* tempOldPtr; // The address of the node to copied from the listToCopy
-            LinkedNode* newNodePtr; // The newest node created based on the tempOldPtr->getItem.
+            Task* tempNewPtr; // the address of the penultimate-ly created node
+            Task* tempOldPtr; // The address of the node to copied from the listToCopy
+            Task* newNodePtr; // The newest node created based on the tempOldPtr->getItem.
             tempOldPtr = listToCopy.front;
-            newNodePtr = new LinkedNode(tempOldPtr->getItem());
+            newNodePtr = new Task(tempOldPtr->getItem());
             front = newNodePtr;
             tempNewPtr = front;
 
             for (int i = 1; i < currLength; i++){
                 tempOldPtr = tempOldPtr->getNext();
-                newNodePtr = new LinkedNode(tempOldPtr->getItem());
+                newNodePtr = new Task(tempOldPtr->getItem());
                 tempNewPtr->setNext(newNodePtr);
                 tempNewPtr = tempNewPtr->getNext();
                 end = newNodePtr;
@@ -39,16 +39,16 @@
      *               list from a pointer to the end of the list
      * @param oldNode - the node from which to delete the rest of the chain
      */
-    void RecursiveDelete (LinkedNode* oldNode) {
+    void RecursiveDelete (Task* oldNode) {
         while (oldNode != nullptr) {
-            LinkedNode *temp = (*oldNode).getNext();
+            Task* temp = (*oldNode).getNext();
             delete oldNode;
             oldNode = temp;
         }
     }
 
     //destructor
-    IntLinkedList::~IntLinkedList(){
+    TaskLinkedList::~TaskLinkedList(){
         currLength=0;
         RecursiveDelete(front);
         front = nullptr;
@@ -57,7 +57,7 @@
     }
 
     //Assignment operator
-    IntLinkedList& IntLinkedList::operator=(const IntLinkedList& listToCopy) {
+    TaskLinkedList& TaskLinkedList::operator=(const TaskLinkedList& listToCopy) {
         if(this != &listToCopy) {
             currLength=0;
             clearList();
@@ -66,17 +66,17 @@
 
 
             if (listToCopy.front != nullptr) {
-                LinkedNode *tempNewPtr; // the address of the penultimate-ly created node
-                LinkedNode *tempOldPtr; // The address of the node to copied from the listToCopy
-                LinkedNode *newNodePtr; // The newest node created based on the tempOldPtr->getItem.
+                Task *tempNewPtr; // the address of the penultimate-ly created node
+                Task *tempOldPtr; // The address of the node to copied from the listToCopy
+                Task *newNodePtr; // The newest node created based on the tempOldPtr->getItem.
                 tempOldPtr = listToCopy.front;
-                newNodePtr = new LinkedNode(tempOldPtr->getItem());
+                newNodePtr = new Task(tempOldPtr->getItem());
                 front = newNodePtr;
                 tempNewPtr = front;
 
                 for (int i = 1; i < currLength; i++) {
                     tempOldPtr = tempOldPtr->getNext();
-                    newNodePtr = new LinkedNode(tempOldPtr->getItem());
+                    newNodePtr = new Task(tempOldPtr->getItem());
                     tempNewPtr->setNext(newNodePtr);
                     tempNewPtr = tempNewPtr->getNext();
                     end = newNodePtr;
@@ -86,8 +86,8 @@
         return *this;
     }
 
-    void IntLinkedList::insertAtEnd(int itemToAdd) {
-        LinkedNode *tempItem = new LinkedNode(itemToAdd);
+    void TaskLinkedList::insertAtEnd(int itemToAdd) {
+        Task *tempItem = new Task(itemToAdd);
         if (currLength == 0) {
             front = tempItem;
             end = tempItem;
@@ -98,8 +98,8 @@
         currLength++;
     }
 
-    void IntLinkedList::insertAtFront(int itemToAdd) {
-        LinkedNode *tempItem = new LinkedNode(itemToAdd);
+    void TaskLinkedList::insertAtFront(int itemToAdd) {
+        Task *tempItem = new Task(itemToAdd);
         tempItem->setNext(front);
         front = tempItem;
         currLength++;
@@ -108,7 +108,7 @@
         }
     }
 
-    void IntLinkedList::insertAt(int itemToAdd, int index) {
+    void TaskLinkedList::insertAt(int itemToAdd, int index) {
         if (index < 0 || index > currLength) {
             throw std::out_of_range("Cannot Insert outside of function");
         } else {
@@ -117,12 +117,12 @@
             } else if (index == currLength) {
                 insertAtEnd(itemToAdd);
             } else {
-                LinkedNode *beforePtr = front;
+                Task* beforePtr = front;
                 for (int i = 0; i < index - 1; i++) {
                     beforePtr = beforePtr->getNext();
                 }
-                LinkedNode *nextNode = beforePtr->getNext();
-                LinkedNode *newNode = new LinkedNode(itemToAdd);
+                Task *nextNode = beforePtr->getNext();
+                Task *newNode = new Task(itemToAdd);
                 beforePtr->setNext(newNode);
                 newNode->setNext(nextNode);
                 currLength++;
@@ -131,7 +131,7 @@
     }
 
 
-    int IntLinkedList::getValueAt(int index) {
+    int TaskLinkedList::getValueAt(int index) {
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
@@ -139,7 +139,7 @@
         } else if (index == currLength - 1) {
             return end->getItem();
         } else {
-            LinkedNode *findNode = front->getNext();
+            Task *findNode = front->getNext();
             for (int i = 1; i < index; i++) {
                 findNode = findNode->getNext();
             }
@@ -147,11 +147,11 @@
         }
     }
 
-    int IntLinkedList::removeValueAt(int index) {
+    int TaskLinkedList::removeValueAt(int index) {
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("Cannot remove a value outside of list");
         } else if (index == 0) {
-            LinkedNode *delPtr = front;
+            Task *delPtr = front;
             int tempReturn = delPtr->getItem();
             front = front->getNext();
 
@@ -159,12 +159,12 @@
             currLength--;
             return tempReturn;
         } else {
-            LinkedNode *delPtr = front;
+            Task *delPtr = front;
             for (int i = 0; i < index - 1; i++) {
                 delPtr = delPtr->getNext();
             }
-            LinkedNode *deleteNode = delPtr->getNext();
-            LinkedNode *nextNode = deleteNode->getNext();
+            Task *deleteNode = delPtr->getNext();
+            Task *nextNode = deleteNode->getNext();
             int tempReturn = deleteNode->getItem();
             delete deleteNode;
             delPtr->setNext(nextNode);
@@ -173,23 +173,23 @@
         }
     }
 
-    bool IntLinkedList::isEmpty() {
+    bool TaskLinkedList::isEmpty() {
         return currLength == 0;
     }
 
-    int IntLinkedList::itemCount() {
+    int TaskLinkedList::itemCount() {
         return currLength;
     }
 
-    void IntLinkedList::clearList() {
+    void TaskLinkedList::clearList() {
         currLength = 0;
         RecursiveDelete(front);
         front = nullptr;
         end = nullptr;
     }
 
-    std::string IntLinkedList::toString() {
-        LinkedNode *tempPtr = front;
+    std::string TaskLinkedList::toString() {
+        Task *tempPtr = front;
         std::string output = "{";
         for (int i = 0; i < currLength; i++) {
             if (i < currLength - 1) {
@@ -203,12 +203,12 @@
         return output;
     }
 
-    int IntLinkedList::findMaxIndex() {
+    int TaskLinkedList::findMaxIndex() {
         int returnIndex;
         if (currLength < 1) {
             returnIndex = -1;
         } else {
-            LinkedNode *tempPtr = front;
+            Task *tempPtr = front;
             int maxVal = tempPtr->getItem();
             returnIndex = 0;
             for (int i = 0; i < currLength; i++) {
@@ -229,7 +229,7 @@
      * @param lookFor  - the Value to look for
      * @return  - The first index of the value passed in relation to the thisNode
      */
-    int findFirstHelper(LinkedNode *thisnode, int lookFor) {
+    int findFirstHelper(Task *thisnode, int lookFor) {
         if (thisnode->getItem() == lookFor) {
             return 0;
         }
@@ -245,12 +245,12 @@
         }
     }
 
-    int IntLinkedList::find(int numToFind) {
+    int TaskLinkedList::find(int numToFind) {
         return findFirstHelper(front, numToFind);
     }
 
-    int IntLinkedList::findLast(int numToFind) {
-        LinkedNode *aNode = front;
+    int TaskLinkedList::findLast(int numToFind) {
+        Task *aNode = front;
         int lastIndex = -1;
         for (int i = 0; i < currLength; i++) {
             if (aNode->getItem() == numToFind) {
