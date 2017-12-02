@@ -8,7 +8,7 @@
 
 //todo update these setters and getters as needed.
 
-const std::string &Task::getTitle() const {
+const std::string &Task::getTitle(){
     //todo write
     //todo test
     return title;
@@ -20,55 +20,82 @@ void Task::setTitle(const std::string &title) {
     Task::title = title;
 }
 
-int Task::getDuration() const {
+void Task::setDueDate(int dueDate){
     //todo write
     //todo test
-    return duration;
+    Task::dueDate = dueDate;
 }
 
-void Task::setDuration(int duration) {
-    //todo write
-    //todo test
-    Task::duration = duration;
+int Task::getDueDate(){
+    return dueDate;
 }
 
-Task *Task::getDependant() const {
-    //todo write
-    //todo test
-    return dependant;
+void Task::setId(int Id){
+    Task::Id = Id;
 }
 
-void Task::setDependant(Task *nextTask) {
-    //todo test if this works
-    if (this->dependant == nullptr){
-        this->dependant = nextTask;
-    }else{
-        Task* curr = this->dependant;
-        nextTask->setDependant(curr);
-        this->dependant = nextTask;
+int Task::getId() {
+    return Id;
+}
+
+bool Task::completeTask(){
+    //TODO think about what this will throw if task already completed
+    if(completed == false){
+        completed = true;
     }
+    return completed;
 }
 
-Task *Task::getRoot() const {
-    //todo write
-    //todo test
-    return root;
-}
 
-void Task::setRoot(Task* newRoot) {
-    //todo write
-    //todo test
-    Task::root = newRoot;
-}
+//int Task::getDuration() const {
+//    //todo write
+//    //todo test
+//    return duration;
+//}
 
-short Task::getPriority() const {
-    //todo write
-    //todo test
-    return Priority;
-}
+//void Task::setDuration(int duration) {
+//    //todo write
+//    //todo test
+//    Task::duration = duration;
+//}
 
-void Task::setPriority(short Priority) {
-    //todo write
-    //todo test
-    Task::Priority = Priority;
-}
+//Task *Task::getDependant() const {
+//    //todo write
+//    //todo test
+//    return dependant;
+//}
+
+//void Task::setDependant(Task *nextTask) {
+//    //todo test if this works
+//    if (this->dependant == nullptr){
+//        this->dependant = nextTask;
+//    }else{
+//        Task* curr = this->dependant;
+//        nextTask->setDependant(curr);
+//        this->dependant = nextTask;
+//    }
+//}
+
+//Task *Task::getRoot() const {
+//    //todo write
+//    //todo test
+//    return root;
+//}
+
+//void Task::setRoot(Task* newRoot) {
+//    //todo write
+//    //todo test
+//    Task::root = newRoot;
+//}
+
+//short Task::getPriority() const {
+//    //todo write
+//    //todo test
+//    return Priority;
+//}
+
+//void Task::setPriority(short Priority) {
+//    //todo write
+//    //todo test
+//    Task::Priority = Priority;
+//}
