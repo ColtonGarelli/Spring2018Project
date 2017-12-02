@@ -11,7 +11,7 @@ int main() {
     std::cout<<"show me the formuoli"<<std::endl;
 
     std::cout<<"Taylor's text"<<std::endl;
-
+    std::cout<<"newest change";
     List<TaskLinkedList> masterList = List<TaskLinkedList>();
     return 0;
 }
