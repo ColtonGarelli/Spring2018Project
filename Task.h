@@ -12,36 +12,41 @@ class Task {
 private:
     //todo Define a Time class
     std::string title;
-    int duration;
-    Task* dependant;
-    Task* root; //may not need this
-    int* Project; //pointer to Parent Project
-    int dueDate; //todo Write and Replace int with TaskTime class
-    short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
+    //int duration;
+   // Task* dependant;
+    //int* Project; //pointer to Parent Project
+    int dueDate;//days till due not including today //todo Write and Replace int with TaskTime class
+    //short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
     bool completed; //true: task is done, false default
+    int Id;
 
 public:
 
     //todo update these setters and getters as needed.
-    const std::string &getTitle() const;
+    const std::string &getTitle();
 
     void setTitle(const std::string &title);
 
-    int getDuration() const;
+    void setDueDate(int dueDate);
 
-    void setDuration(int duration);
+    int getDueDate();
 
-    Task* getDependant() const;
+    void setId(int Id);
+    int getId();
+    bool completeTask;
 
-    void setDependant(Task* nextTask);
 
-    Task *getRoot() const;
+   // int getDuration() const;
 
-    void setRoot(Task* newRoot);
+   // void setDuration(int duration);
 
-    short getPriority() const;
+    //Task* getDependant() const;
 
-    void setPriority(short Priority);
+   // void setDependant(Task* nextTask);
+
+    //short getPriority() const;
+
+   // void setPriority(short Priority);
 
 };
 
