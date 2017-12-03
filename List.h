@@ -2,8 +2,8 @@
 // Created by Toby Dragon on 10/31/17.
 //
 
-#ifndef COMP220_INT_LIST_H
-#define COMP220_INT_LIST_H
+#ifndef PRO_JECT_LIST_H
+#define PRO_JECT_LIST_H
 
 #include <stdexcept>
 
@@ -94,4 +94,4 @@ public:
 };
 
 
-#endif //COMP220_INT_LIST_H
+#endif //PRO_JECT_LIST_H

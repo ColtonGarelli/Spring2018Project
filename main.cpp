@@ -1,11 +1,11 @@
 #include <iostream>
 #include "TaskLinkedList.h"
+#include "Task.h"
 #include "TaskTest.h"
 #include "List.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    List<Task>* masterList = new TaskLinkedList<Task>();
-
+    TaskLinkedList* masterList = new TaskLinkedList();
     return 0;
 }
