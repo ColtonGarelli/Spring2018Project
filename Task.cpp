@@ -8,6 +8,21 @@
 
 //todo update these setters and getters as needed.
 
+//Constructors/Destructor
+
+//Constructor
+Task::Task(std::string title, int due, bool taskComplete, int IdNum){
+
+    //call sets on all variables
+    //setting next ptr to nullptr for now?
+
+}
+
+//Destructor
+
+~Task::Task(){
+
+}
 const std::string &Task::getTitle(){
     //todo write
     //todo test

@@ -19,8 +19,14 @@ private:
     //short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
     bool completed; //true: task is done, false default
     int Id;
+    Task* next;
 
 public:
+    //Constructor
+    Task::Task(std::string title, int due, bool taskComplete, int IdNum);
+
+    //Destructor
+    ~Task::Task();
 
     //todo update these setters and getters as needed.
     const std::string &getTitle();
