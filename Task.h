@@ -33,7 +33,7 @@ public:
 
     void setId(int Id);
     int getId();
-    bool completeTask;
+    bool completeTask();
 
 
    // int getDuration() const;
