@@ -41,6 +41,7 @@ public:
     int getId();
     bool completeTask();
     void Task::setNext(Task* newNext);
+    Task* Task::getNext();
 
 
    // int getDuration() const;

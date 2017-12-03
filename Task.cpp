@@ -63,6 +63,10 @@ void Task::setNext(Task* newNext){
     next = newNext;
 }
 
+Task* Task::getNext(){
+    return next;
+}
+
 
 
 //int Task::getDuration() const {
