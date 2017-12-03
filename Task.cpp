@@ -18,9 +18,11 @@ Task::Task(std::string title, int due, bool taskComplete, int IdNum){
 
 //Destructor
 
-~Task::Task(){
+Task::~Task(){
+    //todo - We don't ahve a task destructor yet, cause the memory wont get deleted while the list is alive. WE will need to do this later when we implement file io
 
 }
+//todo Assignment operator.
 const std::string &Task::getTitle(){
     //todo write
     //todo test

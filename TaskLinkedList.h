@@ -3,21 +3,20 @@
 // Revisions by Jeremy Block on 11/06/17
 //
 
-#ifndef LAB8_INTLINKEDLIST_H
-#define LAB8_INTLINKEDLIST_H
+#ifndef PRO_JECT_TASKLINKEDLIST_H
+#define PRO_JECT_TASKLINKEDLIST_H
 
-#include "List.h"
-//#include "Task.h"
 #include <string>
+#include "Task.h"
+#include "List.h"
 
 //todo: convert this to a linked List of Tasks not Integers
-template <class T>
-class TaskLinkedList<T> : public List<T> {
+class TaskLinkedList : public List {
 
 private:
     int currLength;
-    T* front;
-    T* end;
+    Task* front;
+    Task* end;
 public:
     /**
      * @efficiency - O(1)
@@ -49,7 +48,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(T* itemToAdd);
+    void insertAtEnd(Task* itemToAdd);
 
     /**
      * appends the new item to the beginning of the list
@@ -58,7 +57,7 @@ public:
      * @post the list has an additional value in it, at the beginning
      *    all other items are shifted down by one index
      */
-    void insertAtFront(T* itemToAdd);
+    void insertAtFront(Task* itemToAdd);
 
     /**
      * inserts the item into the list so that it can be found with get(index)
@@ -69,7 +68,7 @@ public:
      *        all further values have been shifted down by one index
      * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
      */
-    void insertAt(T* itemToAdd, int index);
+    void insertAt(Task* itemToAdd, int index);
 
     /**
      * gets a value from the list
@@ -80,7 +79,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    T* getValueAt(int index);
+    Task* getValueAt(int index);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -90,7 +89,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    T* removeValueAt(int index);
+    Task* removeValueAt(int index);
 
     /**
      * checks if there are any valid items in the list
@@ -122,14 +121,6 @@ public:
     std::string toString();
 
     /**
-     * finds the largest value in the array
-     * @efficiency - O(n) - a couple more steps for each iteration but
-     *              but still in the order of n.
-     * @return the first index of the maximum value, or -1 if size < 1
-     */
-    int findMaxIndex();
-
-    /**
      * Searches an int array for a certain value
      * @efficiency - O(n) - if the first occurance of
      *                      numToFind is the last in list or is not present
@@ -146,5 +137,4 @@ public:
 
 };
 
-#include "TaskTest.inl"
-#endif //LAB8_INTLINKEDLIST_H
+#endif // PRO_JECT_TASKLINKEDLIST_H

@@ -23,10 +23,10 @@ private:
 
 public:
     //Constructor
-    Task::Task(std::string title, int due, bool taskComplete, int IdNum);
+    Task(std::string title, int due, bool taskComplete, int IdNum);
 
     //Destructor
-    ~Task::Task();
+    ~Task();
 
     //todo update these setters and getters as needed.
     const std::string &getTitle();
@@ -40,7 +40,7 @@ public:
     void setId(int Id);
     int getId();
     bool completeTask();
-    void Task::setNext(Task* newNext);
+    void setNext(Task* newNext);
 
 
    // int getDuration() const;
