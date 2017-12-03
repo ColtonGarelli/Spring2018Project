@@ -18,7 +18,7 @@ Task::Task(std::string title, int due, bool taskComplete, int IdNum){
 
 //Destructor
 
-~Task::Task(){
+Task::~Task(){
 
 }
 const std::string &Task::getTitle(){

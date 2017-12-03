@@ -146,5 +146,5 @@ public:
 
 };
 
-#include "TaskTest.inl"
+#include "TaskLinkedList.inl"
 #endif //LAB8_INTLINKEDLIST_H
