@@ -86,7 +86,7 @@
         return *this;
     }
 
-    void TaskLinkedList::insertAtEnd(int itemToAdd) {
+    void TaskLinkedList::insertAtEnd(Task* itemToAdd) {
         Task *tempItem = new Task(itemToAdd);
         if (currLength == 0) {
             front = tempItem;
@@ -98,7 +98,7 @@
         currLength++;
     }
 
-    void TaskLinkedList::insertAtFront(int itemToAdd) {
+    void TaskLinkedList::insertAtFront(Task* itemToAdd) {
         Task *tempItem = new Task(itemToAdd);
         tempItem->setNext(front);
         front = tempItem;
@@ -108,7 +108,7 @@
         }
     }
 
-    void TaskLinkedList::insertAt(int itemToAdd, int index) {
+    void TaskLinkedList::insertAt(Task* itemToAdd, int index) {
         if (index < 0 || index > currLength) {
             throw std::out_of_range("Cannot Insert outside of function");
         } else {
@@ -131,7 +131,7 @@
     }
 
 
-    int TaskLinkedList::getValueAt(int index) {
+    Task* TaskLinkedList::getValueAt(int index) {
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
@@ -147,7 +147,7 @@
         }
     }
 
-    int TaskLinkedList::removeValueAt(int index) {
+    Task* TaskLinkedList::removeValueAt(int index) {
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("Cannot remove a value outside of list");
         } else if (index == 0) {
@@ -201,25 +201,6 @@
         }
         output += "}";
         return output;
-    }
-
-    int TaskLinkedList::findMaxIndex() {
-        int returnIndex;
-        if (currLength < 1) {
-            returnIndex = -1;
-        } else {
-            Task *tempPtr = front;
-            int maxVal = tempPtr->getItem();
-            returnIndex = 0;
-            for (int i = 0; i < currLength; i++) {
-                if (maxVal < tempPtr->getItem()) {
-                    maxVal = tempPtr->getItem();
-                    returnIndex = i;
-                }
-                tempPtr = tempPtr->getNext();
-            }
-        }
-        return returnIndex;
     }
 
     /**

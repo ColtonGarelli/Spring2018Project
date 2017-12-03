@@ -6,13 +6,13 @@
 #ifndef LAB8_INTLINKEDLIST_H
 #define LAB8_INTLINKEDLIST_H
 
-#include "ProjectList.h"
+#include "List.h"
 #include "Task.h"
 #include <string>
 
 //todo: convert this to a linked List of Tasks not Integers
 
-class TaskLinkedList: public ProjectList {
+class TaskLinkedList {
 
 private:
     int currLength;
@@ -49,7 +49,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(int itemToAdd);
+    void insertAtEnd(Task* itemToAdd);
 
     /**
      * appends the new item to the beginning of the list
@@ -58,7 +58,7 @@ public:
      * @post the list has an additional value in it, at the beginning
      *    all other items are shifted down by one index
      */
-    void insertAtFront(int itemToAdd);
+    void insertAtFront(Task* itemToAdd);
 
     /**
      * inserts the item into the list so that it can be found with get(index)
@@ -80,7 +80,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    int getValueAt(int index);
+    Task* getValueAt(int index);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -90,7 +90,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    int removeValueAt(int index);
+    Task* removeValueAt(int index);
 
     /**
      * checks if there are any valid items in the list

@@ -53,7 +53,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    virtual Task* removeValueAt(int index)=0;
+    virtual T* removeValueAt(int index)=0;
     
     /**
      * checks if there are any valid items in the list
