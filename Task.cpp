@@ -4,8 +4,6 @@
 
 #include "Task.h"
 
-//test add taylor
-
 //todo update these setters and getters as needed.
 
 //Constructors/Destructor
@@ -60,6 +58,11 @@ bool Task::completeTask(){
     }
     return completed;
 }
+
+void Task::setNext(Task* newNext){
+    next = newNext;
+}
+
 
 
 //int Task::getDuration() const {

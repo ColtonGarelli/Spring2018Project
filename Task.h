@@ -40,6 +40,7 @@ public:
     void setId(int Id);
     int getId();
     bool completeTask();
+    void Task::setNext(Task* newNext);
 
 
    // int getDuration() const;
