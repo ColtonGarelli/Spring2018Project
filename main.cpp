@@ -5,6 +5,6 @@
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-//    List* masterList = new TaskLinkedList();
+    List<Task>* masterList = new TaskLinkedList<Task>();
     return 0;
 }

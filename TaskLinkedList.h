@@ -7,17 +7,17 @@
 #define LAB8_INTLINKEDLIST_H
 
 #include "List.h"
-#include "Task.h"
+//#include "Task.h"
 #include <string>
 
 //todo: convert this to a linked List of Tasks not Integers
-
-class TaskLinkedList {
+template <class T>
+class TaskLinkedList<T> : public List<T> {
 
 private:
     int currLength;
-    Task* front;
-    Task* end;
+    T* front;
+    T* end;
 public:
     /**
      * @efficiency - O(1)
@@ -49,7 +49,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(Task* itemToAdd);
+    void insertAtEnd(T* itemToAdd);
 
     /**
      * appends the new item to the beginning of the list
@@ -58,7 +58,7 @@ public:
      * @post the list has an additional value in it, at the beginning
      *    all other items are shifted down by one index
      */
-    void insertAtFront(Task* itemToAdd);
+    void insertAtFront(T* itemToAdd);
 
     /**
      * inserts the item into the list so that it can be found with get(index)
@@ -69,7 +69,7 @@ public:
      *        all further values have been shifted down by one index
      * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
      */
-    void insertAt(int itemToAdd, int index);
+    void insertAt(T* itemToAdd, int index);
 
     /**
      * gets a value from the list
@@ -80,7 +80,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* getValueAt(int index);
+    T* getValueAt(int index);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -90,7 +90,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* removeValueAt(int index);
+    T* removeValueAt(int index);
 
     /**
      * checks if there are any valid items in the list
@@ -146,5 +146,5 @@ public:
 
 };
 
-
+#include "TaskTest.inl"
 #endif //LAB8_INTLINKEDLIST_H

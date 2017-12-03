@@ -3,7 +3,7 @@
 // Revisions by Jeremy Block on 11/06/17
 //
 
-//todo: convert this to Linked List of tasks
+//todo: convert this To a templated version. It should be abstract and not related to tasks just because toby wants to see that we have mastery over abstraction.
 #include "TaskLinkedList.h"
 
     //constructor
