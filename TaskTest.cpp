@@ -9,14 +9,14 @@
 
 //Variables: title, dueDate, completed, Id
 
-void AssnOpTest(){
-
-}
-
-void CopyConstructorTest(){
-
-
-}
+//void AssnOpTest(){
+//
+//}
+//
+//void CopyConstructorTest(){
+//
+//
+//}
 
 
 void GetTitleTest(TaskLinkedList testList, std::string title, int ID){
@@ -29,8 +29,10 @@ void GetTitleTest(TaskLinkedList testList, std::string title, int ID){
 //    }
 }
 
-
 void SetTitleTest(){
+
+
+
 
 
 }
@@ -58,6 +60,9 @@ int main(){
 //    TaskLinkedList testList2; // 5 items, simple example
 //    TaskLinkedList testList3; //no items, empty example
 //    TaskLinkedList testList4; //25 items, large example
+
+
+    //write demonstration code
 
 
     return 0;
