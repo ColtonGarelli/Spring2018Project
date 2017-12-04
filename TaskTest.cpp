@@ -19,7 +19,7 @@
 //}
 
 
-void GetTitleTest(TaskLinkedList testList, std::string title, int ID){
+void GetTitleTest(TaskLinkedList<Task> testList, std::string title, int ID){
 //    std::string testTitle = testList.find(ID); //change find to return task name
 //    if(testTitle==title){
 //        std::cout<<"Passes the get title test"<<std::endl;
