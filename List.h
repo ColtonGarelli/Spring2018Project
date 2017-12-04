@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 
+
 template <class T>
 class List{
 public:
@@ -26,7 +27,9 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    virtual T* getValueAt(int index)=0;
+
+//    virtual T* getValueAt(T index)=0;
+
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -35,7 +38,8 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    virtual T* removeValueAt(int index)=0;
+
+//    virtual T* removeValueAt(T index)=0;
     
     /**
      * checks if there are any valid items in the list
@@ -66,14 +70,18 @@ public:
      * Searches an list for a certain id
      * @return the index of the first occurrence of the matching task id if it is present, otherwise returns -1
      */
-    virtual int find(int id)=0;
+//    virtual int find(int id)=0;
 
     /**
      * Searches an list for a certain id
      * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
      */
-    virtual int findLast(int numToFind)=0;
+
+//    virtual int findLast(T numToFind)=0;
+
     //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
+    virtual Task* getLast()=0;
+
 };
 
 

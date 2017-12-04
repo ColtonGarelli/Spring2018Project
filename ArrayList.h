@@ -7,11 +7,13 @@
 
 #include <stdexcept>
 #include <string>
+#include "List.h"
 
-class ArrayList {
+template <class T>
+class ArrayList : public List<T> {
 private:
     //pointer to the start of the array
-    int* array;
+    T* array;
     //count of the number of valid items currently stored in the array
     int currItemCount;
     //size of the current array
@@ -47,7 +49,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(int itemToAdd);
+    void insertAtEnd(T itemToAdd);
 
     /**
      * appends the new item to the beginning of the list
@@ -55,7 +57,7 @@ public:
      * @post the list has an additional value in it, at the beginning
      *    all other items are shifted down by one index
      */
-    void insertAtFront(int itemToAdd);
+    void insertAtFront(T itemToAdd);
 
     /**
      * inserts the item into the list so that it can be found with get(index)
@@ -65,7 +67,7 @@ public:
      *        all further values have been shifted down by one index
      * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
      */
-    void insertAt(int itemToAdd, int index);
+    void insertAt(T itemToAdd, int index);
 
     /**
      * gets a value from the list
@@ -131,6 +133,6 @@ public:
     int findLast(int numToFind);
 };
 
-
+#include "ArrayList.inl"
 #endif //COMP220_ARRAYLIST_H
 

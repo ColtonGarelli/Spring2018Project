@@ -4,7 +4,8 @@
 //
 
 //todo: convert this To a templated version. It should be abstract and not related to tasks just because toby wants to see that we have mastery over abstraction.
-#include "TaskLinkedList.h"
+//#include "TaskLinkedList.h"
+
 
 
 //constructor
@@ -166,7 +167,7 @@ void TaskLinkedList<T>::clearList() {
 }
 template <class T>
 std::string TaskLinkedList<T>::toString() {
-    Task *tempPtr = front;
+    Task *tempPtr = end;
     std::string output = "{";
     for (int i = 0; i < currLength; i++) {
         if (i < currLength - 1) {
@@ -178,6 +179,11 @@ std::string TaskLinkedList<T>::toString() {
     }
     output += "}";
     return output;
+}
+
+template <class T>
+T* TaskLinkedList<T>::getLast(){
+    return end;
 }
 
 /**
