@@ -7,7 +7,7 @@
 void PrototypeController(TaskLinkedList &masterList){
 
     //must create empty list of tasks, add first task to that
-    TaskLinkedList testList1=masterList;
+    TaskLinkedList<Task> testList1=masterList;
     int userDirection=-1;
     while(userDirection!=3){
         std::cout<<"Enter 0 to add a new task, 1 to view tasks, 2 to complete tasks, 3 to quit: "<<std::endl;
