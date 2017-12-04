@@ -1,12 +1,13 @@
 #include <iostream>
 #include "TaskLinkedList.h"
-#include "Task.h"
-#include "TaskTest.h"
-#include "List.h"
+#include "ArrayList.h"
+//#include "Task.h"
+//#include "TaskTest.h"
+//#include "List.h"
 
 void PrototypeController() {
     List<Task>* masterList = new TaskLinkedList<Task>();
-
+    ArrayList<Task>* masterArrayList = new ArrayList(masterList->itemCount());
     //must create empty list of tasks, add first task to that
     int userDirection = -1;
     while (userDirection != 3) {
@@ -16,14 +17,15 @@ void PrototypeController() {
         //add to task
         if (userDirection == 0) {
             std::string inTitle;
-            std::string input = "";
             //print directions
             std::cout << "Enter the name of the task: " << std::endl;
-            getline(std::cin, input);
-            inTitle = input;
+            getline(std::cin, inTitle);
+            std::cout << inTitle << std::endl;
+
             int dueDate;
             std::cout << "Enter days until due: " << std::endl;
             std::cin >> dueDate;
+            std::cout << dueDate << std::endl;
             bool complete = false;
             int ID = 0; ///MUST CHANGE TO PRODUCE SOME INTEGER
             Task *newTask = new Task(inTitle, dueDate, complete, ID);
@@ -31,7 +33,7 @@ void PrototypeController() {
         }
             //view tasks
         else if (userDirection == 1) {
-
+           std::string printable = toString(masterArrayList,currItemCount);
         }
             //complete a task
         else if (userDirection == 2) {
@@ -84,7 +86,7 @@ void PrototypeController() {
 
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Welcome to the JTC task manager!" << std::endl;
 
     PrototypeController();
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
