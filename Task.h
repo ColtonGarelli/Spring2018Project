@@ -24,6 +24,10 @@ private:
 
 
 public:
+
+    //Default
+    Task();
+
     //Constructor
     Task(std::string title, int due, bool taskComplete, int IdNum);
 
