@@ -26,7 +26,7 @@ private:
 public:
 
     //Default
-    Task::Task();
+    Task();
 
     //Constructor
     Task(std::string title, int due, bool taskComplete, int IdNum);

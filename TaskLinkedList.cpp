@@ -5,6 +5,7 @@
 
 //todo: convert this To a templated version. It should be abstract and not related to tasks just because toby wants to see that we have mastery over abstraction.
 #include "TaskLinkedList.h"
+#include "List.h"
 
 
 //constructor
