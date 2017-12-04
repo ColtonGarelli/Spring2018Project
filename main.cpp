@@ -4,10 +4,10 @@
 #include "TaskTest.h"
 #include "List.h"
 
-void PrototypeController(TaskLinkedList &masterList){
+void PrototypeController(){
+    List<Task>* masterList = new TaskLinkedList<Task>();
 
     //must create empty list of tasks, add first task to that
-    TaskLinkedList testList1=masterList;
     int userDirection=-1;
     while(userDirection!=3){
         std::cout<<"Enter 0 to add a new task, 1 to view tasks, 2 to complete tasks, 3 to quit: "<<std::endl;
@@ -16,7 +16,7 @@ void PrototypeController(TaskLinkedList &masterList){
         //add to task
         if(userDirection==0){
             Task* newTask= new Task();
-            testList1.addToList(newTask);
+            masterList->addToList(newTask);
         }
             //view tasks
         else if (userDirection==1){
@@ -80,8 +80,8 @@ void PrototypeController(TaskLinkedList &masterList){
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    List<Task>* masterList = new TaskLinkedList<Task>();
-    PrototypeController(masterList);
+
+    PrototypeController();
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
 //    Task* myTask = new Task("task1",1,false,-1);
 //    std::string title = myTask->getTitle();
