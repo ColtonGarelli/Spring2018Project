@@ -27,7 +27,11 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
+<<<<<<< HEAD
 //    virtual T* getValueAt(T index)=0;
+=======
+    //virtual T* getValueAt(T index)=0;
+>>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -36,7 +40,11 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
+<<<<<<< HEAD
 //    virtual T* removeValueAt(T index)=0;
+=======
+    //virtual T* removeValueAt(T index)=0;
+>>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
     
     /**
      * checks if there are any valid items in the list
@@ -73,7 +81,11 @@ public:
      * Searches an list for a certain id
      * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
      */
+<<<<<<< HEAD
 //    virtual int findLast(T numToFind)=0;
+=======
+    //virtual int findLast(T numToFind)=0;
+>>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
     //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
 };
 

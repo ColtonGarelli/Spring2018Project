@@ -43,12 +43,12 @@ ArrayList::ArrayList(int initialCapacity){
 
 //Copy Constructor
 template <class T>
-ArrayList::ArrayList(const ArrayList& arrayListToCopy){
-    currItemCount = arrayListToCopy.currItemCount;
-    currCapacity = arrayListToCopy.currCapacity;
+ArrayList::ArrayList(const T ListToCopy){
+    currItemCount = ListToCopy.currItemCount;
+    currCapacity = ListToCopy.currCapacity;
     array = new int[currCapacity];
     for(int i = 0; i < currItemCount; i ++ ){
-        array[i] = arrayListToCopy.array[i];
+        array[i] = ListToCopy.array[i];
     }
 }
 
