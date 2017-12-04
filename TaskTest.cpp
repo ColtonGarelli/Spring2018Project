@@ -54,19 +54,19 @@ void CompleteTaskTest(){
 }
 
 
-int main(){
-    std::string title;
-//    TaskLinkedList testList1; //1 item
-//    TaskLinkedList testList2; // 5 items, simple example
-//    TaskLinkedList testList3; //no items, empty example
-//    TaskLinkedList testList4; //25 items, large example
-
-
-    // todo write demonstration code
-
-
-    return 0;
-}
+//int main(){
+//    std::string title;
+////    TaskLinkedList testList1; //1 item
+////    TaskLinkedList testList2; // 5 items, simple example
+////    TaskLinkedList testList3; //no items, empty example
+////    TaskLinkedList testList4; //25 items, large example
+//
+//
+//    // todo write demonstration code
+//
+//
+//    return 0;
+//}
 
 
 
