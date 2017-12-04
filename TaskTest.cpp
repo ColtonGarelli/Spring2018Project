@@ -1,59 +1,59 @@
+////
+//// Created by Jeremy Block on 11/22/17.
+////
+////Tests Task class methods
 //
-// Created by Jeremy Block on 11/22/17.
+//#include <iostream>
+//#include "TaskTest.h"
+//#include "TaskLinkedList.h"
 //
-//Tests Task class methods
-
-#include <iostream>
-#include "TaskTest.h"
-#include "TaskLinkedList.h"
-
-//Variables: title, dueDate, completed, Id
-
-//void AssnOpTest(){
+////Variables: title, dueDate, completed, Id
+//
+////void AssnOpTest(){
+////
+////}
+////
+////void CopyConstructorTest(){
+////
+////
+////}
+//
+//
+//void GetTitleTest(TaskLinkedList<Task> testList, std::string title, int ID){
+////    std::string testTitle = testList.find(ID); //change find to return task name
+////    if(testTitle==title){
+////        std::cout<<"Passes the get title test"<<std::endl;
+////    }
+////    else{
+////        std::cout<<"FAILED get title test. Title: "<<title<<"\tgetTitle: "<<testTitle<<std::endl;
+////    }
+//}
+//
+//void SetTitleTest(){
+//
+//
+//
+//
 //
 //}
 //
-//void CopyConstructorTest(){
-//
+//void SetDueDateTest(){
 //
 //}
-
-
-void GetTitleTest(TaskLinkedList<Task> testList, std::string title, int ID){
-//    std::string testTitle = testList.find(ID); //change find to return task name
-//    if(testTitle==title){
-//        std::cout<<"Passes the get title test"<<std::endl;
-//    }
-//    else{
-//        std::cout<<"FAILED get title test. Title: "<<title<<"\tgetTitle: "<<testTitle<<std::endl;
-//    }
-}
-
-void SetTitleTest(){
-
-
-
-
-
-}
-
-void SetDueDateTest(){
-
-}
-
-void GetDueDateTest(){
-
-}
-
-void SetIDTest(){
-
-}
-
-void CompleteTaskTest(){
-
-}
-
-
+//
+//void GetDueDateTest(){
+//
+//}
+//
+//void SetIDTest(){
+//
+//}
+//
+//void CompleteTaskTest(){
+//
+//}
+//
+//
 //int main(){
 //    std::string title;
 ////    TaskLinkedList testList1; //1 item
@@ -67,7 +67,7 @@ void CompleteTaskTest(){
 //
 //    return 0;
 //}
-
-
-
-
+//
+//
+//
+//

@@ -1,11 +1,11 @@
 #include <iostream>
+#include <string>
 #include "TaskLinkedList.h"
 #include "Task.h"
-#include "TaskTest.h"
 #include "List.h"
 
 void PrototypeController(){
-    List<Task>* masterList = new TaskLinkedList<Task>();
+    List<Task>* masterList= new TaskLinkedList<Task>();
 
     //must create empty list of tasks, add first task to that
     int userDirection=-1;
@@ -16,11 +16,9 @@ void PrototypeController(){
         //add to task
         if(userDirection==0){
             std::string inTitle;
-            std::string input="";
             //print directions
             std::cout<<"Enter the name of the task: "<<std::endl;
-            getline(std::cin,input);
-            inTitle=input;
+            std::getline(std::cin>>inTitle,inTitle);
             int dueDate;
             std::cout<<"Enter days until due: "<<std::endl;
             std::cin>>dueDate;
@@ -90,7 +88,7 @@ void PrototypeController(){
 
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
 
     PrototypeController();
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
