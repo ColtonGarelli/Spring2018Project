@@ -11,12 +11,13 @@
 #include "List.h"
 
 //todo: convert this to a linked List of Tasks not Integers
-class TaskLinkedList : public List<Task> {
+template <class T>
+class TaskLinkedList : public List<T> {
 
 private:
     int currLength;
-    Task* front;
-    Task* end;
+    T* front;
+    T* end;
 public:
     /**
      * @efficiency - O(1)
@@ -34,7 +35,7 @@ public:
      * @efficiency - O(n)
      * Destructor
      */
-    ~TaskLinkedList();
+//    ~TaskLinkedList();
 
     /**
      * @efficiency - O(2n)
@@ -48,7 +49,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void addToList(Task *itemToAdd);
+    void addToList(T *itemToAdd);
 
     /**
      * gets a value from the list
@@ -59,7 +60,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* getValueAt(int index);
+    T* getValueAt(int index);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -69,7 +70,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* removeValueAt(int index);
+    T* removeValueAt(int index);
 
     /**
      * checks if there are any valid items in the list
@@ -116,5 +117,7 @@ public:
     int findLast(int numToFind);
 
 };
+
+#include "TaskLinkedList.inl"
 
 #endif // PRO_JECT_TASKLINKEDLIST_H
