@@ -15,7 +15,18 @@ void PrototypeController(){
 
         //add to task
         if(userDirection==0){
-            Task* newTask= new Task();
+            std::string inTitle;
+            std::string input="";
+            //print directions
+            std::cout<<"Enter the name of the task: "<<std::endl;
+            getline(std::cin,input);
+            inTitle=input;
+            int dueDate;
+            std::cout<<"Enter days until due: "<<std::endl;
+            std::cin>>dueDate;
+            bool complete=false;
+            int ID=0; ///MUST CHANGE TO PRODUCE SOME INTEGER
+            Task* newTask= new Task(inTitle,dueDate,complete,ID);
             masterList->addToList(newTask);
         }
             //view tasks
