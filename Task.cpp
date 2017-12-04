@@ -7,7 +7,7 @@
 //Constructors/Destructor
 
 //Constructor
-Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1){
+Task::Task(std::string inTitle, int inDue, bool inTaskComplete, int inIdNum){
     //todo Add in the duration, priority and other data members to Task
     title = inTitle;
     dueDate = inDue;
@@ -67,6 +67,9 @@ Task* Task::getNext(){
     return next;
 }
 
+std::string Task::getItem() {
+    return item;
+}
 
 
 //int Task::getDuration() const {

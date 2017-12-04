@@ -8,10 +8,10 @@
 #include <stdexcept>
 
 template <class T>
-class List {
+class List{
 public:
     //Destructor
-    virtual ~List(){};
+    virtual ~List()=0;
 
     /**
      * appends the new item to the end of the list

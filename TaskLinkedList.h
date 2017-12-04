@@ -11,7 +11,7 @@
 #include "List.h"
 
 //todo: convert this to a linked List of Tasks not Integers
-class TaskLinkedList : public List {
+class TaskLinkedList : public List<Task> {
 
 private:
     int currLength;

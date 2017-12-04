@@ -12,6 +12,7 @@ class Task {
 private:
     //todo Define a Time class
     std::string title;
+    std::string item;
     //int duration;
    // Task* dependant;
     //int* Project; //pointer to Parent Project
@@ -21,12 +22,17 @@ private:
     int Id;
     Task* next;
 
+
 public:
     //Constructor
     Task(std::string title, int due, bool taskComplete, int IdNum);
 
     //Destructor
     ~Task();
+
+    std::string getItem();
+
+
 
     //todo update these setters and getters as needed.
     const std::string &getTitle();
@@ -43,6 +49,7 @@ public:
     bool getComplete();
     void setNext(Task* newNext);
     Task* getNext();
+
 
 
    // int getDuration() const;
