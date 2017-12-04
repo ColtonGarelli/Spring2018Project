@@ -4,13 +4,15 @@
 
 #include "Task.h"
 
-//todo update these setters and getters as needed.
-
 //Constructors/Destructor
 
 //Constructor
-Task::Task(std::string title, int due, bool taskComplete, int IdNum){
-
+Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1){
+    //todo Add in the duration, priority and other data members to Task
+    title = inTitle;
+    dueDate = inDue;
+    completed = inTaskComplete;
+    Id = inIdNum;
     //call sets on all variables
     //setting next ptr to nullptr for now?
 
@@ -19,25 +21,19 @@ Task::Task(std::string title, int due, bool taskComplete, int IdNum){
 //Destructor
 
 Task::~Task(){
-    //todo - We don't ahve a task destructor yet, cause the memory wont get deleted while the list is alive. WE will need to do this later when we implement file io
+    //todo - We don't have a Task destructor yet, cause the memory wont get deleted while the list is alive. WE will need to do this later when we implement file io
 
 }
 //todo Assignment operator.
 const std::string &Task::getTitle(){
-    //todo write
-    //todo test
     return title;
 }
 
 void Task::setTitle(const std::string &title) {
-    //todo write
-    //todo test
     Task::title = title;
 }
 
 void Task::setDueDate(int dueDate){
-    //todo write
-    //todo test
     Task::dueDate = dueDate;
 }
 
@@ -60,7 +56,9 @@ bool Task::completeTask(){
     }
     return completed;
 }
-
+bool Task::getComplete(){
+    return completed;
+}
 void Task::setNext(Task* newNext){
     next = newNext;
 }
@@ -122,4 +120,8 @@ Task* Task::getNext(){
 //    //todo write
 //    //todo test
 //    Task::Priority = Priority;
+//}
+
+//int Task::calcPriority(){
+//    //todo automatically calculates priority on every new day bassed on duration of the project, and it's children.
 //}

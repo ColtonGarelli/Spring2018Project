@@ -18,25 +18,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    virtual void insertAtEnd(T* itemToAdd)=0;
-
-    /**
-     * appends the new item to the beginning of the list
-     * @param itemToAdd the item to add to the beginning of the list
-     * @post the list has an additional value in it, at the beginning
-     *    all other items are shifted down by one index
-     */
-    virtual void insertAtFront(T* itemToAdd)=0;
-
-    /**
-     * inserts the item into the list so that it can be found with get(index)
-     * @param itemToAdd the item to add
-     * @param index the location in which to insert this item
-     * @post the list has an additional value in it at the specified index,
-     *        all further values have been shifted down by one index
-     * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
-     */
-    virtual void insertAt(T* itemToAdd, int index)=0;
+    virtual void addToList(T* itemToAdd)=0;
 
     /**
      * gets a value from the list
@@ -74,23 +56,24 @@ public:
     virtual void clearList()=0;
 
     /**
-     * gives a string representation of the current list
+     * gives a string representation of the titled from the current list.
      * @returns a string representing the given list in the exact format shown below
      * {1, 2, 3, 4, 5}
      */
     virtual std::string toString()=0;
 
     /**
-     * Searches an list for a certain value
+     * Searches an list for a certain id
      * @return the index of the first occurrence of the matching task id if it is present, otherwise returns -1
      */
     virtual int find(int id)=0;
 
     /**
-     * Searches an list for a certain value
+     * Searches an list for a certain id
      * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
      */
     virtual int findLast(int numToFind)=0;
+    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
 };
 
 

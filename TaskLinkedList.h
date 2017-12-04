@@ -48,27 +48,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(Task* itemToAdd);
-
-    /**
-     * appends the new item to the beginning of the list
-     * @efficiency - O(1)
-     * @param itemToAdd the item to add to the beginning of the list
-     * @post the list has an additional value in it, at the beginning
-     *    all other items are shifted down by one index
-     */
-    void insertAtFront(Task* itemToAdd);
-
-    /**
-     * inserts the item into the list so that it can be found with get(index)
-     * @efficiency - O(n)
-     * @param itemToAdd the item to add
-     * @param index the location in which to insert this item
-     * @post the list has an additional value in it at the specified index,
-     *        all further values have been shifted down by one index
-     * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
-     */
-    void insertAt(Task* itemToAdd, int index);
+    void addToList(Task *itemToAdd);
 
     /**
      * gets a value from the list

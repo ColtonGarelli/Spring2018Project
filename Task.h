@@ -40,6 +40,7 @@ public:
     void setId(int Id);
     int getId();
     bool completeTask();
+    bool getComplete();
     void setNext(Task* newNext);
     Task* getNext();
 
@@ -55,6 +56,8 @@ public:
     //short getPriority() const;
 
    // void setPriority(short Priority);
+
+    // int calcPriority();
 
 };
 
