@@ -22,7 +22,6 @@ void PrototypeController() {
             std::string inTitle;
             std::string input;
             //print directions
-
             std::cout<<"Enter the name of the task: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
             std::cout << inTitle << std::endl;
