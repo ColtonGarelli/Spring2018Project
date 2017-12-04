@@ -93,6 +93,8 @@ TaskLinkedList &TaskLinkedList::operator=(const TaskLinkedList &listToCopy) {
 }
 
 void TaskLinkedList::addToList(Task *itemToAdd) {
+    //add to list should create new node on stack and pointer to it. takes no args.
+    //creating new node should call setters for field vars
     Task *tempItem = itemToAdd;
     if (currLength == 0) {
         front = tempItem;
