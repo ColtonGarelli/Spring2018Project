@@ -80,6 +80,8 @@ public:
 //    virtual int findLast(T numToFind)=0;
 
     //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
+    virtual Task* getLast()=0;
+
 };
 
 

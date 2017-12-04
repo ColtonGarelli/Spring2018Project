@@ -181,6 +181,11 @@ std::string TaskLinkedList<T>::toString() {
     return output;
 }
 
+template <class T>
+T* TaskLinkedList<T>::getLast(){
+    return end;
+}
+
 /**
  * Non-tail Recursive function for returning the index of the first occurence
  *                  of a specific number to look for

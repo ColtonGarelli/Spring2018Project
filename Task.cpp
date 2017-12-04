@@ -9,23 +9,6 @@
 
 //Default Constructor
 
-Task::Task(){
-    std::string inTitle;
-    std::string input="";
-    //print directions
-    std::cout<<"Enter the name of the task: "<<std::endl;
-    getline(std::cin,input);
-    inTitle=input;
-    int dueDate;
-    std::cout<<"Enter days until due: "<<std::endl;
-    std::cin>>dueDate;
-    bool complete=false;
-    int ID=0; ///MUST CHANGE TO PRODUCE SOME INTEGER
-    Task(inTitle,dueDate,complete,ID);
-
-
-}
-
 //Constructor
 Task::Task(std::string inTitle, int inDue, bool inTaskComplete, int inIdNum){
     //todo Add in the duration, priority and other data members to Task

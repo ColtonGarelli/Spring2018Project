@@ -116,6 +116,8 @@ public:
      */
     int findLast(int numToFind);
 
+    T* getLast();
+
 };
 
 #include "TaskLinkedList.inl"

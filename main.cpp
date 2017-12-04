@@ -20,13 +20,11 @@ void PrototypeController() {
         //add to task
         if (userDirection == 0) {
             std::string inTitle;
+            std::string input;
             //print directions
 
             std::cout<<"Enter the name of the task: "<<std::endl;
             std::getline(std::cin>>inTitle,inTitle);
-
-            std::cout << "Enter the name of the task: " << std::endl;
-            getline(std::cin, inTitle);
             std::cout << inTitle << std::endl;
 
 
@@ -53,14 +51,10 @@ void PrototypeController() {
 
             //for each case do below
             Task *taskPtr;
-            bool complete = taskPtr->getComplete();
-            if (complete == 0) {
-                std::cout << "The task " << taskPtr->getTitle() << " is not complete." << std::endl;
+            taskPtr=masterList->getLast();
 
-            } else if (complete == 1) {
-                std::cout << "The task " << taskPtr->getTitle() << " is complete." << std::endl;
-            }
 
+            std::cout<< "The task " << taskPtr->getTitle() << std::boolalpha<<taskPtr->getComplete()<< std::endl;
 
         }
             //quit program
