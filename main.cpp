@@ -1,24 +1,17 @@
 #include <iostream>
 #include <string>
+//#include "ArrayList.h"
 #include "TaskLinkedList.h"
-<<<<<<< HEAD
 #include "Task.h"
 #include "List.h"
 
-void PrototypeController(){
-    List<Task>* masterList= new TaskLinkedList<Task>();
-
-=======
-#include "ArrayList.h"
-//#include "Task.h"
-//#include "TaskTest.h"
-//#include "List.h"
 
 void PrototypeController() {
     List<Task>* masterList = new TaskLinkedList<Task>();
-    ArrayList<Task>* masterArrayList = new ArrayList(masterList->itemCount());
->>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
+    //ArrayList<Task*>* masterArrayList = new ArrayList(masterList->itemCount());
+
     //must create empty list of tasks, add first task to that
+
     int userDirection = -1;
     while (userDirection != 3) {
         std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to complete tasks, 3 to quit: " << std::endl;
@@ -28,15 +21,15 @@ void PrototypeController() {
         if (userDirection == 0) {
             std::string inTitle;
             //print directions
-<<<<<<< HEAD
+
             std::cout<<"Enter the name of the task: "<<std::endl;
             std::getline(std::cin>>inTitle,inTitle);
-=======
+
             std::cout << "Enter the name of the task: " << std::endl;
             getline(std::cin, inTitle);
             std::cout << inTitle << std::endl;
 
->>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
+
             int dueDate;
             std::cout << "Enter days until due: " << std::endl;
             std::cin >> dueDate;
@@ -48,7 +41,9 @@ void PrototypeController() {
         }
             //view tasks
         else if (userDirection == 1) {
-           std::string printable = toString(masterArrayList,currItemCount);
+           std::string printable;
+            printable= masterList->toString();
+            std::cout<<printable<<"\n\n";
         }
             //complete a task
         else if (userDirection == 2) {
@@ -101,11 +96,9 @@ void PrototypeController() {
 
 
 int main() {
-<<<<<<< HEAD
+
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
-=======
-    std::cout << "Welcome to the JTC task manager!" << std::endl;
->>>>>>> 34d1614e3fffc37d3bb41deb23ae80489c0fa5b9
+
 
     PrototypeController();
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)

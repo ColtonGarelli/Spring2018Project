@@ -6,9 +6,13 @@
 #include <iostream>
 #include "ArrayList.h"
 #include "ArrayLib.h"
+#include "TaskLinkedList.h"
+#include "Task.h"
 
+template <class T>
+ArrayList<T>::ArrayList(int initialCapacity) {
 
-
+}
 
 
 /**
@@ -18,7 +22,7 @@
  *        the old array is deleted.
  */
 template <class T>
-void ArrayList::doubleCapacity(){
+void ArrayList<T>::doubleCapacity(){
     int doubCap = (currCapacity * 2);
     currCapacity = doubCap;
     int timer = 0;
@@ -35,7 +39,7 @@ void ArrayList::doubleCapacity(){
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
 template <class T>
-ArrayList::ArrayList(int initialCapacity){
+ArrayList<T>::ArrayList(int initialCapacity){
     this -> currCapacity = initialCapacity;
     array = new int[currCapacity];
     currItemCount = 0;
@@ -43,7 +47,7 @@ ArrayList::ArrayList(int initialCapacity){
 
 //Copy Constructor
 template <class T>
-ArrayList::ArrayList(const T ListToCopy){
+ArrayList<T>::ArrayList(const T ListToCopy){
     currItemCount = ListToCopy.currItemCount;
     currCapacity = ListToCopy.currCapacity;
     array = new int[currCapacity];
@@ -54,7 +58,7 @@ ArrayList::ArrayList(const T ListToCopy){
 
 //Overloaded Assignment Operator
 template <class T>
-ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
+ArrayList& ArrayList<T>::operator=(const ArrayList& arrayListToCopy){
     if(this != &arrayListToCopy){
         delete[] array;
     }
@@ -68,7 +72,7 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
 
 //Destructor
 template <class T>
-ArrayList::~ArrayList(){
+ArrayList<T>::~ArrayList(){
     delete[] array;
 }
 
@@ -78,7 +82,7 @@ ArrayList::~ArrayList(){
  * @post the list has an additional value in it, at the end
  */
 template <class T>
-void ArrayList::addToList(T* itemToAdd) {
+void ArrayList<T>::addToList(T* itemToAdd) {
     if (currItemCount < currCapacity) {
         array[currItemCount] = itemToAdd;
     } else {
