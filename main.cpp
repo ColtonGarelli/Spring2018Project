@@ -11,11 +11,11 @@ void PrototypeController() {
     //ArrayList<Task*>* masterArrayList = new ArrayList(masterList->itemCount());
 
     //must create empty list of tasks, add first task to that
-
     int userDirection = -1;
     while (userDirection != 2) {
         std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to quit: " << std::endl;
         std::cin >> userDirection;
+
 
         //add to task
         if (userDirection == 0) {
@@ -32,7 +32,7 @@ void PrototypeController() {
             std::cin >> dueDate;
             std::cout << dueDate << std::endl;
             bool complete = false;
-            int ID = 0; ///MUST CHANGE TO PRODUCE SOME INTEGER
+            int ID = 0; //todo MUST CHANGE TO PRODUCE SOME INTEGER
             Task *newTask = new Task(inTitle, dueDate, complete, ID);
             masterList->addToList(newTask);
         }

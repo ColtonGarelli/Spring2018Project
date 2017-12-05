@@ -12,7 +12,7 @@ template <class T>
 class List{
 public:
     //Destructor
-//    virtual ~List()=0;
+    virtual ~List()=0;
 
     /**
      * appends the new item to the end of the list
