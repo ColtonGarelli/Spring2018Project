@@ -13,8 +13,8 @@ void PrototypeController() {
     //must create empty list of tasks, add first task to that
 
     int userDirection = -1;
-    while (userDirection != 3) {
-        std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to complete tasks, 3 to quit: " << std::endl;
+    while (userDirection != 2) {
+        std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to quit: " << std::endl;
         std::cin >> userDirection;
 
         //add to task
@@ -43,21 +43,21 @@ void PrototypeController() {
             std::cout<<printable<<"\n\n";
         }
             //complete a task
-        else if (userDirection == 2) {
-            //should call view w/ indicies????
-
-            //print tasks and associated numbers
-
-            //for each case do below
-            Task *taskPtr;
-            taskPtr=masterList->getLast();
-
-
-            std::cout<< "The task " << taskPtr->getTitle() << std::boolalpha<<taskPtr->getComplete()<< std::endl;
-
-        }
+//        else if (userDirection == 2) {
+//            //should call view w/ indicies????
+//
+//            //print tasks and associated numbers
+//
+//            //for each case do below
+//            Task *taskPtr;
+//            taskPtr=masterList->getFront();
+//
+//
+//            std::cout<< "The task " << taskPtr->getTitle() <<" is "<< std::boolalpha<<taskPtr->getComplete()<< std::endl;
+//
+//        }
             //quit program
-        else if (userDirection == 3) {
+        else if (userDirection == 2) {
         } else {
             while (userDirection < 0 || userDirection > 3) {
                 std::cout << "Invalid entry. Please enter 0 to add task, 1 to view, 2 to complete, 3 to quit"

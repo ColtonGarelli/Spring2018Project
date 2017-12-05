@@ -116,7 +116,7 @@ public:
      */
     int findLast(int numToFind);
 
-    T* getLast();
+    T* getFront();
 
 };
 

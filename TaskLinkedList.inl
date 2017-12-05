@@ -167,7 +167,7 @@ void TaskLinkedList<T>::clearList() {
 }
 template <class T>
 std::string TaskLinkedList<T>::toString() {
-    Task *tempPtr = end;
+    Task *tempPtr = front;
     std::string output = "{";
     for (int i = 0; i < currLength; i++) {
         if (i < currLength - 1) {
@@ -182,8 +182,8 @@ std::string TaskLinkedList<T>::toString() {
 }
 
 template <class T>
-T* TaskLinkedList<T>::getLast(){
-    return end;
+T* TaskLinkedList<T>::getFront(){
+    return front;
 }
 
 /**
