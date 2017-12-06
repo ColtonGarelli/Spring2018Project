@@ -15,8 +15,6 @@ void PrototypeController() {
     while (userDirection != 2) {
         std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to quit: " << std::endl;
         std::cin >> userDirection;
-
-
         //add to task
         if (userDirection == 0) {
             std::string inTitle;
