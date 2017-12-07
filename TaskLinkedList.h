@@ -35,7 +35,7 @@ public:
      * @efficiency - O(n)
      * Destructor
      */
-//    ~TaskLinkedList();
+    ~TaskLinkedList();
 
     /**
      * @efficiency - O(2n)
