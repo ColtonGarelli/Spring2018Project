@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include "Task.h"
+#include "LinkedNode.h"
 
 //Constructors/Destructor
 
@@ -62,13 +63,13 @@ bool Task::completeTask(){
 bool Task::getComplete(){
     return completed;
 }
-void Task::setNext(Task* newNext){
-    next = newNext;
-}
+//void Task::setNext(Task* newNext){
+//    next = newNext;
+//}
 
-Task* Task::getNext(){
-    return next;
-}
+//Task* Task::getNext(){
+//    return next;
+//}
 
 std::string Task::getItem() {
     return item;

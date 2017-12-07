@@ -20,7 +20,7 @@ private:
     //short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
     bool completed; //true: task is done, false default
     int Id;
-    Task* next;
+    //Task* next;
 
 
 public:
@@ -51,8 +51,8 @@ public:
     int getId();
     bool completeTask();
     bool getComplete();
-    void setNext(Task* newNext);
-    Task* getNext();
+    //void setNext(Task* newNext);
+    //Task* getNext();
 
 
 
