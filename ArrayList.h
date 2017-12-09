@@ -8,12 +8,13 @@
 #include <stdexcept>
 #include <string>
 #include "TaskList.h"
+#include "TaskLinkedList.h"
 
 template <class T>
-class ArrayList : public List<T> {
+class ArrayList{
 private:
     //pointer to the start of the array
-    T* array;
+    int* array;
     //count of the number of valid items currently stored in the array
     int currItemCount;
     //size of the current array
@@ -49,7 +50,7 @@ public:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void insertAtEnd(T itemToAdd);
+    void insertAtEnd(int itemToAdd);
 
     /**
      * appends the new item to the beginning of the list
@@ -57,7 +58,7 @@ public:
      * @post the list has an additional value in it, at the beginning
      *    all other items are shifted down by one index
      */
-    void insertAtFront(T itemToAdd);
+    void insertAtFront(int itemToAdd);
 
     /**
      * inserts the item into the list so that it can be found with get(index)
@@ -67,7 +68,7 @@ public:
      *        all further values have been shifted down by one index
      * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
      */
-    void insertAt(T itemToAdd, int index);
+    void insertAt(int itemToAdd, int index);
 
     /**
      * gets a value from the list
@@ -109,7 +110,7 @@ public:
      * @returns a string representing the given list in the exact format shown below
      * {1, 2, 3, 4, 5}
      */
-    std::string toString();
+    std::string toString(const int* const arrayPtr,const int size);
 
     /**
      * finds the largest value in the array
@@ -123,7 +124,7 @@ public:
      * @post numLinesRun is updated to include lines run by this function
      * @return the index of the first occurrence of numToFind if it is present, otherwise returns -1
      */
-    int find(int numToFind);
+    int find(const int* arrayPtr, int size, int id);
 
     /**
      * Searches an int array for a certain value
@@ -131,8 +132,28 @@ public:
      * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
      */
     int findLast(int numToFind);
+
+
+    /**
+     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
+     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
+     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
+     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
+     */
+     ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining);
+
+    /**
+    * adds Task to the list
+    * @param taskToAdd - pointer to the Task to be added to the List
+    * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
+    */
+    void addToList(Task* taskToAdd);
+
+
 };
 
-#include "ArrayList.inl"
+
+
+#include "ArrayList.cpp"
 #endif //COMP220_ARRAYLIST_H
 

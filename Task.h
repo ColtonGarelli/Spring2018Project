@@ -64,7 +64,7 @@ public:
 
    // void setDependant(Task* nextTask);
 
-    //short getPriority() const;
+    short getPriority() const;
 
    // void setPriority(short Priority);
 

@@ -6,6 +6,8 @@
 #define PRO_JECT_LIST_H
 
 #include <stdexcept>
+#include "ArrayList.h"
+#include "TaskLinkedList.inl"
 
 
 class List{

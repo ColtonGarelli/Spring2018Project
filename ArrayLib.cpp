@@ -78,14 +78,14 @@ std::string toString(const int* const arrayPtr,const int size){
 }
 
 
-int find(const int* arrayPtr, int size, int numToFind, int& numLinesRun){
-    (numLinesRun) += 4;
+int find(const int* arrayPtr, int size, int numToFind){
+    //(numLinesRun) += 4;
     for (int i = 0; i < size; i++){
-        (numLinesRun) +=3;
+        //(numLinesRun) +=3;
         if (arrayPtr[i] == numToFind){
             return i;
         }
-        (numLinesRun) +=1;
+       // (numLinesRun) +=1;
     }
     return -1;
 
