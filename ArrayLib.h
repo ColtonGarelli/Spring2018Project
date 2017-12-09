@@ -45,7 +45,7 @@ std::string toString(int* arrayPtr, int size);
  * Searches an int array for a certain value
  * @return the index of the first occurrence of numToFind if it is present, otherwise returns -1
  */
-int find(int* arrayPtr, int size, int numToFind);
+int find(int* arrayPtr, int size);
 
 /**
  * Searches an int array for a certain value
