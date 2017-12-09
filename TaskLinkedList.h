@@ -9,14 +9,15 @@
 #include <string>
 #include "Task.h"
 #include "TaskList.h"
+#include "LinkedNode.h"
 
-//todo Update Efficiency
+//todo Update the Efficiency
 class TaskLinkedList : public TaskList {
 
 private:
     int currLength;
-    Task* front;
-    Task* end;
+    LinkedNode* front;
+    LinkedNode* end;
 public:
     /**
      * @efficiency - O(1)
@@ -51,6 +52,43 @@ public:
     void addToList(Task* itemToAdd);
 
     /**
+     * Extends the end of the List to point at taskToAdd
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @post the list has an additional Task in it, at the end
+
+     */
+    void insertAtEnd(Task* taskToAdd);
+
+    /**
+     * Shifts all Tasks down the List and adds pointer to Task at front
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @post the list has an additional Task in it
+     */
+    void insertAtFront(Task* taskToAdd);
+
+    /**
+     * adds Task to the list, at index specified
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @param index - the index in the List to add the task, everything after it gets shifted down
+     * @post the list has an additional Task in it
+     */
+    void insertAt(Task* taskToAdd, int index);
+
+    /**
+     * returns the id of the first Task with the passed Priority
+     * @param lookFor - the priority to look for
+     * @return the id of the first Task in the list with the passed priority
+     */
+    int findFirstPriority(int lookFor);
+
+    /**
+     * returns the id of the last Task with the passed priority
+     * @param lookFor - the priority to look for
+     * @return the id of the last Task in the list with the passed priority.
+     */
+    int findLastPriority(int lookFor);
+
+    /**
      * gets a value from the list
      * @efficiency - O(n-1) if index is for penultimate item in list,
      *               but the first and last index are accessible in O(1)
@@ -59,7 +97,15 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* getValueAt(int index);
+    Task* getTaskByIndex(int index);
+
+    /**
+     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
+     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
+     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
+     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
+     */
+    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -69,7 +115,7 @@ public:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* removeValueAt(int index);
+    Task* removeTaskById(int idToFind);
 
     /**
      * checks if there are any valid items in the list
@@ -99,23 +145,6 @@ public:
      * {1, 2, 3, 4, 5}
      */
     std::string toString();
-
-    /**
-     * Searches an int array for a certain value
-     * @efficiency - O(n) - if the first occurance of
-     *                      numToFind is the last in list or is not present
-     * @return the index of the first occurrence of numToFind if it is present, otherwise returns -1
-     */
-    int find(int numToFind);
-
-    /**
-     * Searches an int array for a certain value
-     * @efficiency - O(n) - every time will be o(n)
-     * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
-     */
-    int findLast(int numToFind);
-
-    Task* getFront();
 
 };
 

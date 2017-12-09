@@ -17,7 +17,8 @@ private:
 public:
     LinkedNode(Task* item);
     LinkedNode(const LinkedNode& nodeToCopy); //only copies item, next is set to nullptr
-    Task* getItem();
+    Task* getTask();
+    int getId();
     LinkedNode* getNext();
     void setItem(Task* newItem);
     void setNext(LinkedNode* newNext);

@@ -4,15 +4,18 @@
 //
 
 #include "TaskLinkedList.h"
+#include "LinkedNode.h"
 
-    //constructor
+//constructor
     TaskLinkedList::TaskLinkedList() {
+    //todo fix this
         currLength = 0;
         front = nullptr;
         end = nullptr;
     }
     //copy constructor
     TaskLinkedList::TaskLinkedList(const TaskLinkedList& listToCopy){
+        //todo fix this
         currLength = listToCopy.currLength;
         if(listToCopy.front != nullptr){ // if the listToCopy is not empty
             LinkedNode* tempNewPtr; // the address of the penultimate-ly created node
@@ -39,6 +42,7 @@
      * @param oldNode - the node from which to delete the rest of the chain
      */
     void RecursiveDelete (LinkedNode* oldNode) {
+        //todo fix this
         while (oldNode != nullptr) {
             LinkedNode *temp = (*oldNode).getNext();
             delete oldNode;
@@ -48,6 +52,7 @@
 
     //destructor
     TaskLinkedList::~TaskLinkedList(){
+        //todo fix this
         currLength=0;
         RecursiveDelete(front);
         front = nullptr;
@@ -57,6 +62,7 @@
 
     //Assignment operator
     TaskLinkedList& TaskLinkedList::operator=(const TaskLinkedList& listToCopy) {
+        //todo fix this
         if(this != &listToCopy) {
             currLength=0;
             clearList();
@@ -85,8 +91,14 @@
         return *this;
     }
 
-    void TaskLinkedList::insertAtEnd(Task* itemToAdd) {
-        LinkedNode *tempItem = new LinkedNode(itemToAdd);
+    void addToList(Task* itemToAdd){
+        //todo fix this
+    }
+
+
+    void TaskLinkedList::insertAtEnd(Task* taskToAdd) {
+        //todo fix this
+        LinkedNode *tempItem = new LinkedNode(taskToAdd);
         if (currLength == 0) {
             front = tempItem;
             end = tempItem;
@@ -97,8 +109,9 @@
         currLength++;
     }
 
-    void TaskLinkedList::insertAtFront(Task* itemToAdd) {
-        LinkedNode *tempItem = new LinkedNode(itemToAdd);
+    void TaskLinkedList::insertAtFront(Task* taskToAdd) {
+        //todo fix this
+        LinkedNode *tempItem = new LinkedNode(taskToAdd);
         tempItem->setNext(front);
         front = tempItem;
         currLength++;
@@ -107,21 +120,22 @@
         }
     }
 
-    void TaskLinkedList::insertAt(Task* itemToAdd, Task* index) {
+    void TaskLinkedList::insertAt(Task* taskToAdd, int index) {
+        //todo fix this
         if (index < 0 || index > currLength) {
             throw std::out_of_range("Cannot Insert outside of function");
         } else {
             if (index == 0) {
-                insertAtFront(itemToAdd);
+                insertAtFront(taskToAdd);
             } else if (index == currLength) {
-                insertAtEnd(itemToAdd);
+                insertAtEnd(taskToAdd);
             } else {
                 LinkedNode *beforePtr = front;
                 for (int i = 0; i < index - 1; i++) {
                     beforePtr = beforePtr->getNext();
                 }
                 LinkedNode *nextNode = beforePtr->getNext();
-                LinkedNode *newNode = new LinkedNode(itemToAdd);
+                LinkedNode *newNode = new LinkedNode(taskToAdd);
                 beforePtr->setNext(newNode);
                 newNode->setNext(nextNode);
                 currLength++;
@@ -129,8 +143,16 @@
         }
     }
 
+    int findFirstPriority(int lookFor){
+        //todo fix this
+    }
 
-    Task* TaskLinkedList::getValueAt(int index) {
+    int findLastPriority(int lookFor){
+        //todo fix this
+    }
+
+    Task* TaskLinkedList::getTaskByIndex(int index) {
+        //todo fix this
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
@@ -145,8 +167,14 @@
             return findNode->getItem();
         }
     }
+    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining){
+        //todo talk about this
+        ArrayList* broken = new ArrayList();
+        return broken;
+    }
 
-    Task* TaskLinkedList::removeValueAt(int index) {
+    Task* TaskLinkedList::removeTaskById(int index) {
+        //todo fix this
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("Cannot remove a value outside of list");
         } else if (index == 0) {
@@ -173,14 +201,17 @@
     }
 
     bool TaskLinkedList::isEmpty() {
+        //todo fix this
         return currLength == 0;
     }
 
     int TaskLinkedList::itemCount() {
+        //todo fix this
         return currLength;
     }
 
     void TaskLinkedList::clearList() {
+        //todo fix this
         currLength = 0;
         RecursiveDelete(front);
         front = nullptr;
@@ -188,6 +219,7 @@
     }
 
     std::string TaskLinkedList::toString() {
+        //todo fix this
         LinkedNode *tempPtr = front;
         std::string output = "{";
         for (int i = 0; i < currLength; i++) {
@@ -202,63 +234,63 @@
         return output;
     }
 
-    int IntLinkedList::findMaxIndex() {
-        int returnIndex;
-        if (currLength < 1) {
-            returnIndex = -1;
-        } else {
-            LinkedNode *tempPtr = front;
-            int maxVal = tempPtr->getItem();
-            returnIndex = 0;
-            for (int i = 0; i < currLength; i++) {
-                if (maxVal < tempPtr->getItem()) {
-                    maxVal = tempPtr->getItem();
-                    returnIndex = i;
-                }
-                tempPtr = tempPtr->getNext();
-            }
-        }
-        return returnIndex;
-    }
-
-    /**
-     * Non-tail Recursive function for returning the index of the first occurence
-     *                  of a specific number to look for
-     * @param thisnode - the node to start searching on
-     * @param lookFor  - the Value to look for
-     * @return  - The first index of the value passed in relation to the thisNode
-     */
-    int findFirstHelper(LinkedNode *thisnode, int lookFor) {
-        //todo do you need the findFirstHelper function
-        if (thisnode->getItem() == lookFor) {
-            return 0;
-        }
-        if (thisnode->getNext() == nullptr) {
-            return -1;
-        } else {
-            int temp = findFirstHelper(thisnode->getNext(), lookFor);
-            if (temp == -1) {
-                return -1;
-            } else {
-                return 1 + temp;
-            }
-        }
-    }
-
-    int IntLinkedList::find(int numToFind) {
-        //todo do you need tge find function
-        return findFirstHelper(front, numToFind);
-    }
-
-    int IntLinkedList::findLast(int numToFind) {
-        //todo you need the find function
-        LinkedNode *aNode = front;
-        int lastIndex = -1;
-        for (int i = 0; i < currLength; i++) {
-            if (aNode->getItem() == numToFind) {
-                lastIndex = i;
-            }
-            aNode = aNode->getNext();
-        }
-        return lastIndex;
-    }
+//    int TaskLinkedList::findMaxIndex() {
+//        int returnIndex;
+//        if (currLength < 1) {
+//            returnIndex = -1;
+//        } else {
+//            LinkedNode *tempPtr = front;
+//            int maxVal = tempPtr->getItem();
+//            returnIndex = 0;
+//            for (int i = 0; i < currLength; i++) {
+//                if (maxVal < tempPtr->getItem()) {
+//                    maxVal = tempPtr->getItem();
+//                    returnIndex = i;
+//                }
+//                tempPtr = tempPtr->getNext();
+//            }
+//        }
+//        return returnIndex;
+//    }
+//
+//    /**
+//     * Non-tail Recursive function for returning the index of the first occurence
+//     *                  of a specific number to look for
+//     * @param thisnode - the node to start searching on
+//     * @param lookFor  - the Value to look for
+//     * @return  - The first index of the value passed in relation to the thisNode
+//     */
+//    int findFirstHelper(LinkedNode *thisnode, int lookFor) {
+//        //todo do you need the findFirstHelper function
+//        if (thisnode->getId() == lookFor) {
+//            return 0;
+//        }
+//        if (thisnode->getNext() == nullptr) {
+//            return -1;
+//        } else {
+//            int temp = findFirstHelper(thisnode->getNext(), lookFor);
+//            if (temp == -1) {
+//                return -1;
+//            } else {
+//                return 1 + temp;
+//            }
+//        }
+//    }
+//
+//    int TaskLinkedList::find(int numToFind) {
+//        //todo do we need the find function
+//        return findFirstHelper(front, numToFind);
+//    }
+//
+//    int TaskLinkedList::findLast(int numToFind) {
+//        //todo do we need the find function
+//        LinkedNode *aNode = front;
+//        int lastIndex = -1;
+//        for (int i = 0; i < currLength; i++) {
+//            if (aNode->getId() == numToFind) {
+//                lastIndex = i;
+//            }
+//            aNode = aNode->getNext();
+//        }
+//        return lastIndex;
+//    }

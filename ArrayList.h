@@ -10,6 +10,7 @@
 #include "TaskList.h"
 #include "TaskLinkedList.h"
 
+//todo-Doesn't this need to extend the abstract TaskList class?
 class ArrayList{
 private:
     //pointer to the start of the array

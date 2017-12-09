@@ -15,8 +15,11 @@ LinkedNode::LinkedNode(const LinkedNode& nodeToCopy){
     next = nullptr;
 }
 
-Task* LinkedNode::getItem(){
+Task* LinkedNode::getTask(){
     return item;
+}
+int LinkedNode::getId(){
+    return item->getId();
 }
 
 LinkedNode* LinkedNode::getNext(){

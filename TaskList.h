@@ -9,8 +9,10 @@
 #include "ArrayList.h"
 #include "TaskLinkedList.h"
 
+class Bad_Task_Id : std::exception{};
 
-class List{
+
+class TaskList{
 public:
     //Destructor
     virtual ~List()=0;
@@ -47,19 +49,19 @@ public:
 //
 //    /**
 //      * Searches a List for a passed id, returns a pointer to the task with that Id
-//      * @return the index of the first occurrence of the matching task id if it is present, otherwise returns -1
+//     * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //      */
-//    virtual int findTaskById(int id)=0;
+//    virtual Task* findTaskById(int id)=0;
 
 //    /**
 //     * Searches an list for a certain id
-//     * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
+//     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //     */
 //
-//    virtual int findLast(T numToFind)=0;
+//    virtual Task* findLastTaskById(int id)=0;
 //
 //    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
-//    virtual Task* getFront()=0;
+
     /**
      * returns the id of the first Task with the passed Priority
      * @param lookFor - the priority to look for
@@ -134,8 +136,6 @@ public:
      * ...
      */
     virtual std::string toString()=0;
-
-
 
 };
 
