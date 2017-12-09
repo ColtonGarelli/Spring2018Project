@@ -10,7 +10,6 @@
 #include "TaskList.h"
 #include "TaskLinkedList.h"
 
-template <class T>
 class ArrayList{
 private:
     //pointer to the start of the array

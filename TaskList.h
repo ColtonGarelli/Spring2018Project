@@ -7,7 +7,7 @@
 
 #include <stdexcept>
 #include "ArrayList.h"
-#include "TaskLinkedList.inl"
+#include "TaskLinkedList.h"
 
 
 class List{
