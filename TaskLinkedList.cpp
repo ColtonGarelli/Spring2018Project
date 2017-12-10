@@ -3,6 +3,7 @@
 // Revisions by Jeremy Block on 11/06/17
 //
 
+#include <functional>
 #include "TaskLinkedList.h"
 #include "LinkedNode.h"
 
@@ -105,59 +106,50 @@
      * @throws out_of_range if a Task can not be found with the specified property/equals combination
      * @return - returns ptr to the first node in the LinkedList with a Task.[property] == Equals, otherwise throws out_of_range error
      */
-    LinkedNode* TaskLinkedList::returnNodeWhere(int property, int equals){
+    LinkedNode* TaskLinkedList::returnNodeWhere(int property, int equals) {
         //todo test me PLEASE
-        if (property < 1 || property > 3){
-            throw std::bad_function_call();
-        }else {
-            LinkedNode* curr = front;
-            switch (property) {
-                case 1: { //DueDate
-                    if(curr->getTask()->getDueDate() == equals){
+        LinkedNode *curr = front;
+        if (property == 1) { //DueDate
+            if (curr->getTask()->getDueDate() == equals) {
+                return curr;
+            } else {
+                while (curr->getNext() != nullptr) {
+                    curr = curr->getNext();
+                    if (curr->getTask()->getDueDate() == equals) {
                         return curr;
-                    } else {
-                        while (curr->getNext() != nullptr) {
-                            curr = curr->getNext();
-                            if (curr->getTask()->getDueDate() == equals) {
-                                return curr;
-                            }
-                        }
-//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
-                        throw std::out_of_range("No Task with DueDate Specified");
                     }
-                    break;
                 }
-                case 2: { //Priority
-                    if(curr->getTask()->getPriority() == equals){
-                        return curr;
-                    } else {
-                        while (curr->getNext() != nullptr) {
-                            curr = curr->getNext();
-                            if (curr->getTask()->getPriority() == equals) {
-                                return curr;
-                            }
-                        }
 //                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
-                        throw std::out_of_range("No Task with Priority Specified");
-                    }
-                    break;
-                }
-                case 3: { //id
-                    if(curr->getTask()->getId() == equals){
-                        return curr;
-                    } else {
-                        while (curr->getNext() != nullptr) {
-                            curr = curr->getNext();
-                            if (curr->getTask()->getId() == equals) {
-                                return curr;
-                            }
-                        }
-//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
-                        throw std::out_of_range("No Task with ID Specified");
-                    }
-                    break;
-                }
+                throw std::out_of_range("No Task with DueDate Specified");
             }
+        } else if (property == 2) { //Priority
+            if (curr->getTask()->getPriority() == equals) {
+                return curr;
+            } else {
+                while (curr->getNext() != nullptr) {
+                    curr = curr->getNext();
+                    if (curr->getTask()->getPriority() == equals) {
+                        return curr;
+                    }
+                }
+//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+                throw std::out_of_range("No Task with Priority Specified");
+            }
+        } else if (property == 3) { //id
+            if (curr->getTask()->getId() == equals) {
+                return curr;
+            } else {
+                while (curr->getNext() != nullptr) {
+                    curr = curr->getNext();
+                    if (curr->getTask()->getId() == equals) {
+                        return curr;
+                    }
+                }
+//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+                throw std::out_of_range("No Task with ID Specified");
+            }
+        } else {
+            throw std::bad_function_call();
         }
     }
 
@@ -290,11 +282,11 @@
             return findNode->getTask();
         }
     }
-    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining){
-        //todo WE NEED TO TALK ABOUT THIS IN BOTH ARRAY LIST AND LINKED LIST
-        ArrayList* broken = new ArrayList();
-        return broken;
-    }
+//    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining){
+//        //todo WE NEED TO TALK ABOUT THIS IN BOTH ARRAY LIST AND LINKED LIST
+//        ArrayList* broken = new ArrayList();
+//        return broken;
+//    }
 
 
     Task* TaskLinkedList::removeTaskById(int index) {
@@ -345,7 +337,7 @@
         LinkedNode *tempPtr = front;
         std::string output = "The List:\n";
         for (int i = 0; i < currLength; i++) {
-            output += (std::to_string(i+1)+".) "+tempPtr->getTask()->getTitle()) + "\n");
+            output += std::to_string(i + 1) + ".) " + tempPtr->getTask()->getTitle() + "\n";
             tempPtr = tempPtr->getNext();
         }
         return output;

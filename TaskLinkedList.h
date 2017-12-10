@@ -120,7 +120,7 @@ public:
      * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
      * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
      */
-    ArrayList *buildView(TaskLinkedList *masterList, int daysRemaining);
+//    ArrayList *buildView(TaskLinkedList *masterList, int daysRemaining);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
