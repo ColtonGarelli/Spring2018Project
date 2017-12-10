@@ -16,12 +16,21 @@ class TaskLinkedList : public TaskList {
 
 private:
     int currLength;
-    LinkedNode* front;
-    LinkedNode* end;
-    LinkedNode* returnNodeWhere(int property, int equals);
-    LinkedNode* extractNodeAfter(LinkedNode *here);
+    LinkedNode *front;
+    LinkedNode *end;
 
-        public:
+    /**
+     * Traversal function that returns a pointer to the first node with a task.[propery] == equals from the list
+     * @param property - an identifier: 1. run on due date, 2. run on priority, or 3. run on id
+     * @param equals - the value to look for.
+     * @throws bad_function_call error when property is not either 1.DueDate 2.priority or 3.id
+     * @throws out_of_range if a Task can not be found with the specified property/equals combination
+     * @return - returns ptr to the first node in the LinkedList with a Task.[property] == Equals, otherwise throws out_of_range error
+     */
+    LinkedNode *returnNodeWhere(int property, int equals);
+    LinkedNode *extractNodeAfter(LinkedNode *here);
+
+public:
     /**
      * @efficiency - O(1)
      * Default constructor
@@ -32,7 +41,7 @@ private:
      * @efficiency - O(n)
      * Copy constructor
      */
-    TaskLinkedList(const TaskLinkedList& listToCopy);
+    TaskLinkedList(const TaskLinkedList &listToCopy);
 
     /**
      * @efficiency - O(n)
@@ -45,7 +54,7 @@ private:
      * @efficiency - O(2n)
      * Assignment operator
      */
-    TaskLinkedList& operator=(const TaskLinkedList& listToCopy);
+    TaskLinkedList &operator=(const TaskLinkedList &listToCopy);
 
     /**
      * appends the new item to the end of the list
@@ -53,7 +62,7 @@ private:
      * @param itemToAdd the item to add to the end of the array
      * @post the list has an additional value in it, at the end
      */
-    void addToList(Task* itemToAdd);
+    void addToList(Task *itemToAdd);
 
     /**
      * Extends the end of the List to point at taskToAdd
@@ -61,14 +70,14 @@ private:
      * @post the list has an additional Task in it, at the end
 
      */
-    void insertAtEnd(Task* taskToAdd);
+    void insertAtEnd(Task *taskToAdd);
 
     /**
      * Shifts all Tasks down the List and adds pointer to Task at front
      * @param taskToAdd - pointer to the Task to be added to the List
      * @post the list has an additional Task in it
      */
-    void insertAtFront(Task* taskToAdd);
+    void insertAtFront(Task *taskToAdd);
 
     /**
      * adds Task to the list, at index specified
@@ -76,7 +85,7 @@ private:
      * @param index - the index in the List to add the task, everything after it gets shifted down
      * @post the list has an additional Task in it
      */
-    void insertAt(Task* taskToAdd, int index);
+    void insertAt(Task *taskToAdd, int index);
 
     /**
      * returns the id of the first Task with the passed Priority
@@ -103,7 +112,7 @@ private:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* getTaskByIndex(int index);
+    Task *getTaskByIndex(int index);
 
     /**
      * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
@@ -111,7 +120,7 @@ private:
      * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
      * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
      */
-    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining);
+    ArrayList *buildView(TaskLinkedList *masterList, int daysRemaining);
 
     /**
      * removes the item at index from the list, and returns a copy of that item
@@ -121,7 +130,7 @@ private:
      * @returns a copy of the item at index
      * @throws out_of_range exception if index is invalid
      */
-    Task* removeTaskById(int idToFind);
+    Task *removeTaskById(int idToFind);
 
     /**
      * checks if there are any valid items in the list

@@ -94,17 +94,19 @@
         return *this;
     }
 
+//todo make a LinkedNode* TaskList::returnNodeWhereNext(int property, int Equals){}
+//todo make a LinkedNode* TaskList::returnLastNodeWhere(int property, int Equals){}
+
     /**
-     *
-     * @param property
-     * @param equals
+     * Traversal function that returns a pointer to the first node with a task.[propery] == equals from the list
+     * @param property - an identifier: 1. run on due date, 2. run on priority, or 3. run on id
+     * @param equals - the value to look for.
      * @throws bad_function_call error when property is not either 1.DueDate 2.priority or 3.id
      * @throws out_of_range if a Task can not be found with the specified property/equals combination
-     * @DueDate_Return - returns the node that points to the node with a Task.dueDate == Equals, otherwise returns last node in list
-     * @Priority_Return - the last node with the passed priority
-     * @ID_Return - the node of the Task with a matching id
+     * @return - returns ptr to the first node in the LinkedList with a Task.[property] == Equals, otherwise throws out_of_range error
      */
     LinkedNode* TaskLinkedList::returnNodeWhere(int property, int equals){
+        //todo test me PLEASE
         if (property < 1 || property > 3){
             throw std::bad_function_call();
         }else {
@@ -115,21 +117,44 @@
                         return curr;
                     } else {
                         while (curr->getNext() != nullptr) {
-                            if (curr->getNext()->getTask()->getDueDate() == equals) {
+                            curr = curr->getNext();
+                            if (curr->getTask()->getDueDate() == equals) {
                                 return curr;
-                            } else{
-                                curr = curr->getNext();
                             }
                         }
-                        return curr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
                         throw std::out_of_range("No Task with DueDate Specified");
                     }
                     break;
                 }
                 case 2: { //Priority
+                    if(curr->getTask()->getPriority() == equals){
+                        return curr;
+                    } else {
+                        while (curr->getNext() != nullptr) {
+                            curr = curr->getNext();
+                            if (curr->getTask()->getPriority() == equals) {
+                                return curr;
+                            }
+                        }
+//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+                        throw std::out_of_range("No Task with Priority Specified");
+                    }
                     break;
                 }
                 case 3: { //id
+                    if(curr->getTask()->getId() == equals){
+                        return curr;
+                    } else {
+                        while (curr->getNext() != nullptr) {
+                            curr = curr->getNext();
+                            if (curr->getTask()->getId() == equals) {
+                                return curr;
+                            }
+                        }
+//                        return nullptr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+                        throw std::out_of_range("No Task with ID Specified");
+                    }
                     break;
                 }
             }
@@ -166,7 +191,11 @@
         //TODO Write this all out
         if(front == nullptr){
             insertAtFront(itemToAdd);
-        }else{
+        }else if (end->getTask()->getPriority() >= itemToAdd->getPriority()){
+            insertAtEnd(itemToAdd);
+        }
+        else{
+
             LinkedNode* currPtr;
             int searchPriority = itemToAdd->getPriority();
             int i = 0;
