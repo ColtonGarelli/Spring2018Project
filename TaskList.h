@@ -6,7 +6,7 @@
 #define PRO_JECT_LIST_H
 
 #include <stdexcept>
-#include "ArrayList.h"
+//#include "ArrayList.h"
 #include "TaskLinkedList.h"
 
 class Bad_Task_Id : std::exception{};
@@ -15,7 +15,7 @@ class Bad_Task_Id : std::exception{};
 class TaskList{
 public:
     //Destructor
-    virtual ~TaskList()=0;
+//    virtual ~TaskList()=0;
 
     /**
      * adds Task to the list
