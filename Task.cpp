@@ -1,5 +1,6 @@
 //
 // Created by Jeremy Block on 11/21/17.
+// Modified by Jeremy Block on 12/09/17
 //
 #include <sstream>
 #include <iostream>
@@ -9,32 +10,48 @@
 //Constructors/Destructor
 
 //Default Constructor
+Task::Task() {
+    title = "<-No-Title->";
+    dueDate = 0;
+    priority = 3;
+    completed = false;
+    Id = 12345;
+}
+Task::Task(std::string inTitle, int inIdNum) {
+    title = inTitle;
+    dueDate = 0;
+    priority = 3;
+    completed = false;
+    Id = inIdNum;
+}
 
 //Constructor
-Task::Task(std::string inTitle, int inDue, bool inTaskComplete, int inIdNum){
-    //todo Add in the duration, priority and other data members to Task
+Task::Task(std::string inTitle, int inDue, int inPriority=1, int inIdNum = 0){
     title = inTitle;
     dueDate = inDue;
-    completed = inTaskComplete;
+    priority = inPriority;
+    completed = false;
     Id = inIdNum;
-    //call sets on all variables
-    //setting next ptr to nullptr for now?
-
 }
 
-//Destructor
+//Default Destructor is sufficient here because the task is not responsible for it's memory/dependencies
 
-Task::~Task(){
-    //todo - We don't have a Task destructor yet, cause the memory wont get deleted while the list is alive. WE will need to do this later when we implement file io
-
+Task& Task::operator=(const Task& taskToCopy){
+    if(this != &taskToCopy){
+        title = taskToCopy.title;
+        dueDate = taskToCopy.dueDate;
+        priority = taskToCopy.priority;
+        completed = taskToCopy.completed;
+        Id= taskToCopy.Id;
+    }
+    return* this;
 }
-//todo Assignment operator.
-const std::string &Task::getTitle(){
+void Task::setTitle(std::string inTitle) {
+    title = inTitle;
+}
+
+std::string Task::getTitle(){
     return title;
-}
-
-void Task::setTitle(const std::string &title) {
-    Task::title = title;
 }
 
 void Task::setDueDate(int dueDate){
@@ -45,12 +62,16 @@ int Task::getDueDate(){
     return dueDate;
 }
 
-void Task::setId(int Id){
-    Task::Id = Id;
+void Task::setPriority(int inPriority) {
+    if (inPriority >= 1 || inPriority <= 5){
+        priority = inPriority;
+    } else {
+        throw std::out_of_range("Priority is not in aggreed range 1-5");
+    }
 }
 
-int Task::getId() {
-    return Id;
+int Task::getPriority() {
+    return priority;
 }
 
 bool Task::completeTask(){
@@ -60,9 +81,11 @@ bool Task::completeTask(){
     }
     return completed;
 }
+
 bool Task::getComplete(){
     return completed;
 }
+<<<<<<< HEAD
 //void Task::setNext(Task* newNext){
 //    next = newNext;
 //}
@@ -70,32 +93,30 @@ bool Task::getComplete(){
 //Task* Task::getNext(){
 //    return next;
 //}
+=======
 
-std::string Task::getItem() {
-    return item;
+void Task::setId(int Id){
+    Task::Id = Id;
+}
+>>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
+
+int Task::getId() {
+    return Id;
 }
 
-
-//int Task::getDuration() const {
-//    //todo write
-//    //todo test
+//int Task::getDuration() {
 //    return duration;
 //}
-
-//void Task::setDuration(int duration) {
-//    //todo write
-//    //todo test
-//    Task::duration = duration;
+//
+//void Task::setDuration(int inDuration) {
+//    duration = inDuration;
 //}
-
-//Task *Task::getDependant() const {
-//    //todo write
-//    //todo test
+//
+//Task *Task::getDependant() {
 //    return dependant;
 //}
-
+//
 //void Task::setDependant(Task *nextTask) {
-//    //todo test if this works
 //    if (this->dependant == nullptr){
 //        this->dependant = nextTask;
 //    }else{
@@ -104,31 +125,7 @@ std::string Task::getItem() {
 //        this->dependant = nextTask;
 //    }
 //}
-
-//Task *Task::getRoot() const {
-//    //todo write
-//    //todo test
-//    return root;
-//}
-
-//void Task::setRoot(Task* newRoot) {
-//    //todo write
-//    //todo test
-//    Task::root = newRoot;
-//}
-
-//short Task::getPriority() const {
-//    //todo write
-//    //todo test
-//    return Priority;
-//}
-
-//void Task::setPriority(short Priority) {
-//    //todo write
-//    //todo test
-//    Task::Priority = Priority;
-//}
-
+//
 //int Task::calcPriority(){
 //    //todo automatically calculates priority on every new day bassed on duration of the project, and it's children.
 //}

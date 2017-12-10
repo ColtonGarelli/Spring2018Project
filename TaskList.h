@@ -7,13 +7,15 @@
 
 #include <stdexcept>
 #include "ArrayList.h"
-#include "TaskLinkedList.inl"
+#include "TaskLinkedList.h"
+
+class Bad_Task_Id : std::exception{};
 
 
-class List{
+class TaskList{
 public:
     //Destructor
-    virtual ~List()=0;
+    virtual ~TaskList()=0;
 
     /**
      * adds Task to the list
@@ -44,22 +46,20 @@ public:
      * @post the list has an additional Task in it
      */
     virtual void insertAt(Task* taskToAdd, int index)=0;
-//
-//    /**
-//      * Searches a List for a passed id, returns a pointer to the task with that Id
-//      * @return the index of the first occurrence of the matching task id if it is present, otherwise returns -1
-//      */
-//    virtual int findTaskById(int id)=0;
 
 //    /**
+//      * Searches a List for a passed id, returns a pointer to the task with that Id
+//      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
+//      */
+//    virtual Task* findTaskById(int id)=0;
+//
+//    /**
 //     * Searches an list for a certain id
-//     * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
+//     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //     */
-//
-//    virtual int findLast(T numToFind)=0;
-//
+//    virtual Task* findLastTaskById(int id)=0;
 //    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
-//    virtual Task* getFront()=0;
+
     /**
      * returns the id of the first Task with the passed Priority
      * @param lookFor - the priority to look for
@@ -86,13 +86,13 @@ public:
 
     virtual Task* getTaskByIndex(int index)=0;
 
-    /**
-     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
-     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
-     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
-     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
-     */
-    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
+//    /**
+//     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
+//     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
+//     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
+//     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
+//     */
+//    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
 
 
     /**
@@ -134,8 +134,6 @@ public:
      * ...
      */
     virtual std::string toString()=0;
-
-
 
 };
 

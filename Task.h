@@ -1,5 +1,6 @@
 //
 // Created by Jeremy Block on 11/21/17.
+// Modified by Jeremy Block on 12/09/17
 //
 
 #ifndef PRO_JECT_TASK_H
@@ -11,65 +12,69 @@
 
 class Task {
 private:
-    //todo Define a Time class
     std::string title;
-    std::string item;
     //int duration;
-   // Task* dependant;
-    //int* Project; //pointer to Parent Project
-    int dueDate;//days till due not including today //todo Write and Replace int with TaskTime class
-    //short Priority; //Will be a number from 1-4 (we could also define this as a char-8 bits-if we are trying to be space efficient)
+    //Task* dependant;
+    int dueDate;//days till due not including today (today = 0, tomorrow = 1, yesterday = -1)
+    int priority; //Will be a number from 1-5
     bool completed; //true: task is done, false default
     int Id;
+<<<<<<< HEAD
     //Task* next;
+=======
+>>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
 
 
 public:
 
-    //Default
+    //Default Constructor
     Task();
+    //Basic Constructor
+    Task(std::string title, int idNum);
+    //Full Constructor
+    Task(std::string title, int due, int priority=1, int IdNum=0);
+    //Assignment Operator
+    Task& operator=(const Task& taskToCopy);
 
-    //Constructor
-    Task(std::string title, int due, bool taskComplete, int IdNum);
+    void setTitle(std::string title);
 
-    //Destructor
-    ~Task();
-
-    std::string getItem();
-
-
-
-    //todo update these setters and getters as needed.
-    const std::string &getTitle();
-
-    void setTitle(const std::string &title);
+    std::string getTitle();
 
     void setDueDate(int dueDate);
 
     int getDueDate();
 
-    void setId(int Id);
-    int getId();
+    /**
+     * @param priority - must be a number from 1 - 5
+     * @throw std::out_of_range error if priority is not in range
+     */
+    void setPriority(int priority);
+
+    int getPriority();
+    /**
+     * @post - task.completed = true
+     * @return task.completed
+     * @throws - todo Should do something?
+     */
     bool completeTask();
+<<<<<<< HEAD
     bool getComplete();
     //void setNext(Task* newNext);
     //Task* getNext();
+=======
+>>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
 
+    bool getComplete();
 
+    void setId(int id);
 
-   // int getDuration() const;
+    int getId();
 
-   // void setDuration(int duration);
-
-    //Task* getDependant() const;
-
-   // void setDependant(Task* nextTask);
-
-    short getPriority() const;
-
-   // void setPriority(short Priority);
-
-    // int calcPriority();
+//  int getDuration() const;
+// void setDuration(int duration);
+//Task* getDependant() const;
+// void setDependant(Task* nextTask);
+//  int calcPriority();
 
 };
 

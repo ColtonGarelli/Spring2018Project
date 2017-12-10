@@ -1,25 +1,34 @@
 //
 // Created by Toby Dragon on 10/24/16.
+// Converted to handle Task* by Jeremy Block on 12/09/17
 //
 
 #ifndef LINKEDNODE_H
 #define LINKEDNODE_H
 
+<<<<<<< HEAD
 #include <string>
+=======
+>>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
 #include "Task.h"
 
 class LinkedNode {
 
 private:
-    std::string item;
+    Task* item;
     LinkedNode* next;
 
 public:
-    LinkedNode(std::string item);
+    LinkedNode(Task* item);
     LinkedNode(const LinkedNode& nodeToCopy); //only copies item, next is set to nullptr
-    std::string getItem();
+    /**
+     * @post Task is deleted when a node is deleted.
+     */
+    ~LinkedNode();
+    Task* getTask();
+    int getId();
     LinkedNode* getNext();
-    void setItem(std::string newItem);
+    void setItem(Task* newItem);
     void setNext(LinkedNode* newNext);
 };
 

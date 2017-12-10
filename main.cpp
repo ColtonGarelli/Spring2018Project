@@ -7,7 +7,7 @@
 
 
 void PrototypeController() {
-    List<Task>* masterList = new TaskLinkedList<Task>();
+    TaskList* masterList = new TaskLinkedList();
     //ArrayList<Task*>* masterArrayList = new ArrayList(masterList->itemCount());
 
     //must create empty list of tasks, add first task to that

@@ -1,10 +1,11 @@
 //
-// Added by Taylor Yowan on 12/7/17.
 // Created by Toby Dragon on 10/17/17.
+// Added by Taylor Yowan on 12/07/17.
+// Converted to handle Task* by Jeremy Block on 12/09/17
 //
 #include "LinkedNode.h"
 
-LinkedNode::LinkedNode(std::string item){
+LinkedNode::LinkedNode(Task* item){
     this->item = item;
     next = nullptr;
 }
@@ -13,9 +14,15 @@ LinkedNode::LinkedNode(const LinkedNode& nodeToCopy){
     item = nodeToCopy.item;
     next = nullptr;
 }
+LinkedNode::~LinkedNode(){
+    delete item;
+}
 
-std::string LinkedNode::getItem(){
+Task* LinkedNode::getTask(){
     return item;
+}
+int LinkedNode::getId(){
+    return item->getId();
 }
 
 LinkedNode* LinkedNode::getNext(){
@@ -23,7 +30,7 @@ LinkedNode* LinkedNode::getNext(){
     return next;
 }
 
-void LinkedNode::setItem(std::string newItem){
+void LinkedNode::setItem(Task* newItem){
     item = newItem;
 }
 
