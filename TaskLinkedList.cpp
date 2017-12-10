@@ -8,27 +8,31 @@
 
 //constructor
     TaskLinkedList::TaskLinkedList() {
-    //todo fix this
+    //todo test this
         currLength = 0;
         front = nullptr;
         end = nullptr;
     }
-    //copy constructor
+    //copy constructor (makes it's own linked list with it's own nodes and with new copied tasks)
     TaskLinkedList::TaskLinkedList(const TaskLinkedList& listToCopy){
-        //todo fix this
+        //todo test this
         currLength = listToCopy.currLength;
         if(listToCopy.front != nullptr){ // if the listToCopy is not empty
             LinkedNode* tempNewPtr; // the address of the penultimate-ly created node
             LinkedNode* tempOldPtr; // The address of the node to copied from the listToCopy
             LinkedNode* newNodePtr; // The newest node created based on the tempOldPtr->getItem.
             tempOldPtr = listToCopy.front;
-            newNodePtr = new LinkedNode(tempOldPtr->getItem());
+//            Task* newestTask = new Task(tempOldPtr->getTask()->getTitle(),tempOldPtr->getTask()->getDueDate(),tempOldPtr->getTask()->getPriority(), tempOldPtr->getTask()->getId());
+            Task* newestTask(tempOldPtr->getTask()); //todo may make something on the stack and break stuff
+            newNodePtr = new LinkedNode(newestTask);
             front = newNodePtr;
             tempNewPtr = front;
 
             for (int i = 1; i < currLength; i++){
                 tempOldPtr = tempOldPtr->getNext();
-                newNodePtr = new LinkedNode(tempOldPtr->getItem());
+//                Task* newestTask = new Task(tempOldPtr->getTask()->getTitle(),tempOldPtr->getTask()->getDueDate(),tempOldPtr->getTask()->getPriority(), tempOldPtr->getTask()->getId());
+                Task* newestTask(tempOldPtr->getTask()); //todo may make something on the stack and break stuff
+                newNodePtr = new LinkedNode(newestTask);
                 tempNewPtr->setNext(newNodePtr);
                 tempNewPtr = tempNewPtr->getNext();
                 end = newNodePtr;
@@ -42,7 +46,7 @@
      * @param oldNode - the node from which to delete the rest of the chain
      */
     void RecursiveDelete (LinkedNode* oldNode) {
-        //todo fix this
+        //todo test this
         while (oldNode != nullptr) {
             LinkedNode *temp = (*oldNode).getNext();
             delete oldNode;
@@ -52,7 +56,7 @@
 
     //destructor
     TaskLinkedList::~TaskLinkedList(){
-        //todo fix this
+        //todo test this
         currLength=0;
         RecursiveDelete(front);
         front = nullptr;
@@ -62,26 +66,25 @@
 
     //Assignment operator
     TaskLinkedList& TaskLinkedList::operator=(const TaskLinkedList& listToCopy) {
-        //todo fix this
+        //todo test this
         if(this != &listToCopy) {
-            currLength=0;
             clearList();
-            front = nullptr;
-            end = nullptr;
-
-
             if (listToCopy.front != nullptr) {
                 LinkedNode *tempNewPtr; // the address of the penultimate-ly created node
                 LinkedNode *tempOldPtr; // The address of the node to copied from the listToCopy
                 LinkedNode *newNodePtr; // The newest node created based on the tempOldPtr->getItem.
                 tempOldPtr = listToCopy.front;
-                newNodePtr = new LinkedNode(tempOldPtr->getItem());
+//                Task* newestTask = new Task(tempOldPtr->getTask()->getTitle(),tempOldPtr->getTask()->getDueDate(),tempOldPtr->getTask()->getPriority(), tempOldPtr->getTask()->getId());
+                Task* newestTask(tempOldPtr->getTask()); //todo may make something on the stack and be broken
+                newNodePtr = new LinkedNode(newestTask);
                 front = newNodePtr;
                 tempNewPtr = front;
 
                 for (int i = 1; i < currLength; i++) {
                     tempOldPtr = tempOldPtr->getNext();
-                    newNodePtr = new LinkedNode(tempOldPtr->getItem());
+//                    Task* newestTask = new Task(tempOldPtr->getTask()->getTitle(),tempOldPtr->getTask()->getDueDate(),tempOldPtr->getTask()->getPriority(), tempOldPtr->getTask()->getId());
+                    Task* newestTask(tempOldPtr->getTask()); //todo may make something on the stack and be broken
+                    newNodePtr = new LinkedNode(newestTask);
                     tempNewPtr->setNext(newNodePtr);
                     tempNewPtr = tempNewPtr->getNext();
                     end = newNodePtr;
@@ -91,13 +94,96 @@
         return *this;
     }
 
-    void addToList(Task* itemToAdd){
-        //todo fix this
+    /**
+     *
+     * @param property
+     * @param equals
+     * @throws bad_function_call error when property is not either 1.DueDate 2.priority or 3.id
+     * @throws out_of_range if a Task can not be found with the specified property/equals combination
+     * @DueDate_Return - returns the node that points to the node with a Task.dueDate == Equals, otherwise returns last node in list
+     * @Priority_Return - the last node with the passed priority
+     * @ID_Return - the node of the Task with a matching id
+     */
+    LinkedNode* TaskLinkedList::returnNodeWhere(int property, int equals){
+        if (property < 1 || property > 3){
+            throw std::bad_function_call();
+        }else {
+            LinkedNode* curr = front;
+            switch (property) {
+                case 1: { //DueDate
+                    if(curr->getTask()->getDueDate() == equals){
+                        return curr;
+                    } else {
+                        while (curr->getNext() != nullptr) {
+                            if (curr->getNext()->getTask()->getDueDate() == equals) {
+                                return curr;
+                            } else{
+                                curr = curr->getNext();
+                            }
+                        }
+                        return curr; //todo since this is the last in the list, check if InsertAfter is Checking if it's inserting at the end.
+                        throw std::out_of_range("No Task with DueDate Specified");
+                    }
+                    break;
+                }
+                case 2: { //Priority
+                    break;
+                }
+                case 3: { //id
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     *  helper function to take node out of a linked list without deleting the node;
+     *  @param here - the node that precedes the item to be extracted
+     *  @post currLength is reduced by 1
+     *  @Throws std::out_of_range error if node after "here" is null
+     */
+    LinkedNode* TaskLinkedList::extractNodeAfter(LinkedNode *here) {
+        //todo test this
+        if (here->getNext() != nullptr) {
+            LinkedNode *extractNode = here->getNext(); //identify extract node
+            LinkedNode *nextNode = extractNode->getNext(); //identify third node
+            here->setNext(nextNode); //relink
+            currLength--;
+            return extractNode;
+        } else {
+            throw std::out_of_range("the node after here is null");
+        }
+    }
+    void insertAfter(LinkedNode* here, Task* newTask){
+        //todo test if this works when the list is empty.
+        LinkedNode* newItem = new LinkedNode(newTask);
+        LinkedNode* tempPtr = here->getNext();
+        here->setNext(newItem);
+        newItem->setNext(tempPtr);
+    }
+
+    void TaskLinkedList::addToList(Task* itemToAdd){
+        //TODO Write this all out
+        if(front == nullptr){
+            insertAtFront(itemToAdd);
+        }else{
+            LinkedNode* currPtr;
+            int searchPriority = itemToAdd->getPriority();
+            int i = 0;
+            while( currPtr->getTask()->getPriority() && i < currLength){
+                currPtr=currPtr->getNext();
+                i++;
+            }
+        }
+        //finds it
+        insertAfter(returnNodeWhere(1,1), itemToAdd);
+        currLength++;
+
     }
 
 
     void TaskLinkedList::insertAtEnd(Task* taskToAdd) {
-        //todo fix this
+        //todo test this
         LinkedNode *tempItem = new LinkedNode(taskToAdd);
         if (currLength == 0) {
             front = tempItem;
@@ -110,7 +196,7 @@
     }
 
     void TaskLinkedList::insertAtFront(Task* taskToAdd) {
-        //todo fix this
+        //todo test this
         LinkedNode *tempItem = new LinkedNode(taskToAdd);
         tempItem->setNext(front);
         front = tempItem;
@@ -121,7 +207,7 @@
     }
 
     void TaskLinkedList::insertAt(Task* taskToAdd, int index) {
-        //todo fix this
+        //todo test this
         if (index < 0 || index > currLength) {
             throw std::out_of_range("Cannot Insert outside of function");
         } else {
@@ -143,43 +229,52 @@
         }
     }
 
-    int findFirstPriority(int lookFor){
-        //todo fix this
+
+    int TaskLinkedList::findFirstPriority(int lookFor){
+        //todo test this
+        LinkedNode *findNode = front;
+        while(findNode->getTask()->getPriority() > lookFor){
+            findNode=findNode->getNext();
+        }
+        return findNode->getId();
+
     }
 
-    int findLastPriority(int lookFor){
-        //todo fix this
+    int TaskLinkedList::findLastPriority(int lookFor){
+        //todo test this
+        return findFirstPriority(lookFor-1);
     }
 
     Task* TaskLinkedList::getTaskByIndex(int index) {
-        //todo fix this
+        //todo test this
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
-            return front->getItem();
+            return front->getTask();
         } else if (index == currLength - 1) {
-            return end->getItem();
+            return end->getTask();
         } else {
             LinkedNode *findNode = front->getNext();
             for (int i = 1; i < index; i++) {
                 findNode = findNode->getNext();
             }
-            return findNode->getItem();
+            return findNode->getTask();
         }
     }
     ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining){
-        //todo talk about this
+        //todo WE NEED TO TALK ABOUT THIS IN BOTH ARRAY LIST AND LINKED LIST
         ArrayList* broken = new ArrayList();
         return broken;
     }
 
+
     Task* TaskLinkedList::removeTaskById(int index) {
-        //todo fix this
+        //todo test this
         if (index < 0 || index >= currLength) {
             throw std::out_of_range("Cannot remove a value outside of list");
         } else if (index == 0) {
             LinkedNode *delPtr = front;
-            int tempReturn = delPtr->getItem();
+            Task* tempReturn = delPtr->getTask();
             front = front->getNext();
 
             delete delPtr;
@@ -190,47 +285,40 @@
             for (int i = 0; i < index - 1; i++) {
                 delPtr = delPtr->getNext();
             }
-            LinkedNode *deleteNode = delPtr->getNext();
-            LinkedNode *nextNode = deleteNode->getNext();
-            int tempReturn = deleteNode->getItem();
-            delete deleteNode;
-            delPtr->setNext(nextNode);
+            LinkedNode* extractedNode = extractNodeAfter(delPtr);
+            Task* taskToReturn = extractedNode->getTask();
+            delete extractedNode; //Delete will still delete the task
             currLength--;
-            return tempReturn;
+            return taskToReturn;
         }
     }
 
     bool TaskLinkedList::isEmpty() {
-        //todo fix this
+        //todo test this
         return currLength == 0;
     }
 
     int TaskLinkedList::itemCount() {
-        //todo fix this
+        //todo test this
         return currLength;
     }
 
     void TaskLinkedList::clearList() {
-        //todo fix this
+        //todo test this
         currLength = 0;
-        RecursiveDelete(front);
+        RecursiveDelete(front); //deletes all the tasks obj
         front = nullptr;
         end = nullptr;
     }
 
     std::string TaskLinkedList::toString() {
-        //todo fix this
+        //todo test this
         LinkedNode *tempPtr = front;
-        std::string output = "{";
+        std::string output = "The List:\n";
         for (int i = 0; i < currLength; i++) {
-            if (i < currLength - 1) {
-                output += (std::to_string(tempPtr->getItem()) + ", ");
-                tempPtr = tempPtr->getNext();
-            } else {
-                output += (std::to_string(tempPtr->getItem()));
-            }
+            output += (std::to_string(i+1)+".) "+tempPtr->getTask()->getTitle()) + "\n");
+            tempPtr = tempPtr->getNext();
         }
-        output += "}";
         return output;
     }
 

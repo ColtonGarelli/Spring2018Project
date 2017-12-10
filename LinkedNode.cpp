@@ -14,6 +14,9 @@ LinkedNode::LinkedNode(const LinkedNode& nodeToCopy){
     item = nodeToCopy.item;
     next = nullptr;
 }
+LinkedNode::~LinkedNode(){
+    delete item;
+}
 
 Task* LinkedNode::getTask(){
     return item;

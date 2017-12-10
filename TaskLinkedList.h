@@ -18,7 +18,10 @@ private:
     int currLength;
     LinkedNode* front;
     LinkedNode* end;
-public:
+    LinkedNode* returnNodeWhere(int property, int equals);
+    LinkedNode* extractNodeAfter(LinkedNode *here);
+
+        public:
     /**
      * @efficiency - O(1)
      * Default constructor
@@ -33,6 +36,7 @@ public:
 
     /**
      * @efficiency - O(n)
+     * @post - Tasks are deleted when the LinkedNodes are deleted
      * Destructor
      */
     ~TaskLinkedList();
@@ -76,6 +80,7 @@ public:
 
     /**
      * returns the id of the first Task with the passed Priority
+     * @efficiency - O(n)
      * @param lookFor - the priority to look for
      * @return the id of the first Task in the list with the passed priority
      */
@@ -83,6 +88,7 @@ public:
 
     /**
      * returns the id of the last Task with the passed priority
+     * @efficiency - O(n)
      * @param lookFor - the priority to look for
      * @return the id of the last Task in the list with the passed priority.
      */
@@ -145,6 +151,12 @@ public:
      * {1, 2, 3, 4, 5}
      */
     std::string toString();
+
+    /**
+     * takes the Linked Structure and puts it in order (highest to lowest) priority
+     */
+    //TODO SHOULD WE ADD SOME SORTING FUNCTIONS TO TASKLIST???;
+//    void reorderByPriority();
 
 };
 

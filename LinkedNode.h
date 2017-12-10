@@ -17,6 +17,10 @@ private:
 public:
     LinkedNode(Task* item);
     LinkedNode(const LinkedNode& nodeToCopy); //only copies item, next is set to nullptr
+    /**
+     * @post Task is deleted when a node is deleted.
+     */
+    ~LinkedNode();
     Task* getTask();
     int getId();
     LinkedNode* getNext();

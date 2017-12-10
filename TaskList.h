@@ -46,20 +46,18 @@ public:
      * @post the list has an additional Task in it
      */
     virtual void insertAt(Task* taskToAdd, int index)=0;
-//
+
 //    /**
 //      * Searches a List for a passed id, returns a pointer to the task with that Id
-//     * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
+//      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //      */
 //    virtual Task* findTaskById(int id)=0;
-
+//
 //    /**
 //     * Searches an list for a certain id
 //     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //     */
-//
 //    virtual Task* findLastTaskById(int id)=0;
-//
 //    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
 
     /**
