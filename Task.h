@@ -27,7 +27,7 @@ public:
     //Basic Constructor
     Task(std::string title, int idNum);
     //Full Constructor
-    Task(std::string title, int due, int priority=1, int IdNum);
+    Task(std::string title, int due, int priority=1, int IdNum=0);
     //Assignment Operator
     Task& operator=(const Task& taskToCopy);
 

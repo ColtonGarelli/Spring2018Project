@@ -25,7 +25,7 @@ Task::Task(std::string inTitle, int inIdNum) {
 }
 
 //Constructor
-Task::Task(std::string inTitle, int inDue, int inPriority=1, int inIdNum){
+Task::Task(std::string inTitle, int inDue, int inPriority=1, int inIdNum = 0){
     title = inTitle;
     dueDate = inDue;
     priority = inPriority;
