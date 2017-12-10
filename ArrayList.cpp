@@ -242,7 +242,7 @@ ArrayList *ArrayList::buildView(TaskLinkedList *masterList, int daysRemaining) {
         for (int i = 0; i < currCapacity; i++) {
             if (currTask->getDueDate() <= daysRemaining) {
                 array[i] = currTask->getId();
-                current = current->getNext; //should I be calling something else, does TaskLinkedList need a get next??
+                current = current->getNext(); //should I be calling something else, does TaskLinkedList need a get next??
             }
         }
         //TODO sort by priority

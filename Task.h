@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include "LinkedNode.h"
 
 class Task {
 private:

@@ -19,6 +19,7 @@ std::string LinkedNode::getItem(){
 }
 
 LinkedNode* LinkedNode::getNext(){
+
     return next;
 }
 

@@ -6,6 +6,7 @@
 #define LINKEDNODE_H
 
 #include <string>
+#include "Task.h"
 
 class LinkedNode {
 
