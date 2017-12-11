@@ -161,12 +161,10 @@ void sort(int* arrayToSort, int size, int& numLinesRun){
 
 }
 
-int* copyArray(const int* arrayToCopy, const int size, int& numLinesRun){
-    int* copyArray = new int[size];
-    (numLinesRun) += 4;
+Task** copyArray(Task** arrayToCopy, const int size){
+    Task** copyArray = new Task*[size];
     for (int i = 0;  i < size; i++){
         copyArray[i] = arrayToCopy[i];
-        (numLinesRun) +=4;
     }
     return copyArray;
 }

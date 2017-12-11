@@ -187,21 +187,10 @@
             insertAtEnd(itemToAdd);
         }
         else{
-
-            LinkedNode* currPtr;
             int searchPriority = itemToAdd->getPriority();
-            int i = 0;
-            while( currPtr->getTask()->getPriority() && i < currLength){
-                currPtr=currPtr->getNext();
-                i++;
-            }
+            insertAfter(returnNodeWhere(2,searchPriority), itemToAdd);
         }
-        //finds it
-        insertAfter(returnNodeWhere(1,1), itemToAdd);
-        currLength++;
-
     }
-
 
     void TaskLinkedList::insertAtEnd(Task* taskToAdd) {
         //todo test this
@@ -249,7 +238,6 @@
             }
         }
     }
-
 
     int TaskLinkedList::findFirstPriority(int lookFor){
         //todo test this
