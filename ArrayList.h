@@ -9,16 +9,21 @@
 #include <string>
 #include "TaskList.h"
 #include "TaskLinkedList.h"
+#include "ArrayLib.h"
 
 //todo-Doesn't this need to extend the abstract TaskList class?
-class ArrayList{
+class ArrayList : public TaskList{
 private:
     //pointer to the start of the array
-    int* array;
+    Task** array;
     //count of the number of valid items currently stored in the array
     int currItemCount;
     //size of the current array
     int currCapacity;
+
+
+
+public:
 
     /**
      * replaces the old array with an array twice the size
@@ -28,13 +33,12 @@ private:
      */
     void doubleCapacity();
 
-public:
     /**
      * Constructor
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
-    ArrayList(int initialCapacity=5);
+   ArrayList(int initialCapacity);
 
     //Copy Constructor
     ArrayList(const ArrayList& arrayListToCopy);
@@ -46,46 +50,94 @@ public:
     ~ArrayList();
 
     /**
-     * appends the new item to the end of the list
-     * @param itemToAdd the item to add to the end of the array
-     * @post the list has an additional value in it, at the end
-     */
-    void insertAtEnd(int itemToAdd);
+ * adds Task to the list
+ * @param taskToAdd - pointer to the Task to be added to the List
+ * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
+ */
+    void addToList(Task* taskToAdd);
 
     /**
-     * appends the new item to the beginning of the list
-     * @param itemToAdd the item to add to the beginning of the list
-     * @post the list has an additional value in it, at the beginning
-     *    all other items are shifted down by one index
+     * Extends the end of the List to point at taskToAdd
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @post the list has an additional Task in it, at the end
+
      */
-    void insertAtFront(int itemToAdd);
+    void insertAtEnd(Task* taskToAdd);
 
     /**
-     * inserts the item into the list so that it can be found with get(index)
-     * @param itemToAdd the item to add
-     * @param index the location in which to insert this item
-     * @post the list has an additional value in it at the specified index,
-     *        all further values have been shifted down by one index
-     * @throws out_of_range exception if index is invalid (< 0 or >currItemCount)
+     * Shifts all Tasks down the List and adds pointer to Task at front
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @post the list has an additional Task in it
      */
-    void insertAt(int itemToAdd, int index);
+    void insertAtFront(Task* tasktoAdd);
 
     /**
-     * gets a value from the list
-     * @param index the location from which to get the value
-     * @returns a copy of the item at index
-     * @throws out_of_range exception if index is invalid
+     * adds Task to the list, at index specified
+     * @param taskToAdd - pointer to the Task to be added to the List
+     * @param index - the index in the List to add the task, everything after it gets shifted down
+     * @post the list has an additional Task in it
      */
-    int getValueAt(int index);
+    void insertAt(Task* taskToAdd, int index);
+
+//    /**
+//      * Searches a List for a passed id, returns a pointer to the task with that Id
+//      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
+//      */
+//    virtual Task* findTaskById(int id)=0;
+//
+//    /**
+//     * Searches an list for a certain id
+//     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
+//     */
+//    virtual Task* findLastTaskById(int id)=0;
+//    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
 
     /**
-     * removes the item at index from the list, and returns a copy of that item
-     * @param index the location from which to get the value
-     * @post the item at index is removed from the list, everything else is shifted down one
-     * @returns a copy of the item at index
-     * @throws out_of_range exception if index is invalid
+     * returns the id of the first Task with the passed Priority
+     * @param lookFor - the priority to look for
+     * @return the id of the first Task in the list with the passed priority
      */
-    int removeValueAt(int index);
+    int findFirstPriority(int lookFor);
+
+    /**
+     * returns the id of the last Task with the passed priority
+     //TODO the controller should call this function more often with +1 priority when looking to add a Task.
+     * @param lookFor - the priority to look for
+     * @return the id of the last Task in the list with the passed priority.
+     */
+    int findLastPriority(int lookFor);
+
+    //todo reverse order?, findFirstDate, findLastDate
+
+    /**
+     * gets a pointer to a Task in the list
+     * @param index the index from which to get the value
+     * @returns a pointer to the Task with the passed Id
+     * @throws out_of_range exception if index is not in List
+     */
+
+    Task* getTaskByIndex(int index);
+
+//    /**
+//     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
+//     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
+//     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
+//     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
+//     */
+//    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
+
+
+    /**
+     * removes the Task from the List
+     * @param id of the task to remove from the List
+     * @post the Task with id is removed from the list,
+     *      everything else is shifted down one,
+     *      whoever catches task needs to delete task.
+     *      Task is set to complete.
+     * @returns the only pointer to the item at index
+     * @throws out_of_range exception if id is not in List
+     */
+    Task* removeTaskById(int idToFind);
 
     /**
      * checks if there are any valid items in the list
@@ -94,66 +146,32 @@ public:
     bool isEmpty();
 
     /**
-     * returns a count of valid items currently in the list
-     * @returns the number of valid items in the list
+     * returns a count of un-complete Tasks currently in the list
+     * @returns the number of un-complete Tasks in the list
      */
     int itemCount();
 
     /**
-     * removes all valid items from the list
-     * @post the list is completely clear of valid items
+     * removes and deletes all Tasks from the List
+     * @post the List is completely clear of valid items and has values reset to defaults
      */
     void clearList();
 
     /**
-     * gives a string representation of the current list
-     * @returns a string representing the given list in the exact format shown below
-     * {1, 2, 3, 4, 5}
+     * gives a string representation of the title of each Task in the current list.
+     * @returns a string representing the given list, broken by line in the format shown below
+     * 1. Task_title1
+     * 2. Task_title2
+     * 3. Task_title3
+     * ...
      */
-    std::string toString(const int* const arrayPtr,const int size);
-
-    /**
-     * finds the largest value in the array
-     * @post numLinesRun is updated to include lines run by this function
-     * @return the first index of the maximum value, or -1 if size < 1
-     */
-    int findMaxIndex();
-
-    /**
-     * Searches an int array for a certain value
-     * @post numLinesRun is updated to include lines run by this function
-     * @return the index of the first occurrence of numToFind if it is present, otherwise returns -1
-     */
-    int find(const int* arrayPtr, int size, int id);
-
-    /**
-     * Searches an int array for a certain value
-     * @post numLinesRun is updated to include lines run by this function
-     * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
-     */
-    int findLast(int numToFind);
+    std::string toString(Task* arrayPtr, const int size);
 
 
-    /**
-     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
-     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
-     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
-     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
-     */
-     ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining);
-
-    /**
-    * adds Task to the list
-    * @param taskToAdd - pointer to the Task to be added to the List
-    * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
-    */
-    void addToList(Task* taskToAdd);
 
 
 };
 
 
-
-#include "ArrayList.cpp"
 #endif //COMP220_ARRAYLIST_H
 

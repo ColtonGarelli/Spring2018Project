@@ -6,6 +6,8 @@
 #define COMP220LAB_ARRAYLIB_H
 
 #include <string>
+#include "Task.h"
+#include "TaskList.h"
 
 /**
  * generates a random integer
@@ -57,7 +59,7 @@ int findLast(int* arrayPtr, int size, int numToFind);
  * generates a copy of a given array
  * @return a pointer to the copy array, which must be deleted by the user
  */
-int* copyArray(int* arrayToCopy, const int size);
+Task** copyArray(Task** arrayToCopy, const int size);
 
 
 
