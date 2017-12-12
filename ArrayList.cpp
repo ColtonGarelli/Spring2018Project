@@ -18,27 +18,27 @@ ArrayList::ArrayList(int initialCapacity){
 }
 
 ////Copy Constructor
-//ArrayList::ArrayList(const ArrayList& arrayListToCopy){
-//    currItemCount = arrayListToCopy.currItemCount;
-//    currCapacity = arrayListToCopy.currCapacity;
-//    array = new Task*[currCapacity];
-//    for(int i = 0; i < currItemCount; i++){
-//        array[i] = arrayListToCopy.array[i];
-//    }
-//}
+ArrayList::ArrayList(const ArrayList& arrayListToCopy){
+    currItemCount = arrayListToCopy.currItemCount;
+    currCapacity = arrayListToCopy.currCapacity;
+    array = new Task*[currCapacity];
+    for(int i = 0; i < currItemCount; i++){
+        array[i] = arrayListToCopy.array[i];
+    }
+}
 
 ////Overloaded Assignment Operator
-//ArrayList& operator=(const ArrayList& arrayListToCopy){
-//    if( this != &arrayListToCopy){
-//        delete[] array;
-//    }
-//    currCapacity = arrayListToCopy.currCapacity;
-//    currItemCount = arrayListToCopy.currItemCount;
-//    for(int i = 0; i < currItemCount; i++){
-//        array[i] = arrayListToCopy.array[i];
-//        }
-//    return *this;
-//}
+ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
+    if( this != &arrayListToCopy){
+        delete[] array;
+        currCapacity = arrayListToCopy.currCapacity;
+        currItemCount = arrayListToCopy.currItemCount;
+        for(int i = 0; i < currItemCount; i++){
+            array[i] = arrayListToCopy.array[i];
+        }
+    }
+    return *this;
+}
 
 
 //Destructor
@@ -279,13 +279,13 @@ int ArrayList::findFirstPriority(int lookFor){
 
 
 
-std::string ArrayList::toString(Task* arrayPtr, const int size){
+std::string ArrayList:: toString(){
     std::string printable = "{";
-    for(int i = 0; i < size; i++){
-        if (i < size-1){
-            printable = printable + ((arrayPtr[i].getTitle()) + ", ");
+    for(int i = 0; i < currItemCount; i++){
+        if (i < currItemCount-1){
+            printable = printable + ((array[i]->getTitle()) + ", ");
         } else{
-            printable = printable + ((arrayPtr[i].getTitle()));
+            printable = printable + ((array[i]->getTitle()));
         }
     }
     printable += "}";
