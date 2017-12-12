@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-//#include "ArrayList.h"
+#include "ArrayList.h"
 #include "TaskLinkedList.h"
 #include "Task.h"
 #include "TaskList.h"
@@ -8,7 +8,7 @@
 
 void PrototypeController() {
     TaskList* masterList = new TaskLinkedList();
-    //ArrayList<Task*>* masterArrayList = new ArrayList(masterList->itemCount());
+    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
 
     //must create empty list of tasks, add first task to that
     int userDirection = -1;

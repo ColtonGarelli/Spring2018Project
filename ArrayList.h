@@ -10,6 +10,7 @@
 #include "TaskList.h"
 #include "TaskLinkedList.h"
 #include "ArrayLib.h"
+#include "Task.h"
 
 //todo-Doesn't this need to extend the abstract TaskList class?
 class ArrayList : public TaskList{
@@ -165,7 +166,7 @@ public:
      * 3. Task_title3
      * ...
      */
-    std::string toString(Task* arrayPtr, const int size);
+    std::string toString();
 
 
 

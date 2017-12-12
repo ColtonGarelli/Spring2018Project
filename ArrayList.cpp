@@ -18,27 +18,27 @@ ArrayList::ArrayList(int initialCapacity){
 }
 
 ////Copy Constructor
-//ArrayList::ArrayList(const ArrayList& arrayListToCopy){
-//    currItemCount = arrayListToCopy.currItemCount;
-//    currCapacity = arrayListToCopy.currCapacity;
-//    array = new Task*[currCapacity];
-//    for(int i = 0; i < currItemCount; i++){
-//        array[i] = arrayListToCopy.array[i];
-//    }
-//}
+ArrayList::ArrayList(const ArrayList& arrayListToCopy){
+    currItemCount = arrayListToCopy.currItemCount;
+    currCapacity = arrayListToCopy.currCapacity;
+    array = new Task*[currCapacity];
+    for(int i = 0; i < currItemCount; i++){
+        array[i] = arrayListToCopy.array[i];
+    }
+}
 
 ////Overloaded Assignment Operator
-//ArrayList& operator=(const ArrayList& arrayListToCopy){
-//    if( this != &arrayListToCopy){
-//        delete[] array;
-//    }
-//    currCapacity = arrayListToCopy.currCapacity;
-//    currItemCount = arrayListToCopy.currItemCount;
-//    for(int i = 0; i < currItemCount; i++){
-//        array[i] = arrayListToCopy.array[i];
-//        }
-//    return *this;
-//}
+ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
+    if( this != &arrayListToCopy){
+        delete[] array;
+        currCapacity = arrayListToCopy.currCapacity;
+        currItemCount = arrayListToCopy.currItemCount;
+        for(int i = 0; i < currItemCount; i++){
+            array[i] = arrayListToCopy.array[i];
+        }
+    }
+    return *this;
+}
 
 
 //Destructor
@@ -279,48 +279,13 @@ int ArrayList::findFirstPriority(int lookFor){
 
 
 
-<<<<<<< HEAD
-/**
- * Searches an int array for a certain value
- * @post numLinesRun is updated to include lines run by this function
- * @return the index of the last occurrence of numToFind if it is present, otherwise returns -1
- */
-
-//int ArrayList::findLast(int numToFind) {
-//    int timer = 0;
-//    return findLast(array, currItemCount, numToFind, timer);
-//}
-
-
-/**
- * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
- * @param masterList - A Linked node structure with pointers to Tasks to be searched through
- * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
- * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
- */
-ArrayList *ArrayList::buildView(TaskLinkedList *masterList, int daysRemaining) {
-    TaskLinkedList *current = masterList->getFront();
-    int currCapacity = masterList->itemCount();
-    array = new int[currCapacity];
-    //int i = 0;
-    if (current == nullptr) {
-        return this*;
-    } else {
-        Task *currTask = current->getFront();
-        for (int i = 0; i < currCapacity; i++) {
-            if (currTask->getDueDate() <= daysRemaining) {
-                array[i] = currTask->getId();
-                current = current->getNext(); //should I be calling something else, does TaskLinkedList need a get next??
-            }
-=======
-std::string ArrayList::toString(Task* arrayPtr, const int size){
+std::string ArrayList:: toString(){
     std::string printable = "{";
-    for(int i = 0; i < size; i++){
-        if (i < size-1){
-            printable = printable + ((arrayPtr[i].getTitle()) + ", ");
+    for(int i = 0; i < currItemCount; i++){
+        if (i < currItemCount-1){
+            printable = printable + ((array[i]->getTitle()) + ", ");
         } else{
-            printable = printable + ((arrayPtr[i].getTitle()));
->>>>>>> bbcf4798893a15beff7a65690744adf803265247
+            printable = printable + ((array[i]->getTitle()));
         }
     }
     printable += "}";
