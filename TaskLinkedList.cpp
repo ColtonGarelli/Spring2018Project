@@ -270,11 +270,6 @@
             return findNode->getTask();
         }
     }
-//    ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining){
-//        //todo WE NEED TO TALK ABOUT THIS IN BOTH ARRAY LIST AND LINKED LIST
-//        ArrayList* broken = new ArrayList();
-//        return broken;
-//    }
 
 
     Task* TaskLinkedList::removeTaskById(int index) {
