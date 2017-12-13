@@ -115,20 +115,14 @@ public:
     Task *getTaskByIndex(int index);
 
     /**
-     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
-     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
-     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
-     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
-     */
-//    ArrayList *buildView(TaskLinkedList *masterList, int daysRemaining);
-
-    /**
      * removes the item at index from the list, and returns a copy of that item
      * @efficiency - O(n); Special Case when index is 0 then it's O(1)
-     * @param index the location from which to get the value
-     * @post the item at index is removed from the list, everything else is shifted down one
-     * @returns a copy of the item at index
-     * @throws out_of_range exception if index is invalid
+     * @param id of the task to look for and return a copy of.
+     * @post the item with a matching id is removed from the list,
+     *       everything else is shifted down one,
+     *       Caller will need to delete returned Task
+     * @returns a copy of the Task at index
+     * @throws out_of_range exception if id is invalid/not in list
      */
     Task *removeTaskById(int idToFind);
 
