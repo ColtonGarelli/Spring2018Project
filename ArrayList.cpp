@@ -12,6 +12,9 @@
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
 ArrayList::ArrayList(int initialCapacity){
+    if(initialCapacity < 2){
+        initialCapacity = 2;
+    }
     this -> currCapacity = initialCapacity;
     array = new Task*[currCapacity];
     currItemCount = 0;
@@ -43,7 +46,9 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
 
 //Destructor
 ArrayList::~ArrayList(){
+    currCapacity = 2;
     delete[] array;
+    currItemCount = 0;
 }
 
 
@@ -174,9 +179,9 @@ int ArrayList::findFirstPriority(int lookFor){
  * @return the id of the last Task in the list with the passed priority.
  */
  int ArrayList::findLastPriority(int lookFor){
-    for(int i = currItemCount; i>-1; i--){
-        if(array[i]->getPriority() == lookFor){
-            return i;
+    for(int i = currItemCount; i>-1; i--) {
+        if (array[i]->getPriority() == lookFor) {
+            return array[i]->getId();
         }
     }
 }

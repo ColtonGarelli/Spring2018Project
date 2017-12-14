@@ -25,9 +25,14 @@ public:
     //Default Constructor
     Task();
     //Basic Constructor
-    Task(std::string title, int idNum);
+    Task(int idNum, std::string title);
     //Full Constructor
-    Task(std::string title, int due, int priority=1, int IdNum=0);
+    Task(int idNum, std::string title, int due, int priority=1);
+    //copyConstructor
+    Task(const Task* taskToCopy);
+    //default Destructor
+    ~Task();
+
     //Assignment Operator
     Task& operator=(const Task& taskToCopy);
 
@@ -58,6 +63,8 @@ public:
     void setId(int id);
 
     int getId();
+
+    std::string tostring();
 
 //  int getDuration() const;
 // void setDuration(int duration);

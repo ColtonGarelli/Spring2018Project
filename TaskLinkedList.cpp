@@ -256,7 +256,7 @@
 
     Task* TaskLinkedList::getTaskByIndex(int index) {
         //todo test this
-        if (index < 0 || index >= currLength) {
+        if (index < 0 || index > currLength-1) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
             return front->getTask();
@@ -292,11 +292,22 @@
 
     Task* TaskLinkedList::removeTaskById(int idToFind) {
         //todo test this
+        //todo this needs to deal with end ptr
         if(front != nullptr) {
             if (idToFind == front->getId()) {
                 LinkedNode *delPtr = front;
-                Task *tempReturn(delPtr->getTask());
+                Task *tempReturn = new Task(delPtr->getTask());
                 front = front->getNext();
+
+                delete delPtr;
+                currLength--;
+                return tempReturn;
+            } else if(idToFind == end->getId()){
+                LinkedNode *delPtr = end; //define a node that needs to be removed
+                Task *tempReturn = new Task(delPtr->getTask()); //make a copy of the task from the node
+                LinkedNode *prvPtr = findNextNodeWithId(front, idToFind); //find the node that points at end
+                end = prvPtr;
+                end->setNext(nullptr);
 
                 delete delPtr;
                 currLength--;
@@ -304,7 +315,7 @@
             } else {
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind);
                 LinkedNode* delPtr = prvPtr->getNext();
-                Task *tempReturn(prvPtr->getTask());
+                Task *tempReturn = new Task(prvPtr->getTask());
                 prvPtr = delPtr->getNext();
 
                 delete delPtr;

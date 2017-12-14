@@ -16,7 +16,7 @@ Task::Task() {
     completed = false;
     Id = 12345;
 }
-Task::Task(std::string inTitle, int inIdNum) {
+Task::Task(int inIdNum, std::string inTitle) {
     title = inTitle;
     dueDate = 0;
     priority = 3;
@@ -25,7 +25,7 @@ Task::Task(std::string inTitle, int inIdNum) {
 }
 
 //Constructor
-Task::Task(std::string inTitle, int inDue, int inPriority, int inIdNum){
+Task::Task(int inIdNum, std::string inTitle, int inDue, int inPriority){
     title = inTitle;
     dueDate = inDue;
     priority = inPriority;
@@ -33,8 +33,26 @@ Task::Task(std::string inTitle, int inDue, int inPriority, int inIdNum){
     Id = inIdNum;
 }
 
-//Default Destructor is sufficient here because the task is not responsible for it's memory/dependencies
+Task::Task(const Task* taskToCopy){
+    title = taskToCopy->title;
+    dueDate = taskToCopy->dueDate;
+    priority = taskToCopy->priority;
+    completed = taskToCopy->completed;
+    Id = taskToCopy->Id;
+}
 
+
+//Default Destructor is sufficient here because the task is not responsible for it's memory/dependencies
+Task::~Task() {
+    title = "";
+    dueDate=0;
+    priority=0;
+    completed=true;
+    Id=-12345;
+}
+
+
+//asignment operator
 Task& Task::operator=(const Task& taskToCopy){
     if(this != &taskToCopy){
         title = taskToCopy.title;
@@ -91,6 +109,23 @@ void Task::setId(int Id){
 
 int Task::getId() {
     return Id;
+}
+std::string Task::tostring() {
+    std::string priotiryStr = "";
+    std::string completedStr = "";
+
+    for (int i = 0; i < priority; i++) {
+        priotiryStr += "!";
+    }
+
+    if(completed){
+        completedStr = "Task has been completed :-)";
+    } else{
+        completedStr = "Task is not Complete";
+    }
+
+    return "\nTask ID: " + std::to_string(Id) + "\n" + title + " is due in " + std::to_string(dueDate) +
+           " days.\nPriority: " + priotiryStr + "\t "+completedStr+"\n";
 }
 
 //int Task::getDuration() {
