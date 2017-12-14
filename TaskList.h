@@ -16,7 +16,7 @@
 class TaskList{
 public:
     //Destructor
-//    virtual ~TaskList()=0;
+    virtual ~TaskList(){};
 
     /**
      * adds Task to the list
@@ -94,7 +94,7 @@ public:
      *      everything else is shifted down one,
      *      whoever catches task needs to delete task.
      *      Task is set to complete.
-     * @returns the only pointer to the item at index
+     * @returns copy of the task with id and deletes original ptr in List
      * @throws out_of_range exception if id is not in List
      */
     virtual Task* removeTaskById(int idToFind)=0;

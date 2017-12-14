@@ -39,7 +39,7 @@ public:
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
-   ArrayList(int initialCapacity);
+   ArrayList(int initialCapacity=5);
 
     //Copy Constructor
     ArrayList(const ArrayList& arrayListToCopy);
@@ -49,12 +49,11 @@ public:
 
     //Destructor
     ~ArrayList();
-
-    /**
+/**
  * adds Task to the list
  * @param taskToAdd - pointer to the Task to be added to the List
  * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
- */
+ **/
     void addToList(Task* taskToAdd);
 
     /**

@@ -12,6 +12,9 @@
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
 ArrayList::ArrayList(int initialCapacity){
+    if(initialCapacity < 2){
+        initialCapacity = 2;
+    }
     this -> currCapacity = initialCapacity;
     array = new Task*[currCapacity];
     currItemCount = 0;
@@ -43,7 +46,9 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
 
 //Destructor
 ArrayList::~ArrayList(){
+    currCapacity = 2;
     delete[] array;
+    currItemCount = 0;
 }
 
 
@@ -52,7 +57,7 @@ ArrayList::~ArrayList(){
  * private method only called within ArrayList when necessary
  * @post: array points to a new array of twice the size with values copied from the old one,
  *        the old array is deleted.
- */
+ **/
 void ArrayList::doubleCapacity(){
     int doubCap = (currCapacity * 2);
     currCapacity = doubCap;
@@ -106,7 +111,7 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
  * Shifts all Tasks down the List and adds pointer to Task at front
  * @param taskToAdd - pointer to the Task to be added to the List
  * @post the list has an additional Task in it
- */
+ **/
  void ArrayList::insertAtFront(Task* tasktoAdd){
     if(currItemCount == currCapacity){
         this->doubleCapacity();
@@ -161,7 +166,7 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
 int ArrayList::findFirstPriority(int lookFor){
     for(int i = 0; i < currItemCount; i++){
         if(array[i]->getPriority() == lookFor){
-            return i;
+            return array[i]->getId();
         }
     }
     return -1;
@@ -174,11 +179,12 @@ int ArrayList::findFirstPriority(int lookFor){
  * @return the id of the last Task in the list with the passed priority.
  */
  int ArrayList::findLastPriority(int lookFor){
-    for(int i = currItemCount; i>-1; i--){
-        if(array[i]->getPriority() == lookFor){
-            return i;
+    for(int i = currItemCount; i>-1; i--) {
+        if (array[i]->getPriority() == lookFor) {
+            return array[i]->getId();
         }
     }
+    return -1;
 }
 
 //todo reverse order?, findFirstDate, findLastDate
@@ -279,14 +285,10 @@ int ArrayList::findFirstPriority(int lookFor){
 
 
 
-std::string ArrayList:: toString(){
-    std::string printable = "{";
+std::string ArrayList::toString() {
+    std::string printable = "To Do:\n";
     for(int i = 0; i < currItemCount; i++){
-        if (i < currItemCount-1){
-            printable = printable + ((array[i]->getTitle()) + ", ");
-        } else{
-            printable = printable + ((array[i]->getTitle()));
-        }
+        printable += std::to_string(i + 1) + "." + array[i]->getTitle() + "\n";
     }
     printable += "}";
     return printable;
