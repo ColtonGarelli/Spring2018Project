@@ -266,10 +266,8 @@ bool removeValueAtLLTest(){
 
 bool TestLinkedList() {
     //todo write tests
-    //todo You have test code that works on an ArrayList of ints. This can easily be converted to work on an IntList instead to have robust tests of your code.
-    //todo You have already written several methods that perform the same tasks as some of these methods, consider your LinkedStack and LinkedQueue classes.
-
-    removeValueAtLLTest();
+    bool error = false;
+    error = removeValueAtLLTest();
 //    findTest();
 //    findLastTest();
 //    copyTest();
@@ -278,8 +276,12 @@ bool TestLinkedList() {
 
 
 
+    if (error) { // if a test failed return false
+        return false;
+    } else { //else all tests passed because there were no errors
+        return true;
+    }
 
-    return true;
 }
 
 bool TestArrayList(){
@@ -306,7 +308,7 @@ bool TestArrayList(){
     std::cout << masterArrayList->toString();
 
 //    std::string title = myTask->getTitle();
-//    std::cout<< title <<std::endl;
+//    std::cout<< title <<st0d::endl;
     return true;
 }
 void PrototypeController() {

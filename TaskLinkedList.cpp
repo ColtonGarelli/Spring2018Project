@@ -295,34 +295,36 @@
         //todo this needs to deal with end ptr when nothing is left in the list or
         //todo if front and end are pointed at the same (only) node in the list.
         if(front != nullptr) {
-            if (idToFind == front->getId()) {
-                LinkedNode *delPtr = front;
-                Task *tempReturn = new Task(delPtr->getTask());
+            LinkedNode *delPtr;
+            Task *tempReturn;
+            if (idToFind == front->getTask()->getId()) {
+                delPtr = front;
+                tempReturn = new Task(delPtr->getTask());
                 front = front->getNext();
 
                 delete delPtr;
-                currLength--;
-                return tempReturn;
-            } else if(idToFind == end->getId()){
-                LinkedNode *delPtr = end; //define a node that needs to be removed
-                Task *tempReturn = new Task(delPtr->getTask()); //make a copy of the task from the node
+            } else if(idToFind == end->getTask()->getId()){
+                delPtr = end; //define a node that needs to be removed
+                tempReturn = new Task(delPtr->getTask()); //make a copy of the task from the node
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind); //find the node that points at end
                 end = prvPtr;
                 end->setNext(nullptr);
 
                 delete delPtr;
-                currLength--;
-                return tempReturn;
             } else {
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind);
-                LinkedNode* delPtr = prvPtr->getNext();
-                Task *tempReturn = new Task(prvPtr->getTask());
+                delPtr = prvPtr->getNext();
+                tempReturn = new Task(prvPtr->getTask());
                 prvPtr = delPtr->getNext();
 
                 delete delPtr;
-                currLength--;
-                return tempReturn;
             }
+            currLength--;
+            if(isEmpty()){
+                clearList();
+            }
+            return tempReturn;
+
         }
     }
 
