@@ -314,6 +314,7 @@ bool TestLinkedList() {
 //    getValueAtTest();
 
 
+    std::cout<<" ---- Linked List Tests Complete ----"<<std::endl;
 
     if (error) { // if a test failed return false
         return false;
@@ -325,26 +326,28 @@ bool TestLinkedList() {
 
 bool TestArrayList(){
     std::cout << ("\n*************************\nTESTER:\n");
-    TaskList* masterList = new TaskLinkedList();
+    TaskList* masterList = new ArrayList(2);
     Task* task1 = new Task(0, "Task1");
     Task* task2 = new Task(1, "Task2");
     Task* task3 = new Task(2, "Task3");
     Task* task4 = new Task(3, "Task4");
     Task* task5 = new Task(4, "Task5");
+    Task* task6 = new Task(5, "Task6");
 
     masterList->addToList(task1);
     masterList->addToList(task2);
     masterList->addToList(task3);
     masterList->addToList(task4);
     masterList->addToList(task5);
-    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
-    masterArrayList->insertAtEnd(task1);
-    masterArrayList->insertAtEnd(task2);
-    masterArrayList->insertAtEnd(task3);
-    masterArrayList->insertAtEnd(task4);
-    masterArrayList->insertAt(task5,2);
-    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
-    std::cout << masterArrayList->toString();
+    masterList->addToList(task6);
+
+//    masterArrayList->insertAtEnd(task1);
+//    masterArrayList->insertAtEnd(task2);
+//    masterArrayList->insertAtEnd(task3);
+//    masterArrayList->insertAtEnd(task4);
+//    masterArrayList->insertAt(task5,2);
+    Task* getTaskTest = masterList->getTaskByIndex(2);
+    std::cout << masterList->toString();
 
 //    std::string title = myTask->getTitle();
 //    std::cout<< title <<st0d::endl;
@@ -356,7 +359,7 @@ bool TestArrayList(){
 
 void PrototypeController() {
     TaskList* masterList = new TaskLinkedList();
-    TaskList* masterArrayList = new ArrayList();
+    TaskList* masterArrayList = new ArrayList(3);
 
     //must create empty list of tasks, add first task to that
     int userDirection = -1;

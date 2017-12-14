@@ -11,12 +11,6 @@
  * creates an arrayList
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
-
-ArrayList::ArrayList(){
-    currCapacity=4;
-    array=new Task*[currCapacity];
-    currItemCount=0;
-}
 ArrayList::ArrayList(int initialCapacity){
     if(initialCapacity < 2){
         initialCapacity = 2;
@@ -51,8 +45,9 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
 
 
 //Destructor
-ArrayList::~ArrayList(){
+ArrayList::~ArrayList() {
     currCapacity = 2;
+    //Arraylist is not responsible for it's memory, but still deleting just in case
     delete[] array;
     currItemCount = 0;
 }
@@ -65,9 +60,14 @@ ArrayList::~ArrayList(){
  *        the old array is deleted.
  **/
 void ArrayList::doubleCapacity(){
+    //tested and Working!
     int doubCap = (currCapacity * 2);
+    Task** tempArray = new Task*[doubCap];
+    for (int i = 0;  i < currCapacity; i++){
+        tempArray[i] = array[i];
+        array[i] = nullptr;
+    }
     currCapacity = doubCap;
-    Task** tempArray = copyArray(tempArray,doubCap);
     delete[] array;
     array = tempArray;
     tempArray = nullptr;
@@ -77,7 +77,7 @@ void ArrayList::doubleCapacity(){
 /**
 * adds Task to the list
 * @param taskToAdd - pointer to the Task to be added to the List
-* @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
+* @post the List has an additional Task in it
 */
 void ArrayList::addToList(Task* taskToAdd){
 //    if(array[0] == nullptr){
