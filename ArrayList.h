@@ -41,11 +41,11 @@ public:
      */
    ArrayList(int initialCapacity=5);
 
-//    //Copy Constructor
-//    ArrayList(const ArrayList& arrayListToCopy);
-//
-//    //Overloaded Assignment Operator
-//    ArrayList& operator=(const ArrayList& arrayListToCopy);
+    //Copy Constructor
+    ArrayList(const ArrayList& arrayListToCopy);
+
+    //Overloaded Assignment Operator
+    ArrayList& operator=(const ArrayList& arrayListToCopy);
 
     //Destructor
     ~ArrayList();
@@ -78,37 +78,37 @@ public:
      * @post the list has an additional Task in it
      */
     void insertAt(Task* taskToAdd, int index);
-//
-////    /**
-////      * Searches a List for a passed id, returns a pointer to the task with that Id
-////      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
-////      */
-////    virtual Task* findTaskById(int id)=0;
-////
-////    /**
-////     * Searches an list for a certain id
-////     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
-////     */
-////    virtual Task* findLastTaskById(int id)=0;
-////    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
+
+//    /**
+//      * Searches a List for a passed id, returns a pointer to the task with that Id
+//      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
+//      */
+//    virtual Task* findTaskById(int id)=0;
 //
 //    /**
-//     * returns the id of the first Task with the passed Priority
-//     * @param lookFor - the priority to look for
-//     * @return the id of the first Task in the list with the passed priority
+//     * Searches an list for a certain id
+//     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
 //     */
-//    int findFirstPriority(int lookFor);
-//
-//    /**
-//     * returns the id of the last Task with the passed priority
-//     //TODO the controller should call this function more often with +1 priority when looking to add a Task.
-//     * @param lookFor - the priority to look for
-//     * @return the id of the last Task in the list with the passed priority.
-//     */
-//    int findLastPriority(int lookFor);
-//
-//    //todo reverse order?, findFirstDate, findLastDate
-//
+//    virtual Task* findLastTaskById(int id)=0;
+//    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
+
+    /**
+     * returns the id of the first Task with the passed Priority
+     * @param lookFor - the priority to look for
+     * @return the id of the first Task in the list with the passed priority
+     */
+    int findFirstPriority(int lookFor);
+
+    /**
+     * returns the id of the last Task with the passed priority
+     //TODO the controller should call this function more often with +1 priority when looking to add a Task.
+     * @param lookFor - the priority to look for
+     * @return the id of the last Task in the list with the passed priority.
+     */
+    int findLastPriority(int lookFor);
+
+    //todo reverse order?, findFirstDate, findLastDate
+
     /**
      * gets a pointer to a Task in the list
      * @param index the index from which to get the value
@@ -118,44 +118,44 @@ public:
 
     Task* getTaskByIndex(int index);
 
-////    /**
-////     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
-////     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
-////     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
-////     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
-////     */
-////    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
-//
-//
 //    /**
-//     * removes the Task from the List
-//     * @param id of the task to remove from the List
-//     * @post the Task with id is removed from the list,
-//     *      everything else is shifted down one,
-//     *      whoever catches task needs to delete task.
-//     *      Task is set to complete.
-//     * @returns the only pointer to the item at index
-//     * @throws out_of_range exception if id is not in List
+//     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
+//     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
+//     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
+//     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
 //     */
-//    Task* removeTaskById(int idToFind);
-//
-//    /**
-//     * checks if there are any valid items in the list
-//     * @returns true if there are no valid items in the list, false otherwise
-//     */
-//    bool isEmpty();
-//
+//    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
+
+
+    /**
+     * removes the Task from the List
+     * @param id of the task to remove from the List
+     * @post the Task with id is removed from the list,
+     *      everything else is shifted down one,
+     *      whoever catches task needs to delete task.
+     *      Task is set to complete.
+     * @returns the only pointer to the item at index
+     * @throws out_of_range exception if id is not in List
+     */
+    Task* removeTaskById(int idToFind);
+
+    /**
+     * checks if there are any valid items in the list
+     * @returns true if there are no valid items in the list, false otherwise
+     */
+    bool isEmpty();
+
     /**
      * returns a count of un-complete Tasks currently in the list
      * @returns the number of un-complete Tasks in the list
      */
     int itemCount();
 
-//    /**
-//     * removes and deletes all Tasks from the List
-//     * @post the List is completely clear of valid items and has values reset to defaults
-//     */
-//    void clearList();
+    /**
+     * removes and deletes all Tasks from the List
+     * @post the List is completely clear of valid items and has values reset to defaults
+     */
+    void clearList();
 
     /**
      * gives a string representation of the title of each Task in the current list.

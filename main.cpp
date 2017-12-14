@@ -99,17 +99,16 @@ bool removeValueAtLLTest(){
     }
     std::cout << l1->toString() << std::endl;
     l1->clearList();
-    delete l1;
 
     //refill the list with 6 items
+    std::cout <<"refilling list with 6 Tasks" << std::endl;
     for(int p = 1; p < 7; p++){
         Task* tempPtr = new Task(p, "Second Test Task #"+std::to_string(p));
         l1->addToList(tempPtr);
         tempPtr = nullptr;
     }
-    // ........................................................................................................
-    //todo Something strange is happening to the list. It keeps deleting itself as I remove the last value...?
-    // ........................................................................................................
+    //remove the last one
+    //todo write a for loop that searched for each id in reverse order.
     std::cout << "Try remove Task with id of 6" << std::endl;
     Task* catcher = l1->removeTaskById(6);
     std::cout << "Caught: " <<catcher->tostring();
@@ -117,6 +116,8 @@ bool removeValueAtLLTest(){
     catcher= nullptr;
     std::cout << "pass" <<std::endl;
     l1->toString();
+
+    //try things out of bounds
     try {
         std::cout << "Try remove Task with id of 6 again" << std::endl;
         Task* catcher = l1->removeTaskById(6);
@@ -125,9 +126,7 @@ bool removeValueAtLLTest(){
         catcher= nullptr;
     } catch (std::out_of_range& e){
         std::cout << "pass for id of 6 because " << e.what() << std::endl;
-    }
-
-     try {
+    }try {
          Task* catcher = l1->removeTaskById(-1);
          std::cout << "Caught: " <<catcher->tostring();
          delete catcher;
@@ -286,11 +285,11 @@ bool TestLinkedList() {
 bool TestArrayList(){
     std::cout << ("\n*************************\nTESTER:\n");
     TaskList* masterList = new TaskLinkedList();
-    Task* task1 = new Task("Task1",0);
-    Task* task2 = new Task("Task2",1);
-    Task* task3 = new Task("Task3",2);
-    Task* task4 = new Task("Task4",3);
-    Task* task5 = new Task("Task5",4);
+    Task* task1 = new Task(0, "Task1");
+    Task* task2 = new Task(1, "Task2");
+    Task* task3 = new Task(2, "Task3");
+    Task* task4 = new Task(3, "Task4");
+    Task* task5 = new Task(4, "Task5");
 
     masterList->addToList(task1);
     masterList->addToList(task2);

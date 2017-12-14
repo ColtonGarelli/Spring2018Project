@@ -291,8 +291,9 @@
     }
 
     Task* TaskLinkedList::removeTaskById(int idToFind) {
-        //todo test this
-        //todo this needs to deal with end ptr
+        //todo test still do not pass
+        //todo this needs to deal with end ptr when nothing is left in the list or
+        //todo if front and end are pointed at the same (only) node in the list.
         if(front != nullptr) {
             if (idToFind == front->getId()) {
                 LinkedNode *delPtr = front;
@@ -338,7 +339,7 @@
     void TaskLinkedList::clearList() {
         //todo test this
         currLength = 0;
-        RecursiveDelete(front); //deletes all the tasks obj
+        RecursiveDelete(front); //also deletes all the tasks obj
         front = nullptr;
         end = nullptr;
     }
