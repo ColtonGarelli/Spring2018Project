@@ -283,6 +283,33 @@ bool TestLinkedList() {
     return true;
 }
 
+bool TestArrayList(){
+    std::cout << ("\n*************************\nTESTER:\n");
+    TaskList* masterList = new TaskLinkedList();
+    Task* task1 = new Task("Task1",0);
+    Task* task2 = new Task("Task2",1);
+    Task* task3 = new Task("Task3",2);
+    Task* task4 = new Task("Task4",3);
+    Task* task5 = new Task("Task5",4);
+
+    masterList->addToList(task1);
+    masterList->addToList(task2);
+    masterList->addToList(task3);
+    masterList->addToList(task4);
+    masterList->addToList(task5);
+    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
+    masterArrayList->insertAtEnd(task1);
+    masterArrayList->insertAtEnd(task2);
+    masterArrayList->insertAtEnd(task3);
+    masterArrayList->insertAtEnd(task4);
+    masterArrayList->insertAt(task5,2);
+    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
+    std::cout << masterArrayList->toString();
+
+//    std::string title = myTask->getTitle();
+//    std::cout<< title <<std::endl;
+    return true;
+}
 void PrototypeController() {
     TaskList* masterList = new TaskLinkedList();
     TaskList* masterArrayList = new ArrayList(masterList->itemCount());
@@ -369,12 +396,14 @@ int main() {
 
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
 
-    if(TestLinkedList()) {
+    if(TestLinkedList() && TestArrayList()) {
         PrototypeController();
     }
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
 //    Task* myTask = new Task("task1",1,false,-1);
 //    std::string title = myTask->getTitle();
 //    std::cout<< title <<std::endl;
+
+
     return 0;
 }
