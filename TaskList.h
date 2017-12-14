@@ -48,6 +48,8 @@ public:
      */
     virtual void insertAt(Task* taskToAdd, int index)=0;
 
+    virtual Task* getTaskByIndex(int index);
+
 //    /**
 //      * Searches a List for a passed id, returns a pointer to the task with that Id
 //      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
@@ -66,56 +68,56 @@ public:
      * @param lookFor - the priority to look for
      * @return the id of the first Task in the list with the passed priority
      */
-    virtual int findFirstPriority(int lookFor)=0;
-
-    /**
-     * returns the id of the last Task with the passed priority
-     //TODO the controller should call this function more often with +1 priority when looking to add a Task.
-     * @param lookFor - the priority to look for
-     * @return the id of the last Task in the list with the passed priority.
-     */
-    virtual int findLastPriority(int lookFor)=0;
-
-    //todo reverse order?, findFirstDate, findLastDate
-
-    /**
-     * gets a pointer to a Task in the list
-     * @param index the index from which to get the value
-     * @returns a pointer to the Task with the passed Id
-     * @throws out_of_range exception if index is not in List
-     */
-
-    virtual Task* getTaskByIndex(int index)=0;
-
-    /**
-     * removes the Task from the List
-     * @param id of the task to remove from the List
-     * @post the Task with id is removed from the list,
-     *      everything else is shifted down one,
-     *      whoever catches task needs to delete task.
-     *      Task is set to complete.
-     * @returns the only pointer to the item at index
-     * @throws out_of_range exception if id is not in List
-     */
-    virtual Task* removeTaskById(int idToFind)=0;
-    
-    /**
-     * checks if there are any valid items in the list
-     * @returns true if there are no valid items in the list, false otherwise
-     */
-    virtual bool isEmpty()=0;
-
+//    virtual int findFirstPriority(int lookFor)=0;
+//
+//    /**
+//     * returns the id of the last Task with the passed priority
+//     //TODO the controller should call this function more often with +1 priority when looking to add a Task.
+//     * @param lookFor - the priority to look for
+//     * @return the id of the last Task in the list with the passed priority.
+//     */
+//    virtual int findLastPriority(int lookFor)=0;
+//
+//    //todo reverse order?, findFirstDate, findLastDate
+//
+//    /**
+//     * gets a pointer to a Task in the list
+//     * @param index the index from which to get the value
+//     * @returns a pointer to the Task with the passed Id
+//     * @throws out_of_range exception if index is not in List
+//     */
+//
+//    virtual Task* getTaskByIndex(int index)=0;
+//
+//    /**
+//     * removes the Task from the List
+//     * @param id of the task to remove from the List
+//     * @post the Task with id is removed from the list,
+//     *      everything else is shifted down one,
+//     *      whoever catches task needs to delete task.
+//     *      Task is set to complete.
+//     * @returns the only pointer to the item at index
+//     * @throws out_of_range exception if id is not in List
+//     */
+//    virtual Task* removeTaskById(int idToFind)=0;
+//
+//    /**
+//     * checks if there are any valid items in the list
+//     * @returns true if there are no valid items in the list, false otherwise
+//     */
+//    virtual bool isEmpty()=0;
+//
     /**
      * returns a count of un-complete Tasks currently in the list
      * @returns the number of un-complete Tasks in the list
      */
     virtual int itemCount()=0;
-
-    /**
-     * removes and deletes all Tasks from the List
-     * @post the List is completely clear of valid items and has values reset to defaults
-     */
-    virtual void clearList()=0;
+//
+//    /**
+//     * removes and deletes all Tasks from the List
+//     * @post the List is completely clear of valid items and has values reset to defaults
+//     */
+//    virtual void clearList()=0;
 
     /**
      * gives a string representation of the title of each Task in the current list.

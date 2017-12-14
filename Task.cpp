@@ -9,13 +9,13 @@
 //Constructors/Destructor
 
 //Default Constructor
-Task::Task() {
-    title = "<-No-Title->";
-    dueDate = 0;
-    priority = 3;
-    completed = false;
-    Id = 12345;
-}
+//Task::Task() {
+//    title = "<-No-Title->";
+//    dueDate = 0;
+//    priority = 3;
+//    completed = false;
+//    Id = 12345;
+//}
 Task::Task(std::string inTitle, int inIdNum) {
     title = inTitle;
     dueDate = 0;
@@ -25,13 +25,14 @@ Task::Task(std::string inTitle, int inIdNum) {
 }
 
 //Constructor
-Task::Task(std::string inTitle, int inDue, int inPriority, int inIdNum){
-    title = inTitle;
-    dueDate = inDue;
-    priority = inPriority;
-    completed = false;
-    Id = inIdNum;
-}
+//Task::Task(std::string inTitle, int inDue, int inPriority, int inIdNum){
+//    title = inTitle;
+//    dueDate = inDue;
+//    priority = inPriority;
+//    completed = false;
+//    Id = inIdNum;
+//}
+
 
 //Default Destructor is sufficient here because the task is not responsible for it's memory/dependencies
 
@@ -73,17 +74,17 @@ int Task::getPriority() {
     return priority;
 }
 
-bool Task::completeTask(){
-    //TODO think about what this will throw if task already completed
-    if(completed == false){
-        completed = true;
-    }
-    return completed;
-}
-
-bool Task::getComplete(){
-    return completed;
-}
+//bool Task::completeTask(){
+//    //TODO think about what this will throw if task already completed
+//    if(completed == false){
+//        completed = true;
+//    }
+//    return completed;
+//}
+//
+//bool Task::getComplete(){
+//    return completed;
+//}
 
 void Task::setId(int Id){
     Task::Id = Id;
