@@ -1,5 +1,7 @@
 #include <iostream>
-#include <string>
+#include <fstream>
+#include <sstream>
+#include <cstring>
 #include "ArrayList.h"
 #include "TaskLinkedList.h"
 #include "Task.h"
@@ -72,6 +74,43 @@
 //
 //}
 
+void printPartsToFile(std::string lineToPrint, char delimiter){
+    //char* charString = new char[lineToPrint.length()+1];
+
+    //std::strcpy(charString,lineToPrint.c_str());
+    std::ofstream fout; //writes to file storetasks.txt
+    if(fout){
+        fout.open("storetasks.txt");
+        std::stringstream ss (lineToPrint);
+        fout<<ss.rdbuf()<<std::endl;
+        fout << lineToPrint << std::endl;
+    }
+
+    fout.close();
+}
+
+
+void writeFile(TaskList* masterList){
+    //ArrayList passed in should be master
+    for(int i =0; i<masterList->itemCount(); i++){
+        std::string line;
+        Task* taskToCopy=masterList->getTaskByIndex(i);
+        line = taskToCopy->getTitle();
+        line+=","+std::to_string(taskToCopy->getDueDate());
+        line+=","+std::to_string(taskToCopy->getPriority());
+        line+=","+std::to_string(taskToCopy->getId());
+        line+=" ";
+        //deal with bool later
+        printPartsToFile(line,' ');
+    }
+
+}
+
+void readFile(){
+
+
+}
+
 bool removeValueAtLLTest(){
     std::cout << "\nremoveTaskByIDTest for Linked List () "<< std::endl;
     TaskList* l1 = new TaskLinkedList();
@@ -127,10 +166,10 @@ bool removeValueAtLLTest(){
     } catch (std::out_of_range& e){
         std::cout << "pass for id of 6 because " << e.what() << std::endl;
     }try {
-         Task* catcher = l1->removeTaskById(-1);
-         std::cout << "Caught: " <<catcher->tostring();
-         delete catcher;
-         catcher= nullptr;
+        Task* catcher = l1->removeTaskById(-1);
+        std::cout << "Caught: " <<catcher->tostring();
+        delete catcher;
+        catcher= nullptr;
     } catch (std::out_of_range& e){
         std::cout << "pass for id of -1 because " << e.what() << std::endl;
     }try {
@@ -311,13 +350,17 @@ bool TestArrayList(){
 //    std::cout<< title <<st0d::endl;
     return true;
 }
+
+
+
+
 void PrototypeController() {
     TaskList* masterList = new TaskLinkedList();
-    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
+    TaskList* masterArrayList = new ArrayList();
 
     //must create empty list of tasks, add first task to that
     int userDirection = -1;
-    while (userDirection != 2) {
+    while (userDirection != -2) {
         std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to quit: " << std::endl;
         std::cin >> userDirection;
         //add to task
@@ -327,6 +370,7 @@ void PrototypeController() {
             //print directions
             std::cout<<"Enter the name of the task: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
+            inTitle=inTitle+input;
             std::cout << inTitle << std::endl;
 
 
@@ -338,11 +382,12 @@ void PrototypeController() {
             int ID = 0; //todo MUST CHANGE TO PRODUCE SOME INTEGER
             Task *newTask = new Task(ID, inTitle, dueDate, complete);
             masterList->addToList(newTask);
+            masterArrayList->addToList(newTask);
         }
             //view tasks
         else if (userDirection == 1) {
            std::string printable;
-            printable= masterList->toString();
+            printable= masterArrayList->toString();
             std::cout<<printable<<"\n\n";
         }
             //complete a task
@@ -361,7 +406,10 @@ void PrototypeController() {
 //        }
             //quit program
         else if (userDirection == 2) {
-        } else {
+            userDirection=-2;
+            writeFile(masterArrayList);
+        }
+        else {
             while (userDirection < 0 || userDirection > 3) {
                 std::cout << "Invalid entry. Please enter 0 to add task, 1 to view, 2 to complete, 3 to quit"
                           << std::endl;
@@ -402,7 +450,5 @@ int main() {
 //    Task* myTask = new Task("task1",1,false,-1);
 //    std::string title = myTask->getTitle();
 //    std::cout<< title <<std::endl;
-
-
     return 0;
 }

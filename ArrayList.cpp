@@ -11,6 +11,12 @@
  * creates an arrayList
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
+
+ArrayList::ArrayList(){
+    currCapacity=4;
+    array=new Task*[currCapacity];
+    currItemCount=0;
+}
 ArrayList::ArrayList(int initialCapacity){
     if(initialCapacity < 2){
         initialCapacity = 2;
@@ -74,21 +80,26 @@ void ArrayList::doubleCapacity(){
 * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
 */
 void ArrayList::addToList(Task* taskToAdd){
-    if(array[0] == nullptr){
-        insertAtFront(taskToAdd);
-    }
-    else{
-        Task* index = array[0];
-        int searchPriority = taskToAdd->getPriority();
-        for(int i = 0; i < currItemCount; i++){
-            if(searchPriority < index->getPriority()){
-                insertAt(taskToAdd,i);
-            }
-            else if(searchPriority > index->getPriority()){
-                insertAtEnd(taskToAdd);
-            }
-        }
-    }
+//    if(array[0] == nullptr){
+//        insertAtFront(taskToAdd);
+//        currItemCount++;
+//        array[0]=taskToAdd;
+//    }
+//    else{
+//        Task* index = array[0];
+//        int searchPriority = taskToAdd->getPriority();
+//        for(int i = 0; i < currItemCount; i++){
+//            if(searchPriority < index->getPriority()){
+//                insertAt(taskToAdd,i);
+//            }
+//            else if(searchPriority >= index->getPriority()){
+//                insertAtEnd(taskToAdd);
+//            }
+//            index=array[i];
+//        }
+        insertAtEnd(taskToAdd);
+        currItemCount++;
+//    }
 }
 
 /**
@@ -104,7 +115,6 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
         this->doubleCapacity();
         array[currItemCount] = taskToAdd;
     }
-    currItemCount++;
 }
 
 /**
@@ -120,7 +130,6 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
         array[i] = array[i-1];
     }
     array[0] = tasktoAdd;
-    currItemCount++;
 }
 
 /**
@@ -259,7 +268,7 @@ int ArrayList::findFirstPriority(int lookFor){
  * @returns the number of un-complete Tasks in the list
  */
  int ArrayList::itemCount(){
-    return itemCount();
+    return currItemCount;
 }
 
 /**

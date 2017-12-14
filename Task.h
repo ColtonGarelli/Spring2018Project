@@ -8,7 +8,7 @@
 
 
 #include <string>
-#include "LinkedNode.h"
+
 
 class Task {
 private:
@@ -19,10 +19,8 @@ private:
     int priority; //Will be a number from 1-5
     bool completed; //true: task is done, false default
     int Id;
-<<<<<<< HEAD
-    //Task* next;
-=======
->>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
+
+
 
 
 public:
@@ -62,12 +60,6 @@ public:
      * @throws - todo Should do something?
      */
     bool completeTask();
-<<<<<<< HEAD
-    bool getComplete();
-    //void setNext(Task* newNext);
-    //Task* getNext();
-=======
->>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
 
     bool getComplete();
 

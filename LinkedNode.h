@@ -6,10 +6,7 @@
 #ifndef LINKEDNODE_H
 #define LINKEDNODE_H
 
-<<<<<<< HEAD
 #include <string>
-=======
->>>>>>> f6908c9abcd78df7f6dd3e54b84ed9ac8799ea35
 #include "Task.h"
 
 class LinkedNode {

@@ -24,6 +24,7 @@ private:
 
 
 
+
 public:
 
     /**
@@ -39,6 +40,7 @@ public:
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
+    ArrayList();
    ArrayList(int initialCapacity=5);
 
     //Copy Constructor
