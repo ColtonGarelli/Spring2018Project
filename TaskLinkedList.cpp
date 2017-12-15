@@ -320,18 +320,24 @@ TaskLinkedList::TaskLinkedList(int itemCount){
             } else {
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind);
                 delPtr = prvPtr->getNext();
-                tempReturn = new Task(prvPtr->getTask());
-                prvPtr = delPtr->getNext();
+                tempReturn = new Task(delPtr->getTask());
+                prvPtr->setNext(delPtr->getNext());
 
                 delete delPtr;
             }
             currLength--;
-            if(isEmpty()){
-                clearList();
+            if(currLength==1){
+                end = front;
+            }else if ( currLength == 0){
+                front = nullptr;
+                end = nullptr;
             }
             return tempReturn;
 
+        } else {
+            throw std::out_of_range("List is empty");
         }
+
     }
 
     bool TaskLinkedList::isEmpty() {

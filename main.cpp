@@ -1,9 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstring>
 #include <vector>
 #include "TaskList.h"
 #include "ArrayList.h"
+#include "ArrayLib.h"
 #include "TaskLinkedList.h"
 
 
@@ -277,55 +279,46 @@
 //    copyTest();
 //    findMaxIndexTest();
 //    getValueAtTest();
-//
-//
-//
-//    if (error) { // if a test failed return false
-//        return false;
-//    } else { //else all tests passed because there were no errors
-//        return true;
-//    }
-//
-//}
-
-//bool TestArrayList(){
-//    std::cout << ("\n*************************\nTESTER:\n");
-//    TaskList* masterList = new TaskLinkedList();
-//    Task* task1 = new Task(0, "Task1");
-//    Task* task2 = new Task(1, "Task2");
-//    Task* task3 = new Task(2, "Task3");
-//    Task* task4 = new Task(3, "Task4");
-//    Task* task5 = new Task(4, "Task5");
-//
-//    masterList->addToList(task1);
-//    masterList->addToList(task2);
-//    masterList->addToList(task3);
-//    masterList->addToList(task4);
-//    masterList->addToList(task5);
-//    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
-//    masterArrayList->insertAtEnd(task1);
-//    masterArrayList->insertAtEnd(task2);
-//    masterArrayList->insertAtEnd(task3);
-//    masterArrayList->insertAtEnd(task4);
-//    masterArrayList->insertAt(task5,2);
-//    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
-//    std::cout << masterArrayList->toString();
-//
-////    std::string title = myTask->getTitle();
-////    std::cout<< title <<st0d::endl;
-//    return true;
-//}
 
 
 
+    if (error) { // if a test failed return false
+        return false;
+    } else { //else all tests passed because there were no errors
+        return true;
+    }
 
+}
 
+bool TestArrayList(){
+    std::cout << ("\n*************************\nTESTER:\n");
+    TaskList* masterList = new TaskLinkedList();
+    Task* task1 = new Task(0, "Task1");
+    Task* task2 = new Task(1, "Task2");
+    Task* task3 = new Task(2, "Task3");
+    Task* task4 = new Task(3, "Task4");
+    Task* task5 = new Task(4, "Task5");
+
+    masterList->addToList(task1);
+    masterList->addToList(task2);
+    masterList->addToList(task3);
+    masterList->addToList(task4);
+    masterList->addToList(task5);
+    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
+    masterArrayList->insertAtEnd(task1);
+    masterArrayList->insertAtEnd(task2);
+    masterArrayList->insertAtEnd(task3);
+    masterArrayList->insertAtEnd(task4);
+    masterArrayList->insertAt(task5,2);
+    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
+    std::cout << masterArrayList->toString();
 
 
 
 
 
 TaskList* readFile() {
+    //todo Talk with group about how to handle when a user enters a task title with commas
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
     std::ifstream fin("storetasks.txt");
@@ -406,6 +399,11 @@ void writeFile(TaskList* masterList){
 
 
 }
+
+
+int userDirection(int someInt){
+
+}
 int intEntry(){
     int userDirection=-1;
     std::string userString;
@@ -430,7 +428,6 @@ int intEntry(){
             invalid=false;
         }
     }
-    return userDirection;
 
 }
 
@@ -466,8 +463,7 @@ int optionEntry() {
     }
     return userDirection;
 }
-
-Task* taskIn(TaskList* masterList){
+Task* taskIn(int &uniqueID){
     std::string inTitle;
     std::string input;
     //print directions
@@ -475,9 +471,8 @@ Task* taskIn(TaskList* masterList){
     std::getline(std::cin >> inTitle, input);
     inTitle = inTitle + input;
     std::cout << inTitle << std::endl;
-    int dueDate;
     std::cout << "Enter days until due: " << std::endl;
-    dueDate=intEntry();
+    int dueDate = intEntry();
     bool complete = false;
     int ID = rand()%500;
     for(int i; i<(masterList->itemCount());i++){
@@ -486,7 +481,10 @@ Task* taskIn(TaskList* masterList){
             i=0;
         }
     }
+    int ID = uniqueID;
+
     Task *newTask = new Task(ID, inTitle, dueDate, complete);
+    uniqueID++;
     return newTask;
 }
 
@@ -495,15 +493,18 @@ Task* taskIn(TaskList* masterList){
 
 void PrototypeController() {
     TaskList *masterList = new TaskLinkedList();
-    TaskList* archiveList= new TaskLinkedList();
     TaskList *masterArrayList = new ArrayList();
+    int uniqueID = 0;
+    masterList = readFile();
+    std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
+
     int userDirection=-1;
     //must create empty list of tasks, add first task to that
     //add to task
     while (userDirection != 0) {
         userDirection = optionEntry();
         if (userDirection == 1) {
-            Task* newTask=taskIn(masterList);
+            Task* newTask=taskIn(uniqueID);
             masterList->addToList(newTask);
             masterArrayList->addToList(newTask);
         }
@@ -521,7 +522,7 @@ void PrototypeController() {
         }//view today
         else if(userDirection==3){
 
-        }//view this week
+        }
         else if(userDirection==4){
 
         }
@@ -550,7 +551,7 @@ int main() {
      * todo: write demo code
      */
 
-    PrototypeController();
+    // PrototypeController();
 
 
 //    if(TestLinkedList() && TestArrayList()) {

@@ -9,16 +9,18 @@
 
 #include <string>
 
+class Bad_Task_Id : std::exception{};
+
 
 class Task {
 private:
+    int Id;
     std::string title;
     //int duration;
     //Task* dependant;
     int dueDate;//days till due not including today (today = 0, tomorrow = 1, yesterday = -1)
     int priority; //Will be a number from 1-5
     bool completed; //true: task is done, false default
-    int Id;
 
 
 
@@ -67,7 +69,14 @@ public:
 
     int getId();
 
-    std::string tostring();
+    std::string toString();
+
+    /**
+     * returns all the parts of a task as a comma delemited string
+     * @return id,title,due,priority,isCompleted
+     * @throws Bad_Task_Id if the task you try to file is not valid/has been deleted
+     */
+    std::string toFile();
 
 //  int getDuration() const;
 // void setDuration(int duration);

@@ -11,6 +11,7 @@
 #include "ArrayLib.h"
 #include "Task.h"
 
+
 class ArrayList : public TaskList{
 private:
     //pointer to the start of the array
@@ -19,9 +20,6 @@ private:
     int currItemCount;
     //size of the current array
     int currCapacity;
-
-
-
 
 public:
 
@@ -116,15 +114,6 @@ public:
      */
 
     Task* getTaskByIndex(int index);
-
-//    /**
-//     * returns an arrayList of pointers to tasks, organized by highest priority, within the number of days remaining
-//     * @param masterList - A Linked node structure with pointers to Tasks to be searched through
-//     * @param daysRemaining - the number of days till the Task is due. if a Task is <= the daysRemaining it will be added to the retruned ArrayList
-//     * @return A pointer to an ArrayList of pointers to Tasks, if no tasks are due in daysRemaining range, Arraylist will be empty.
-//     */
-//    virtual ArrayList* buildView(TaskLinkedList* masterList, int daysRemaining)=0;
-
 
     /**
      * removes the Task from the List
