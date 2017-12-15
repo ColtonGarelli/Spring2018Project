@@ -37,6 +37,8 @@ public:
      */
     TaskLinkedList();
 
+    TaskLinkedList(int itemCount);
+
     /**
      * @efficiency - O(n)
      * Copy constructor

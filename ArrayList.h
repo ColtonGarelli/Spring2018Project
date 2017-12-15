@@ -41,7 +41,8 @@ public:
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
     ArrayList();
-   ArrayList(int initialCapacity=5);
+
+   ArrayList(int initialCapacity);
 
     //Copy Constructor
     ArrayList(const ArrayList& arrayListToCopy);

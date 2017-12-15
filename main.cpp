@@ -2,7 +2,9 @@
 #include <fstream>
 #include <sstream>
 #include <cstring>
+#include <vector>
 #include "ArrayList.h"
+#include "ArrayLib.h"
 #include "TaskLinkedList.h"
 #include "Task.h"
 #include "TaskList.h"
@@ -74,42 +76,7 @@
 //
 //}
 
-void printPartsToFile(std::string lineToPrint, char delimiter){
-    //char* charString = new char[lineToPrint.length()+1];
 
-    //std::strcpy(charString,lineToPrint.c_str());
-    std::ofstream fout; //writes to file storetasks.txt
-    if(fout){
-        fout.open("storetasks.txt");
-        std::stringstream ss (lineToPrint);
-        fout<<ss.rdbuf()<<std::endl;
-        fout << lineToPrint << std::endl;
-    }
-
-    fout.close();
-}
-
-
-void writeFile(TaskList* masterList){
-    //ArrayList passed in should be master
-    for(int i =0; i<masterList->itemCount(); i++){
-        std::string line;
-        Task* taskToCopy=masterList->getTaskByIndex(i);
-        line = taskToCopy->getTitle();
-        line+=","+std::to_string(taskToCopy->getDueDate());
-        line+=","+std::to_string(taskToCopy->getPriority());
-        line+=","+std::to_string(taskToCopy->getId());
-        line+=" ";
-        //deal with bool later
-        printPartsToFile(line,' ');
-    }
-
-}
-
-void readFile(){
-
-
-}
 
 bool removeValueAtLLTest(){
     std::cout << "\nremoveTaskByIDTest for Linked List () "<< std::endl;
@@ -351,101 +318,262 @@ bool TestArrayList(){
     return true;
 }
 
+TaskList* readFile() {
+    TaskList* masterList = new TaskLinkedList();
+    std::string textIn;
+    std::ifstream fin("storetasks.txt");
+    while (!fin.eof()) {
+        getline(fin, textIn,' ');
+        std::stringstream parts(textIn);
+        char delimiter = ',';
+        while (parts) {
+            std::string holder;
+            getline(parts, holder, delimiter);
+            int idIn;
+            getline(parts, holder, delimiter);
+            std::string title = holder;
+            std::stringstream makeID(holder);
+            makeID >> idIn;
+            int dueDate;
+            getline(parts, holder, delimiter);
+            std::stringstream makeDue(holder);
+            makeDue >> dueDate;
+            int priority;
+            getline(parts, holder, delimiter);
+            std::stringstream priorityS(holder);
+            priorityS >> priority;
+            bool complete;
+            getline(parts, holder, delimiter);
+            std::stringstream makeComplete(holder);
+            makeComplete >> complete;
+            Task *newTask = new Task(idIn, title, dueDate, complete);
+            masterList->addToList(newTask);
+        }
+    }
+    fin.close();
+}
+
+
+
+//    fin>>textIn;
+//    std::stringstream parts(textIn);
+//
+//    std::cout<<textIn;
+//
+//
+//
+//    char delimiter = ',';
+//    while(parts){
+//        std::string holder;
+//        getline(parts,holder,delimiter);
+//        int idIn;
+//        getline(parts,holder,delimiter);
+//        std::string title=holder;
+//        std::stringstream makeID(holder);
+//        makeID>>idIn;
+//        int dueDate;
+//        getline(parts,holder,delimiter);
+//        std::stringstream makeDue(holder);
+//        makeDue>>dueDate;
+//        int priority;
+//        getline(parts,holder,delimiter);
+//        std::stringstream priorityS(holder);
+//        priorityS>>priority;
+//        bool complete;
+//        getline(parts,holder,delimiter);
+//        std::stringstream makeComplete(holder);
+//        makeComplete>>complete;
+//        Task *newTask = new Task(idIn, title, dueDate, complete);
+//        masterList->addToList(newTask);
+//
+//    }
+//
+//
+//
+//
+//
+//
+//
+
+//    return masterList;
+
+
+
+void printPartsToFile(std::string lineToPrint, char delimiter){
+    std::ofstream fout("storetasks.txt"); //writes to file storetasks.txt
+    if(fout){
+        std::stringstream parts(lineToPrint);
+        while(parts){
+            std::string part;
+            getline(parts,part);
+            fout<<part<<std::endl;
+        }
+        fout.close();
+    }
+    else{
+        std::cout<<"error in opening parts";
+    }
+
+
+}
+
+
+void writeFile(TaskList* masterList){
+    //ArrayList passed in should be master
+    std::string line;//=(std::to_string(masterList->itemCount())+" ");
+    for(int i =0; i<masterList->itemCount(); i++){
+        Task* taskToCopy=masterList->getTaskByIndex(i);
+        line+=std::to_string(taskToCopy->getId());
+        line +=","+taskToCopy->getTitle();
+        line+=","+std::to_string(taskToCopy->getDueDate());
+        line+=","+std::to_string(taskToCopy->getPriority());
+        line+=","+std::to_string(taskToCopy->getComplete())+" ";
+
+    }
+    printPartsToFile(line,' ');
+
+
+}
+
+
+int userDirection(int someInt){
+
+}
+int intEntry(){
+    int userDirection=-1;
+    std::string userString;
+    std::cin >> userString;
+    std::stringstream convertor;
+    convertor << userString;
+    convertor >> userDirection;
+    bool invalid=false;
+    if(convertor.fail()){
+        invalid=true;
+    }
+    while(invalid) {
+        std::cout << "Please enter a valid number." << std::endl;
+        std::cin >> userString;
+        std::stringstream convertor;
+        convertor << userString;
+        convertor >> userDirection;
+        if(convertor.fail()){
+            invalid=true;
+        }
+        else{
+            invalid=false;
+        }
+    }
+
+}
+
+int optionEntry() {
+    int userDirection = -1;
+    std::cout << "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+    std::string userString;
+    std::cin >> userString;
+    std::stringstream convertor;
+    convertor << userString;
+    convertor >> userDirection;
+    bool invalid = false;
+    if (convertor.fail()) {
+        invalid = true;
+    }
+    while (invalid) {
+        std::cout << "Please enter a valid number." << std::endl;
+        std::cout << "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+        std::cin >> userString;
+        std::stringstream convertor;
+        convertor << userString;
+        convertor >> userDirection;
+        if (convertor.fail()) {
+            invalid = true;
+        } else {
+            invalid = false;
+        }
+    }
+    while (userDirection < 0 || userDirection > 3) {
+        std::cout << "Invalid entry."
+                  << std::endl;
+        userDirection = optionEntry();
+    }
+    return userDirection;
+}
+Task* taskIn(){
+    std::string inTitle;
+    std::string input;
+    //print directions
+    std::cout << "Enter the name of the task: " << std::endl;
+    std::getline(std::cin >> inTitle, input);
+    inTitle = inTitle + input;
+    std::cout << inTitle << std::endl;
+    int dueDate;
+    std::cout << "Enter days until due: " << std::endl;
+    intEntry();
+    bool complete = false;
+    int ID = 0;
+//            int ID = genRandInt(0,500);
+//            for(int i; i<(masterList->itemCount());i++){
+//                if(ID == masterList->getTaskByIndex(i)->getId()){
+//                    ID=genRandInt(0,500);
+//                    i=0;
+//                }
+//            }
+    Task *newTask = new Task(ID, inTitle, dueDate, complete);
+    return newTask;
+}
+
 
 
 
 void PrototypeController() {
-    TaskList* masterList = new TaskLinkedList();
-    TaskList* masterArrayList = new ArrayList();
-
+    TaskList *masterList = new TaskLinkedList();
+    TaskList *masterArrayList = new ArrayList();
+    int userDirection=-1;
     //must create empty list of tasks, add first task to that
-    int userDirection = -1;
-    while (userDirection != -2) {
-        std::cout << "Enter 0 to add a new task, 1 to view tasks, 2 to quit: " << std::endl;
-        std::cin >> userDirection;
-        //add to task
-        if (userDirection == 0) {
-            std::string inTitle;
-            std::string input;
-            //print directions
-            std::cout<<"Enter the name of the task: "<<std::endl;
-            std::getline(std::cin>>inTitle,input);
-            inTitle=inTitle+input;
-            std::cout << inTitle << std::endl;
-
-
-            int dueDate;
-            std::cout << "Enter days until due: " << std::endl;
-            std::cin >> dueDate;
-            std::cout << dueDate << std::endl;
-            bool complete = false;
-            int ID = 0; //todo MUST CHANGE TO PRODUCE SOME INTEGER
-            Task *newTask = new Task(ID, inTitle, dueDate, complete);
+    //add to task
+    while (userDirection != 0) {
+        userDirection = optionEntry();
+        if (userDirection == 1) {
+            Task* newTask=taskIn();
             masterList->addToList(newTask);
             masterArrayList->addToList(newTask);
         }
-            //view tasks
-        else if (userDirection == 1) {
-           std::string printable;
-            printable= masterArrayList->toString();
-            std::cout<<printable<<"\n\n";
-        }
-            //complete a task
-//        else if (userDirection == 2) {
-//            //should call view w/ indicies????
-//
-//            //print tasks and associated numbers
-//
-//            //for each case do below
-//            Task *taskPtr;
-//            taskPtr=masterList->getFront();
-//
-//
-//            std::cout<< "The task " << taskPtr->getTitle() <<" is "<< std::boolalpha<<taskPtr->getComplete()<< std::endl;
-//
-//        }
-            //quit program
+            //view all tasks
         else if (userDirection == 2) {
-            userDirection=-2;
-            writeFile(masterArrayList);
+            std::cout << masterArrayList->toString() << "\n\n";
         }
-        else {
-            while (userDirection < 0 || userDirection > 3) {
-                std::cout << "Invalid entry. Please enter 0 to add task, 1 to view, 2 to complete, 3 to quit"
-                          << std::endl;
-                std::cin >> userDirection;
-            }
-        }
+        else if(userDirection==3){
 
+        }
+        else if(userDirection==4){
+
+        }
+        else if(userDirection==5){
+
+        }
+            //enter 0 to quit program
     }
+    //upon quit writes to file
 
+    writeFile(masterArrayList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
-
-    //prompts user with request to add a task
-
-
-    //prompt user to input field variables (constructor calls set methods to construct new node)
-
-
-    //add the node to the list
-
-
-    //prompt user to view list, add new task, complete task, quit
-
-
-    //do that thing
-
-    //repeat above until quit is entered
 }
+
+
 
 
 int main() {
 
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
+    //TaskList* fileRead = readFile();
+    //std::cout << fileRead->toString() << "\n\n";
 
-    if(TestLinkedList() && TestArrayList()) {
-        PrototypeController();
-    }
+     PrototypeController();
+
+
+//    if(TestLinkedList() && TestArrayList()) {
+//        PrototypeController();
+//    }
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
 //    Task* myTask = new Task("task1",1,false,-1);
 //    std::string title = myTask->getTitle();

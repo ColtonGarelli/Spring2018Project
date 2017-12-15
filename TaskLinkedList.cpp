@@ -14,6 +14,9 @@
         front = nullptr;
         end = nullptr;
     }
+TaskLinkedList::TaskLinkedList(int itemCount){
+
+}
     //copy constructor (makes it's own linked list with it's own nodes and with new copied tasks)
     TaskLinkedList::TaskLinkedList(const TaskLinkedList& listToCopy){
         //todo test this
@@ -177,6 +180,7 @@
         LinkedNode* tempPtr = here->getNext();
         here->setNext(newItem);
         newItem->setNext(tempPtr);
+
     }
 
     void TaskLinkedList::addToList(Task* itemToAdd){
@@ -223,8 +227,10 @@
         } else {
             if (index == 0) {
                 insertAtFront(taskToAdd);
+                currLength++;
             } else if (index == currLength) {
                 insertAtEnd(taskToAdd);
+                currLength++;
             } else {
                 LinkedNode *beforePtr = front;
                 for (int i = 0; i < index - 1; i++) {

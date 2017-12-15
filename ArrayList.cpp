@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Task.h"
 #include "ArrayList.h"
+#include<sstream>
 
 
 /**
@@ -295,10 +296,19 @@ int ArrayList::findFirstPriority(int lookFor){
 
 
 std::string ArrayList::toString() {
+
     std::string printable = "To Do:\n";
     for(int i = 0; i < currItemCount; i++){
-        printable += std::to_string(i + 1) + "." + array[i]->getTitle() + "\n";
+        printable += std::to_string(i + 1) + ". " + array[i]->getTitle() + "\n";
+        printable += "Due Date: "+std::to_string(array[i]->getDueDate()) + "\n";
+        printable += "Priority: "+std::to_string(array[i]->getPriority()) + "\n";
+        if(!array[i]->getComplete()){
+            printable += "Complete: No \n";
+        }
+        else{
+            printable+="Complete: Yes \n";
+        }
+
     }
-    printable += "}";
     return printable;
 }
