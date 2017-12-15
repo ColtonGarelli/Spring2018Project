@@ -109,81 +109,80 @@
 //}
 
 
-bool removeValueAtLLTest(){
-    std::cout << "\nremoveTaskByIDTest for Linked List () "<< std::endl;
-    TaskList* l1 = new TaskLinkedList();
-    //fill the list with 6 tasks
-    for(int p = 1; p < 7; p++){
-        Task* tempPtr = new Task(p, "Test Task #"+std::to_string(p));
+bool removeValueAtLLTest() {
+    std::cout << "\nremoveTaskByIDTest for Linked List () \n---------------------------------------" << std::endl;
+    TaskList *l1 = new TaskLinkedList();
+
+    std::cout << "fill the list with 6 tasks" << std::endl;
+    for (int p = 1; p < 7; p++) {
+        Task *tempPtr = new Task(p, "Test Task #" + std::to_string(p));
         l1->addToList(tempPtr);
         tempPtr = nullptr;
     }
-    std::cout << l1->toString() << std::endl;
+
+    std::cout << "try removing from front: ";
     bool errors = false;
     //regular removal case
-    for( int i = 1; !l1->isEmpty(); i++){
-        Task* checker = l1->removeTaskById(i);
-        if(i != checker->getId()){
+    for (int i = 1; !l1->isEmpty(); i++) {
+        Task *checker = l1->removeTaskById(i);
+        if (i != checker->getId()) {
             errors = true;
         }
         delete checker;
         checker = nullptr;
     }
-    if(errors){
-        std::cout<<"FAIL"<<std::endl;
-    }else{
-        std::cout<<"Pass"<<std::endl;
+    if (errors) {
+        std::cout << "FAIL" << std::endl;
+    } else {
+        std::cout << "Pass" << std::endl;
     }
-    std::cout << l1->toString() << std::endl;
-    l1->clearList();
+//    std::cout << l1->toString() << std::endl;
+//    l1->clearList();
 
     //refill the list with 6 items
-    std::cout <<"refilling list with 6 Tasks" << std::endl;
-    for(int p = 1; p < 7; p++){
-        Task* tempPtr = new Task(p, "Second Test Task #"+std::to_string(p));
+    std::cout << "refilling list with 6 Tasks" << std::endl;
+    for (int p = 1; p < 7; p++) {
+        Task *tempPtr = new Task(p, "Second Test Task #" + std::to_string(p));
         l1->addToList(tempPtr);
         tempPtr = nullptr;
     }
-    //remove the last one
-    //todo write a for loop that searched for each id in reverse order.
-    std::cout << "Try remove Task with id of 6" << std::endl;
-    Task* catcher = l1->removeTaskById(6);
-    std::cout << "Caught: " << catcher->toString();
-    delete catcher;
-    catcher= nullptr;
-    std::cout << "pass" <<std::endl;
-    l1->toString();
+    //remove Tasks from end including out of range
+    for (int r = 7; r >= 0; r--) {
+        std::cout << "Try remove Task with id of " << std::to_string(r) << ": ";
+        try {
+            Task *catcher = l1->removeTaskById(r);
+//            std::cout << "Caught: " << catcher->toString();
+            delete catcher;
+            catcher = nullptr;
+            std::cout << "pass" << std::endl;
+        } catch (std::out_of_range &e) {
+            std::cout << "pass for id of " << std::to_string(r) << " because " << e.what() << std::endl;
+        }
 
-    //try things out of bounds
-    try {
-        std::cout << "Try remove Task with id of 6 again" << std::endl;
-        Task* catcher = l1->removeTaskById(6);
-        std::cout << "Caught: " << catcher->toString();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of 6 because " << e.what() << std::endl;
-    }try {
-        Task* catcher = l1->removeTaskById(-1);
-        std::cout << "Caught: " << catcher->toString();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of -1 because " << e.what() << std::endl;
-    }try {
-        Task* catcher = l1->removeTaskById(0);
-        std::cout << "Caught: " << catcher->toString();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of 0 because " << e.what() << std::endl;
     }
 
+    std::cout << "\nMake a small array and try removing from middle" << std::endl;
+    for (int p = 1; p < 4; p++) {
+        Task *tempPtr = new Task(p, "Test Task #" + std::to_string(p), p + 2);
+        l1->addToList(tempPtr);
+        tempPtr = nullptr;
+    }
     std::cout << l1->toString() << std::endl;
-    int lastTaskIndex = l1->itemCount()-1;
-    std::cout << "removing index "<<lastTaskIndex<<"| aka item # "<<lastTaskIndex+1<<"| relates to value: {"<< l1->getTaskByIndex(
-            lastTaskIndex)->toString()<<"}"<<std::endl;
-    std::cout << l1->toString() << std::endl;
+    int lastTaskIndex = l1->itemCount() - 2;
+    try {
+        Task *catcher = l1->getTaskByIndex(lastTaskIndex);
+        std::cout << "getting index " << lastTaskIndex << "| has id of " << catcher->getId()
+                  << "| relates to task: " << catcher->toString() << std::endl;
+        catcher = nullptr;
+        std::cout << "but the list remains unchanged from get method: " << l1->toString() << std::endl;
+        Task *catcher2 = l1->removeTaskById(l1->getTaskByIndex(lastTaskIndex)->getId());
+        delete catcher2;
+        catcher2 = nullptr;
+        std::cout << "Now remove task from index " << lastTaskIndex << ": " << l1->toString() << std::endl;
+    } catch (std::out_of_range &e) {
+        std::cout << "Fail" << std::endl;
+    }
+
     return errors;
 }
 
@@ -568,12 +567,12 @@ int main() {
 
 
 
-     PrototypeController();
+//     PrototypeController();
 
 
-//    if(TestLinkedList() && TestArrayList()) {
-//        PrototypeController();
-//    }
+    if(TestLinkedList() && TestArrayList()) {
+        PrototypeController();
+    }
     //Task::Task(std::string inTitle="newTask", int inDue=1, bool inTaskComplete=false, int inIdNum=-1)
 //    Task* myTask = new Task("task1",1,false,-1);
 //    std::string title = myTask->getTitle();
