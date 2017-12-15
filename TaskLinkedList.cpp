@@ -332,6 +332,7 @@ TaskLinkedList::TaskLinkedList(int itemCount){
             return tempReturn;
 
         }
+
     }
 
     bool TaskLinkedList::isEmpty() {

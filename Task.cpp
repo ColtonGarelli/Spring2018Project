@@ -11,27 +11,27 @@
 
 //Default Constructor
 Task::Task() {
+    Id = 12345;
     title = "<-No-Title->";
     dueDate = 0;
     priority = 3;
     completed = false;
-    Id = 12345;
 }
 Task::Task(int inIdNum, std::string inTitle) {
+    Id = inIdNum;
     title = inTitle;
     dueDate = 0;
     priority = 3;
     completed = false;
-    Id = inIdNum;
 }
 
 //Constructor
 Task::Task(int inIdNum, std::string inTitle, int inDue, int inPriority){
+    Id = inIdNum;
     title = inTitle;
     dueDate = inDue;
     priority = inPriority;
     completed = false;
-    Id = inIdNum;
 }
 
 Task::Task(const Task* taskToCopy){
@@ -45,22 +45,22 @@ Task::Task(const Task* taskToCopy){
 
 //Default Destructor is sufficient here because the task is not responsible for it's memory/dependencies
 Task::~Task() {
+    Id=-12345;
     title = "";
     dueDate=0;
     priority=0;
     completed=true;
-    Id=-12345;
 }
 
 
 //asignment operator
 Task& Task::operator=(const Task& taskToCopy){
     if(this != &taskToCopy){
+        Id= taskToCopy.Id;
         title = taskToCopy.title;
         dueDate = taskToCopy.dueDate;
         priority = taskToCopy.priority;
         completed = taskToCopy.completed;
-        Id= taskToCopy.Id;
     }
     return* this;
 }
@@ -111,7 +111,7 @@ void Task::setId(int Id){
 int Task::getId() {
     return Id;
 }
-std::string Task::tostring() {
+std::string Task::toString() {
     std::string priotiryStr = "";
     std::string completedStr = "";
 
@@ -128,6 +128,21 @@ std::string Task::tostring() {
     return "\nTask ID: " + std::to_string(Id) + "\n" + title + " is due in " + std::to_string(dueDate) +
            " days.\nPriority: " + priotiryStr + "\t "+completedStr+"\n";
 }
+std::string Task::toFile() {
+    //todo have not tested this
+//    if(Id != -12345 &&
+//       title != "" &&
+//       dueDate != 0 &&
+//       priority != 0 &&
+//       completed != true) {
+        return std::to_string(Id) + "," + title + "," + std::to_string(dueDate) + "," + std::to_string(priority) + "," +
+               std::to_string(completed)+"\n";
+//    } else{
+//        throw Bad_Task_Id();
+//    }
+
+}
+
 
 //int Task::getDuration() {
 //    return duration;

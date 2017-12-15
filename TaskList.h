@@ -10,7 +10,6 @@
 //#include "TaskLinkedList.h"
 #include "Task.h"
 
-//class Bad_Task_Id : std::exception{};
 
 
 class TaskList{

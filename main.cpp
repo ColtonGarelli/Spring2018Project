@@ -76,6 +76,37 @@
 //
 //}
 
+//void printPartsToFile(std::string lineToPrint, char delimiter){
+//    //char* charString = new char[lineToPrint.length()+1];
+//
+//    //std::strcpy(charString,lineToPrint.c_str());
+//    std::ofstream fout; //writes to file storetasks.txt
+//    if(fout){
+//        fout.open("storetasks.txt");
+//        std::stringstream ss (lineToPrint);
+//        fout<<ss.rdbuf()<<std::endl;
+//        fout << lineToPrint << std::endl;
+//    }
+//
+//    fout.close();
+//}
+
+
+//void writeFile(TaskList* masterList){
+//    //ArrayList passed in should be master
+//    for(int i =0; i<masterList->itemCount(); i++){
+//        std::string line;
+//        Task* taskToCopy=masterList->getTaskByIndex(i);
+//        line = taskToCopy->getTitle();
+//        line+=","+std::to_string(taskToCopy->getDueDate());
+//        line+=","+std::to_string(taskToCopy->getPriority());
+//        line+=","+std::to_string(taskToCopy->getId());
+//        line+=" ";
+//        //deal with bool later
+//        printPartsToFile(line,' ');
+//    }
+//
+//}
 
 
 bool removeValueAtLLTest(){
@@ -117,7 +148,7 @@ bool removeValueAtLLTest(){
     //todo write a for loop that searched for each id in reverse order.
     std::cout << "Try remove Task with id of 6" << std::endl;
     Task* catcher = l1->removeTaskById(6);
-    std::cout << "Caught: " <<catcher->tostring();
+    std::cout << "Caught: " << catcher->toString();
     delete catcher;
     catcher= nullptr;
     std::cout << "pass" <<std::endl;
@@ -127,21 +158,21 @@ bool removeValueAtLLTest(){
     try {
         std::cout << "Try remove Task with id of 6 again" << std::endl;
         Task* catcher = l1->removeTaskById(6);
-        std::cout << "Caught: " <<catcher->tostring();
+        std::cout << "Caught: " << catcher->toString();
         delete catcher;
         catcher= nullptr;
     } catch (std::out_of_range& e){
         std::cout << "pass for id of 6 because " << e.what() << std::endl;
     }try {
         Task* catcher = l1->removeTaskById(-1);
-        std::cout << "Caught: " <<catcher->tostring();
+        std::cout << "Caught: " << catcher->toString();
         delete catcher;
         catcher= nullptr;
     } catch (std::out_of_range& e){
         std::cout << "pass for id of -1 because " << e.what() << std::endl;
     }try {
         Task* catcher = l1->removeTaskById(0);
-        std::cout << "Caught: " <<catcher->tostring();
+        std::cout << "Caught: " << catcher->toString();
         delete catcher;
         catcher= nullptr;
     } catch (std::out_of_range& e){
@@ -150,7 +181,8 @@ bool removeValueAtLLTest(){
 
     std::cout << l1->toString() << std::endl;
     int lastTaskIndex = l1->itemCount()-1;
-    std::cout << "removing index "<<lastTaskIndex<<"| aka item # "<<lastTaskIndex+1<<"| relates to value: {"<<l1->getTaskByIndex(lastTaskIndex)->tostring()<<"}"<<std::endl;
+    std::cout << "removing index "<<lastTaskIndex<<"| aka item # "<<lastTaskIndex+1<<"| relates to value: {"<< l1->getTaskByIndex(
+            lastTaskIndex)->toString()<<"}"<<std::endl;
     std::cout << l1->toString() << std::endl;
     return errors;
 }
@@ -281,6 +313,7 @@ bool TestLinkedList() {
 //    getValueAtTest();
 
 
+    std::cout<<" ---- Linked List Tests Complete ----"<<std::endl;
 
     if (error) { // if a test failed return false
         return false;
@@ -292,33 +325,29 @@ bool TestLinkedList() {
 
 bool TestArrayList(){
     std::cout << ("\n*************************\nTESTER:\n");
-    TaskList* masterList = new TaskLinkedList();
+    TaskList* masterList = new ArrayList(2);
     Task* task1 = new Task(0, "Task1");
     Task* task2 = new Task(1, "Task2");
     Task* task3 = new Task(2, "Task3");
     Task* task4 = new Task(3, "Task4");
     Task* task5 = new Task(4, "Task5");
+    Task* task6 = new Task(5, "Task6");
 
     masterList->addToList(task1);
     masterList->addToList(task2);
     masterList->addToList(task3);
     masterList->addToList(task4);
     masterList->addToList(task5);
-    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
-    masterArrayList->insertAtEnd(task1);
-    masterArrayList->insertAtEnd(task2);
-    masterArrayList->insertAtEnd(task3);
-    masterArrayList->insertAtEnd(task4);
-    masterArrayList->insertAt(task5,2);
-    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
-    std::cout << masterArrayList->toString();
+    masterList->addToList(task6);
 
-//    std::string title = myTask->getTitle();
-//    std::cout<< title <<st0d::endl;
+    Task* getTaskTest = masterList->getTaskByIndex(2);
+    std::cout << masterList->toString();
+
     return true;
 }
 
 TaskList* readFile() {
+    //todo Talk with group about how to handle when a user enters a task title with commas
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
     std::ifstream fin("storetasks.txt");
@@ -388,14 +417,15 @@ void writeFile(TaskList* masterList){
     std::string line;//=(std::to_string(masterList->itemCount())+" ");
     for(int i =0; i<masterList->itemCount(); i++){
         Task* taskToCopy=masterList->getTaskByIndex(i);
-        line+=std::to_string(taskToCopy->getId());
-        line +=","+taskToCopy->getTitle();
-        line+=","+std::to_string(taskToCopy->getDueDate());
-        line+=","+std::to_string(taskToCopy->getPriority());
-        line+=","+std::to_string(taskToCopy->getComplete())+" ";
+        line+=taskToCopy->toFile();
+//        line+=std::to_string(taskToCopy->getId());
+//        line +=","+taskToCopy->getTitle();
+//        line+=","+std::to_string(taskToCopy->getDueDate());
+//        line+=","+std::to_string(taskToCopy->getPriority());
+//        line+=","+std::to_string(taskToCopy->getComplete())+" ";
 
     }
-    printPartsToFile(line,' ');
+    printPartsToFile(line,'\n');
 
 
 }
@@ -428,6 +458,7 @@ int intEntry(){
             invalid=false;
         }
     }
+    return userDirection;
 
 }
 
@@ -463,7 +494,7 @@ int optionEntry() {
     }
     return userDirection;
 }
-Task* taskIn(){
+Task* taskIn(int &uniqueID){
     std::string inTitle;
     std::string input;
     //print directions
@@ -471,11 +502,11 @@ Task* taskIn(){
     std::getline(std::cin >> inTitle, input);
     inTitle = inTitle + input;
     std::cout << inTitle << std::endl;
-    int dueDate;
+
     std::cout << "Enter days until due: " << std::endl;
-    intEntry();
+    int dueDate = intEntry();
     bool complete = false;
-    int ID = 0;
+    int ID = uniqueID;
 //            int ID = genRandInt(0,500);
 //            for(int i; i<(masterList->itemCount());i++){
 //                if(ID == masterList->getTaskByIndex(i)->getId()){
@@ -484,6 +515,7 @@ Task* taskIn(){
 //                }
 //            }
     Task *newTask = new Task(ID, inTitle, dueDate, complete);
+    uniqueID++;
     return newTask;
 }
 
@@ -493,19 +525,24 @@ Task* taskIn(){
 void PrototypeController() {
     TaskList *masterList = new TaskLinkedList();
     TaskList *masterArrayList = new ArrayList();
+    int uniqueID = 0;
+    masterList = readFile();
+    std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
+
     int userDirection=-1;
     //must create empty list of tasks, add first task to that
     //add to task
+    std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
     while (userDirection != 0) {
         userDirection = optionEntry();
         if (userDirection == 1) {
-            Task* newTask=taskIn();
+            Task* newTask=taskIn(uniqueID);
             masterList->addToList(newTask);
             masterArrayList->addToList(newTask);
         }
             //view all tasks
         else if (userDirection == 2) {
-            std::cout << masterArrayList->toString() << "\n\n";
+            std::cout <<  masterArrayList->toString() << "\n\n";
         }
         else if(userDirection==3){
 
@@ -520,7 +557,7 @@ void PrototypeController() {
     }
     //upon quit writes to file
 
-    writeFile(masterArrayList);
+    writeFile(masterList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
 }
 
@@ -529,11 +566,9 @@ void PrototypeController() {
 
 int main() {
 
-    std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
-    TaskList* fileRead = readFile();
-    std::cout << fileRead->toString() << "\n\n";
 
-    // PrototypeController();
+
+     PrototypeController();
 
 
 //    if(TestLinkedList() && TestArrayList()) {
