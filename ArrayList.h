@@ -12,7 +12,6 @@
 #include "ArrayLib.h"
 #include "Task.h"
 
-//todo-Doesn't this need to extend the abstract TaskList class?
 class ArrayList : public TaskList{
 private:
     //pointer to the start of the array
@@ -40,9 +39,7 @@ public:
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
-    ArrayList();
-
-   ArrayList(int initialCapacity);
+   ArrayList(int initialCapacity=2);
 
     //Copy Constructor
     ArrayList(const ArrayList& arrayListToCopy);
