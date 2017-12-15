@@ -6,8 +6,6 @@
 #define PRO_JECT_LIST_H
 
 #include <stdexcept>
-//#include "ArrayList.h"
-//#include "TaskLinkedList.h"
 #include "Task.h"
 
 //class Bad_Task_Id : std::exception{};

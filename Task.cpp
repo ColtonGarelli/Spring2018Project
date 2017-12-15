@@ -97,6 +97,7 @@ bool Task::completeTask(){
     if(completed == false){
         completed = true;
     }
+
     return completed;
 }
 

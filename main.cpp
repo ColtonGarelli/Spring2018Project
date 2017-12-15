@@ -1,13 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <cstring>
 #include <vector>
-#include "ArrayList.h"
-#include "ArrayLib.h"
-#include "TaskLinkedList.h"
-#include "Task.h"
 #include "TaskList.h"
+#include "ArrayList.h"
+#include "TaskLinkedList.h"
+
 
 //void constructorTest (){
 //    //todo
@@ -78,82 +76,82 @@
 
 
 
-bool removeValueAtLLTest(){
-    std::cout << "\nremoveTaskByIDTest for Linked List () "<< std::endl;
-    TaskList* l1 = new TaskLinkedList();
-    //fill the list with 6 tasks
-    for(int p = 1; p < 7; p++){
-        Task* tempPtr = new Task(p, "Test Task #"+std::to_string(p));
-        l1->addToList(tempPtr);
-        tempPtr = nullptr;
-    }
-    std::cout << l1->toString() << std::endl;
-    bool errors = false;
-    //regular removal case
-    for( int i = 1; !l1->isEmpty(); i++){
-        Task* checker = l1->removeTaskById(i);
-        if(i != checker->getId()){
-            errors = true;
-        }
-        delete checker;
-        checker = nullptr;
-    }
-    if(errors){
-        std::cout<<"FAIL"<<std::endl;
-    }else{
-        std::cout<<"Pass"<<std::endl;
-    }
-    std::cout << l1->toString() << std::endl;
-    l1->clearList();
-
-    //refill the list with 6 items
-    std::cout <<"refilling list with 6 Tasks" << std::endl;
-    for(int p = 1; p < 7; p++){
-        Task* tempPtr = new Task(p, "Second Test Task #"+std::to_string(p));
-        l1->addToList(tempPtr);
-        tempPtr = nullptr;
-    }
-    //remove the last one
-    //todo write a for loop that searched for each id in reverse order.
-    std::cout << "Try remove Task with id of 6" << std::endl;
-    Task* catcher = l1->removeTaskById(6);
-    std::cout << "Caught: " <<catcher->tostring();
-    delete catcher;
-    catcher= nullptr;
-    std::cout << "pass" <<std::endl;
-    l1->toString();
-
-    //try things out of bounds
-    try {
-        std::cout << "Try remove Task with id of 6 again" << std::endl;
-        Task* catcher = l1->removeTaskById(6);
-        std::cout << "Caught: " <<catcher->tostring();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of 6 because " << e.what() << std::endl;
-    }try {
-        Task* catcher = l1->removeTaskById(-1);
-        std::cout << "Caught: " <<catcher->tostring();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of -1 because " << e.what() << std::endl;
-    }try {
-        Task* catcher = l1->removeTaskById(0);
-        std::cout << "Caught: " <<catcher->tostring();
-        delete catcher;
-        catcher= nullptr;
-    } catch (std::out_of_range& e){
-        std::cout << "pass for id of 0 because " << e.what() << std::endl;
-    }
-
-    std::cout << l1->toString() << std::endl;
-    int lastTaskIndex = l1->itemCount()-1;
-    std::cout << "removing index "<<lastTaskIndex<<"| aka item # "<<lastTaskIndex+1<<"| relates to value: {"<<l1->getTaskByIndex(lastTaskIndex)->tostring()<<"}"<<std::endl;
-    std::cout << l1->toString() << std::endl;
-    return errors;
-}
+//bool removeValueAtLLTest(){
+//    std::cout << "\nremoveTaskByIDTest for Linked List () "<< std::endl;
+//    TaskList* l1 = new TaskLinkedList();
+//    //fill the list with 6 tasks
+//    for(int p = 1; p < 7; p++){
+//        Task* tempPtr = new Task(p, "Test Task #"+std::to_string(p));
+//        l1->addToList(tempPtr);
+//        tempPtr = nullptr;
+//    }
+//    std::cout << l1->toString() << std::endl;
+//    bool errors = false;
+//    //regular removal case
+//    for( int i = 1; !l1->isEmpty(); i++){
+//        Task* checker = l1->removeTaskById(i);
+//        if(i != checker->getId()){
+//            errors = true;
+//        }
+//        delete checker;
+//        checker = nullptr;
+//    }
+//    if(errors){
+//        std::cout<<"FAIL"<<std::endl;
+//    }else{
+//        std::cout<<"Pass"<<std::endl;
+//    }
+//    std::cout << l1->toString() << std::endl;
+//    l1->clearList();
+//
+//    //refill the list with 6 items
+//    std::cout <<"refilling list with 6 Tasks" << std::endl;
+//    for(int p = 1; p < 7; p++){
+//        Task* tempPtr = new Task(p, "Second Test Task #"+std::to_string(p));
+//        l1->addToList(tempPtr);
+//        tempPtr = nullptr;
+//    }
+//    //remove the last one
+//    //todo write a for loop that searched for each id in reverse order.
+//    std::cout << "Try remove Task with id of 6" << std::endl;
+//    Task* catcher = l1->removeTaskById(6);
+//    std::cout << "Caught: " <<catcher->tostring();
+//    delete catcher;
+//    catcher= nullptr;
+//    std::cout << "pass" <<std::endl;
+//    l1->toString();
+//
+//    //try things out of bounds
+//    try {
+//        std::cout << "Try remove Task with id of 6 again" << std::endl;
+//        Task* catcher = l1->removeTaskById(6);
+//        std::cout << "Caught: " <<catcher->tostring();
+//        delete catcher;
+//        catcher= nullptr;
+//    } catch (std::out_of_range& e){
+//        std::cout << "pass for id of 6 because " << e.what() << std::endl;
+//    }try {
+//        Task* catcher = l1->removeTaskById(-1);
+//        std::cout << "Caught: " <<catcher->tostring();
+//        delete catcher;
+//        catcher= nullptr;
+//    } catch (std::out_of_range& e){
+//        std::cout << "pass for id of -1 because " << e.what() << std::endl;
+//    }try {
+//        Task* catcher = l1->removeTaskById(0);
+//        std::cout << "Caught: " <<catcher->tostring();
+//        delete catcher;
+//        catcher= nullptr;
+//    } catch (std::out_of_range& e){
+//        std::cout << "pass for id of 0 because " << e.what() << std::endl;
+//    }
+//
+//    std::cout << l1->toString() << std::endl;
+//    int lastTaskIndex = l1->itemCount()-1;
+//    std::cout << "removing index "<<lastTaskIndex<<"| aka item # "<<lastTaskIndex+1<<"| relates to value: {"<<l1->getTaskByIndex(lastTaskIndex)->tostring()<<"}"<<std::endl;
+//    std::cout << l1->toString() << std::endl;
+//    return errors;
+//}
 
 //
 //int findMaxIndexTest(){
@@ -270,53 +268,62 @@ bool removeValueAtLLTest(){
 //
 
 
-bool TestLinkedList() {
-    //todo write tests
-    bool error = false;
-    error = removeValueAtLLTest();
+//bool TestLinkedList() {
+//    //todo write tests
+//    bool error = false;
+//    error = removeValueAtLLTest();
 //    findTest();
 //    findLastTest();
 //    copyTest();
 //    findMaxIndexTest();
 //    getValueAtTest();
+//
+//
+//
+//    if (error) { // if a test failed return false
+//        return false;
+//    } else { //else all tests passed because there were no errors
+//        return true;
+//    }
+//
+//}
+
+//bool TestArrayList(){
+//    std::cout << ("\n*************************\nTESTER:\n");
+//    TaskList* masterList = new TaskLinkedList();
+//    Task* task1 = new Task(0, "Task1");
+//    Task* task2 = new Task(1, "Task2");
+//    Task* task3 = new Task(2, "Task3");
+//    Task* task4 = new Task(3, "Task4");
+//    Task* task5 = new Task(4, "Task5");
+//
+//    masterList->addToList(task1);
+//    masterList->addToList(task2);
+//    masterList->addToList(task3);
+//    masterList->addToList(task4);
+//    masterList->addToList(task5);
+//    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
+//    masterArrayList->insertAtEnd(task1);
+//    masterArrayList->insertAtEnd(task2);
+//    masterArrayList->insertAtEnd(task3);
+//    masterArrayList->insertAtEnd(task4);
+//    masterArrayList->insertAt(task5,2);
+//    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
+//    std::cout << masterArrayList->toString();
+//
+////    std::string title = myTask->getTitle();
+////    std::cout<< title <<st0d::endl;
+//    return true;
+//}
 
 
 
-    if (error) { // if a test failed return false
-        return false;
-    } else { //else all tests passed because there were no errors
-        return true;
-    }
 
-}
 
-bool TestArrayList(){
-    std::cout << ("\n*************************\nTESTER:\n");
-    TaskList* masterList = new TaskLinkedList();
-    Task* task1 = new Task(0, "Task1");
-    Task* task2 = new Task(1, "Task2");
-    Task* task3 = new Task(2, "Task3");
-    Task* task4 = new Task(3, "Task4");
-    Task* task5 = new Task(4, "Task5");
 
-    masterList->addToList(task1);
-    masterList->addToList(task2);
-    masterList->addToList(task3);
-    masterList->addToList(task4);
-    masterList->addToList(task5);
-    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
-    masterArrayList->insertAtEnd(task1);
-    masterArrayList->insertAtEnd(task2);
-    masterArrayList->insertAtEnd(task3);
-    masterArrayList->insertAtEnd(task4);
-    masterArrayList->insertAt(task5,2);
-    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
-    std::cout << masterArrayList->toString();
 
-//    std::string title = myTask->getTitle();
-//    std::cout<< title <<st0d::endl;
-    return true;
-}
+
+
 
 TaskList* readFile() {
     TaskList* masterList = new TaskLinkedList();
@@ -399,11 +406,6 @@ void writeFile(TaskList* masterList){
 
 
 }
-
-
-int userDirection(int someInt){
-
-}
 int intEntry(){
     int userDirection=-1;
     std::string userString;
@@ -428,6 +430,7 @@ int intEntry(){
             invalid=false;
         }
     }
+    return userDirection;
 
 }
 
@@ -463,7 +466,8 @@ int optionEntry() {
     }
     return userDirection;
 }
-Task* taskIn(){
+
+Task* taskIn(TaskList* masterList){
     std::string inTitle;
     std::string input;
     //print directions
@@ -473,16 +477,15 @@ Task* taskIn(){
     std::cout << inTitle << std::endl;
     int dueDate;
     std::cout << "Enter days until due: " << std::endl;
-    intEntry();
+    dueDate=intEntry();
     bool complete = false;
-    int ID = 0;
-//            int ID = genRandInt(0,500);
-//            for(int i; i<(masterList->itemCount());i++){
-//                if(ID == masterList->getTaskByIndex(i)->getId()){
-//                    ID=genRandInt(0,500);
-//                    i=0;
-//                }
-//            }
+    int ID = rand()%500;
+    for(int i; i<(masterList->itemCount());i++){
+        if(ID == masterList->getTaskByIndex(i)->getId()){
+            ID=rand()%500;
+            i=0;
+        }
+    }
     Task *newTask = new Task(ID, inTitle, dueDate, complete);
     return newTask;
 }
@@ -492,6 +495,7 @@ Task* taskIn(){
 
 void PrototypeController() {
     TaskList *masterList = new TaskLinkedList();
+    TaskList* archiveList= new TaskLinkedList();
     TaskList *masterArrayList = new ArrayList();
     int userDirection=-1;
     //must create empty list of tasks, add first task to that
@@ -499,17 +503,25 @@ void PrototypeController() {
     while (userDirection != 0) {
         userDirection = optionEntry();
         if (userDirection == 1) {
-            Task* newTask=taskIn();
+            Task* newTask=taskIn(masterList);
             masterList->addToList(newTask);
             masterArrayList->addToList(newTask);
         }
             //view all tasks
         else if (userDirection == 2) {
+            std::cout<<"View All:\n\n\n To complete a task enter its respective number\nTo finish viewing enter '0'"<<std::endl;
             std::cout << masterArrayList->toString() << "\n\n";
-        }
+            int taskSelect=intEntry();
+            while(taskSelect>masterArrayList->itemCount()+1||taskSelect<0){
+                taskSelect=intEntry();
+            }
+            masterList->getTaskByIndex(taskSelect)->completeTask();
+            archiveList->addToList(masterArrayList->getTaskByIndex(taskSelect));
+            masterArrayList->removeTaskById(taskSelect);
+        }//view today
         else if(userDirection==3){
 
-        }
+        }//view this week
         else if(userDirection==4){
 
         }
@@ -529,11 +541,16 @@ void PrototypeController() {
 
 int main() {
 
+    srand(time(NULL));
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
-    TaskList* fileRead = readFile();
-    std::cout << fileRead->toString() << "\n\n";
+//    TaskList* fileRead = readFile();
+//    std::cout << fileRead->toString() << "\n\n";
+    /*
+     * todo: write views---for each view allow user to mark complete (and move to archive list)
+     * todo: write demo code
+     */
 
-    // PrototypeController();
+    PrototypeController();
 
 
 //    if(TestLinkedList() && TestArrayList()) {
