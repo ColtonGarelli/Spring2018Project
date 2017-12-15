@@ -1,11 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <cstring>
 #include <vector>
 #include "TaskList.h"
 #include "ArrayList.h"
-#include "ArrayLib.h"
 #include "TaskLinkedList.h"
 
 
@@ -280,45 +278,44 @@
 //    findMaxIndexTest();
 //    getValueAtTest();
 
+//
+//
+//    if (error) { // if a test failed return false
+//        return false;
+//    } else { //else all tests passed because there were no errors
+//        return true;
+//    }
+//
+//}
 
-
-    if (error) { // if a test failed return false
-        return false;
-    } else { //else all tests passed because there were no errors
-        return true;
-    }
-
-}
-
-bool TestArrayList(){
+bool TestArrayList() {
     std::cout << ("\n*************************\nTESTER:\n");
-    TaskList* masterList = new TaskLinkedList();
-    Task* task1 = new Task(0, "Task1");
-    Task* task2 = new Task(1, "Task2");
-    Task* task3 = new Task(2, "Task3");
-    Task* task4 = new Task(3, "Task4");
-    Task* task5 = new Task(4, "Task5");
+    TaskList *masterList = new TaskLinkedList();
+    Task *task1 = new Task(0, "Task1");
+    Task *task2 = new Task(1, "Task2");
+    Task *task3 = new Task(2, "Task3");
+    Task *task4 = new Task(3, "Task4");
+    Task *task5 = new Task(4, "Task5");
 
     masterList->addToList(task1);
     masterList->addToList(task2);
     masterList->addToList(task3);
     masterList->addToList(task4);
     masterList->addToList(task5);
-    TaskList* masterArrayList = new ArrayList(masterList->itemCount());
+    TaskList *masterArrayList = new ArrayList(masterList->itemCount());
     masterArrayList->insertAtEnd(task1);
     masterArrayList->insertAtEnd(task2);
     masterArrayList->insertAtEnd(task3);
     masterArrayList->insertAtEnd(task4);
-    masterArrayList->insertAt(task5,2);
-    Task* getTaskTest = masterArrayList->getTaskByIndex(2);
+    masterArrayList->insertAt(task5, 2);
+    Task *getTaskTest = masterArrayList->getTaskByIndex(2);
     std::cout << masterArrayList->toString();
 
+}
 
 
 
-
-TaskList* readFile() {
-    //todo Talk with group about how to handle when a user enters a task title with commas
+TaskList* readFile(){
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
     std::ifstream fin("storetasks.txt");
@@ -349,7 +346,7 @@ TaskList* readFile() {
                 getline(parts, holder, delimiter);
                 std::stringstream makeComplete(holder);
                 makeComplete >> complete;
-                Task *newTask = new Task(idIn, title, dueDate, complete);
+                Task *newTask = new Task(idIn, title, dueDate, priority,complete);
                 masterList->addToList(newTask);
             }
         }
@@ -392,10 +389,10 @@ void writeFile(TaskList* masterList){
         line +=","+taskToCopy->getTitle();
         line+=","+std::to_string(taskToCopy->getDueDate());
         line+=","+std::to_string(taskToCopy->getPriority());
-        line+=","+std::to_string(taskToCopy->getComplete())+" ";
+        line+=","+std::to_string(taskToCopy->getComplete())+"\n";
 
     }
-    printPartsToFile(line,' ');
+    printPartsToFile(line,'\n');
 
 
 }
@@ -428,6 +425,7 @@ int intEntry(){
             invalid=false;
         }
     }
+    return userDirection;
 
 }
 
@@ -463,7 +461,8 @@ int optionEntry() {
     }
     return userDirection;
 }
-Task* taskIn(int &uniqueID){
+
+Task* taskIn(int uniqueID){
     std::string inTitle;
     std::string input;
     //print directions
@@ -473,29 +472,53 @@ Task* taskIn(int &uniqueID){
     std::cout << inTitle << std::endl;
     std::cout << "Enter days until due: " << std::endl;
     int dueDate = intEntry();
-    bool complete = false;
-    int ID = rand()%500;
-    for(int i; i<(masterList->itemCount());i++){
-        if(ID == masterList->getTaskByIndex(i)->getId()){
-            ID=rand()%500;
-            i=0;
-        }
+    std::cout<<"Enter priority: 1-5"<<std::endl;
+    int priority=intEntry();
+    while(priority>5 || priority<0){
+        std::cout<<"Please enter a number 1-5, 5 being top priority, 1 being low"<<std::endl;
+        priority=intEntry();
     }
     int ID = uniqueID;
-
-    Task *newTask = new Task(ID, inTitle, dueDate, complete);
-    uniqueID++;
+    Task *newTask = new Task(ID, inTitle, dueDate, priority);
     return newTask;
+}
+
+void viewAll(TaskList* masterList, TaskList* masterArrayList,TaskList* archiveList){
+    std::cout<<"View All:\n\n\nTo complete a task enter its respective number\nTo finish viewing enter '0'"<<std::endl;
+    std::cout << masterArrayList->toString()<<std::endl;
+    int taskSelect=intEntry();
+    while(taskSelect> (masterArrayList->itemCount()) ||taskSelect<0){
+        taskSelect=intEntry();
+    }
+    while(taskSelect-1>masterArrayList->itemCount()){
+        std::cout<<"Please enter a valid task identifier, or enter 0 to quit"<<std::endl;
+        taskSelect=intEntry();
+    }
+    int index=taskSelect-1;
+    if (taskSelect!=0){
+        Task* modify = masterList->getTaskByIndex(index);
+        int moveID= modify->getId();
+        std::cout<<"Task Removed:\n"<<taskSelect<<". "<<(masterArrayList->getTaskByIndex(index))->toString()<<std::endl;
+        archiveList->addToList(masterArrayList->removeTaskById(moveID));
+
+    }
+    else{
+        std::cout<<"View All closed"<<std::endl;
+    }
+
 }
 
 
 
 
+
 void PrototypeController() {
-    TaskList *masterList = new TaskLinkedList();
-    TaskList *masterArrayList = new ArrayList();
+
+    TaskList *archiveList = new ArrayList();
     int uniqueID = 0;
-    masterList = readFile();
+    TaskList* masterList = readFile();
+    TaskList *masterArrayList = new ArrayList(masterList);
+
     std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
 
     int userDirection=-1;
@@ -505,43 +528,30 @@ void PrototypeController() {
         userDirection = optionEntry();
         if (userDirection == 1) {
             Task* newTask=taskIn(uniqueID);
+            uniqueID++;
             masterList->addToList(newTask);
             masterArrayList->addToList(newTask);
         }
             //view all tasks
         else if (userDirection == 2) {
-            std::cout<<"View All:\n\n\n To complete a task enter its respective number\nTo finish viewing enter '0'"<<std::endl;
-            std::cout << masterArrayList->toString() << "\n\n";
-            int taskSelect=intEntry();
-            while(taskSelect>masterArrayList->itemCount()+1||taskSelect<0){
-                taskSelect=intEntry();
-            }
-            masterList->getTaskByIndex(taskSelect)->completeTask();
-            archiveList->addToList(masterArrayList->getTaskByIndex(taskSelect));
-            masterArrayList->removeTaskById(taskSelect);
+            viewAll(masterList,masterArrayList,archiveList);
         }//view today
         else if(userDirection==3){
 
         }
-        else if(userDirection==4){
 
-        }
-        else if(userDirection==5){
-
-        }
-            //enter 0 to quit program
+        //enter 0 to quit program
     }
     //upon quit writes to file
 
-    writeFile(masterArrayList);
+    writeFile(masterList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
 }
 
 
 
 
-int main() {
-
+int main(){
     srand(time(NULL));
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
 //    TaskList* fileRead = readFile();
@@ -551,7 +561,7 @@ int main() {
      * todo: write demo code
      */
 
-    // PrototypeController();
+     PrototypeController();
 
 
 //    if(TestLinkedList() && TestArrayList()) {

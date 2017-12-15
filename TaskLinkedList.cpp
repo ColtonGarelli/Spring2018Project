@@ -185,15 +185,19 @@ TaskLinkedList::TaskLinkedList(int itemCount){
 
     void TaskLinkedList::addToList(Task* itemToAdd){
         //TODO Write this all out
-        if(front == nullptr){
+        if(front == nullptr) {
             insertAtFront(itemToAdd);
-        }else if (end->getTask()->getPriority() >= itemToAdd->getPriority()){
-            insertAtEnd(itemToAdd);
         }
         else{
-            int searchPriority = itemToAdd->getPriority();
-            insertAfter(returnNodeWhere(2,searchPriority), itemToAdd);
+            insertAtEnd(itemToAdd);
         }
+//        }else if (end->getTask()->getPriority() >= itemToAdd->getPriority()){
+//            insertAtEnd(itemToAdd);
+//        }
+//        else{
+//            int searchPriority = itemToAdd->getPriority();
+//            insertAfter(returnNodeWhere(2,searchPriority), itemToAdd);
+//        }
     }
 
     void TaskLinkedList::insertAtEnd(Task* taskToAdd) {

@@ -11,6 +11,17 @@
  * creates an arrayList
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
+ArrayList::ArrayList(TaskList* importList){
+    this->currCapacity=importList->itemCount();
+    array=new Task*[currCapacity];
+    currItemCount=0;
+    for(int i=0; i<importList->itemCount();i++){
+        this->array[i]=importList->getTaskByIndex(i);
+        this->currItemCount++;
+    }
+        //write to create arraylist upon import
+}
+
 ArrayList::ArrayList(int initialCapacity){
     if(initialCapacity < 2){
         initialCapacity = 2;
@@ -241,9 +252,17 @@ int ArrayList::findFirstPriority(int lookFor){
             if(array[i]->getId() == idToFind){
                 int returnVal = array[i]->getId();
                 Task* returnTask = array[i];
-                array[i] = array[i+1];
+                for(int i=i;i<currItemCount;i++){
+                    if(i==currItemCount-1){
+                        array[i]= nullptr;
+                    }
+                    else{
+                        array[i] = array[i+1];
+                    }
+                }
                 return returnTask;
             }
+
             currItemCount--;
         }
         return nullptr;
@@ -296,16 +315,16 @@ int ArrayList::findFirstPriority(int lookFor){
 
 std::string ArrayList::toString() {
 
-    std::string printable = "To Do:\n";
+    std::string printable = "To Do:\n\n";
     for(int i = 0; i < currItemCount; i++){
         printable += std::to_string(i + 1) + ". " + array[i]->getTitle() + "\n";
         printable += "Due Date: "+std::to_string(array[i]->getDueDate()) + "\n";
         printable += "Priority: "+std::to_string(array[i]->getPriority()) + "\n";
         if(!array[i]->getComplete()){
-            printable += "Complete: No \n";
+            printable += "Complete: No \n\n";
         }
         else{
-            printable+="Complete: Yes \n";
+            printable+="Complete: Yes \n\n";
         }
 
     }

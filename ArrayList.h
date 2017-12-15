@@ -36,6 +36,9 @@ public:
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
+
+    ArrayList(TaskList* importList);
+
    ArrayList(int initialCapacity=2);
 
     //Copy Constructor
@@ -154,6 +157,7 @@ public:
      * ...
      */
     std::string toString();
+
 
 
 

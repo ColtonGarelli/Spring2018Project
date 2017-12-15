@@ -33,6 +33,7 @@ public:
     Task(int idNum, std::string title);
     //Full Constructor
     Task(int idNum, std::string title, int due, int priority=1);
+    Task(int idIn, std::string title, int dueDate,int priority,bool complete);
     //copyConstructor
     Task(const Task* taskToCopy);
     //default Destructor
@@ -71,12 +72,15 @@ public:
 
     std::string toString();
 
+
     /**
      * returns all the parts of a task as a comma delemited string
      * @return id,title,due,priority,isCompleted
      * @throws Bad_Task_Id if the task you try to file is not valid/has been deleted
      */
     std::string toFile();
+
+
 
 //  int getDuration() const;
 // void setDuration(int duration);
