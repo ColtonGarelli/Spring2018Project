@@ -315,7 +315,7 @@ bool TestArrayList() {
 
 
 
-TaskList* readFile(){
+TaskList* readFile(int& uniqueID){
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
     std::ifstream fin("storetasks.txt");
@@ -330,10 +330,10 @@ TaskList* readFile(){
             if (holder == ""){}
             else {
                 int idIn;
-                getline(parts, holder, delimiter);
-                std::string title = holder;
                 std::stringstream makeID(holder);
                 makeID >> idIn;
+                getline(parts, holder, delimiter);
+                std::string title = holder;
                 int dueDate;
                 getline(parts, holder, delimiter);
                 std::stringstream makeDue(holder);
@@ -347,6 +347,7 @@ TaskList* readFile(){
                 std::stringstream makeComplete(holder);
                 makeComplete >> complete;
                 Task *newTask = new Task(idIn, title, dueDate, priority,complete);
+                uniqueID = idIn+1;
                 masterList->addToList(newTask);
             }
         }
@@ -462,7 +463,7 @@ int optionEntry() {
     return userDirection;
 }
 
-Task* taskIn(int uniqueID){
+Task* taskIn(int& uniqueID){
     std::string inTitle;
     std::string input;
     //print directions
@@ -474,7 +475,7 @@ Task* taskIn(int uniqueID){
     int dueDate = intEntry();
     std::cout<<"Enter priority: 1-5"<<std::endl;
     int priority=intEntry();
-    while(priority>5 || priority<0){
+    while(priority>5 || priority<1){
         std::cout<<"Please enter a number 1-5, 5 being top priority, 1 being low"<<std::endl;
         priority=intEntry();
     }
@@ -498,8 +499,8 @@ void viewAll(TaskList* masterList, TaskList* masterArrayList,TaskList* archiveLi
     if (taskSelect!=0){
         Task* modify = masterList->getTaskByIndex(index);
         int moveID= modify->getId();
-        std::cout<<"Task Removed:\n"<<taskSelect<<". "<<(masterArrayList->getTaskByIndex(index))->toString()<<std::endl;
-        archiveList->addToList(masterArrayList->removeTaskById(moveID));
+        std::cout<<"Task Completed:\n"<<taskSelect<<". "<<(modify)->toString()<<std::endl;
+        //archiveList->addToList(masterArrayList->removeTaskById(moveID));
 
     }
     else{
@@ -512,11 +513,11 @@ void viewAll(TaskList* masterList, TaskList* masterArrayList,TaskList* archiveLi
 
 
 
-void PrototypeController() {
+void Controller() {
 
     TaskList *archiveList = new ArrayList();
     int uniqueID = 0;
-    TaskList* masterList = readFile();
+    TaskList* masterList = readFile(uniqueID);
     TaskList *masterArrayList = new ArrayList(masterList);
 
     std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
@@ -536,14 +537,10 @@ void PrototypeController() {
         else if (userDirection == 2) {
             viewAll(masterList,masterArrayList,archiveList);
         }//view today
-        else if(userDirection==3){
 
-        }
-
-        //enter 0 to quit program
+        // enter 0 to quit program
     }
     //upon quit writes to file
-
     writeFile(masterList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
 }
@@ -561,7 +558,7 @@ int main(){
      * todo: write demo code
      */
 
-     PrototypeController();
+     Controller();
 
 
 //    if(TestLinkedList() && TestArrayList()) {
