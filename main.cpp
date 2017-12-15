@@ -323,79 +323,42 @@ TaskList* readFile() {
     std::string textIn;
     std::ifstream fin("storetasks.txt");
     while (!fin.eof()) {
-        getline(fin, textIn,' ');
+        getline(fin, textIn);
         std::stringstream parts(textIn);
         char delimiter = ',';
+        std::string string;
         while (parts) {
             std::string holder;
             getline(parts, holder, delimiter);
-            int idIn;
-            getline(parts, holder, delimiter);
-            std::string title = holder;
-            std::stringstream makeID(holder);
-            makeID >> idIn;
-            int dueDate;
-            getline(parts, holder, delimiter);
-            std::stringstream makeDue(holder);
-            makeDue >> dueDate;
-            int priority;
-            getline(parts, holder, delimiter);
-            std::stringstream priorityS(holder);
-            priorityS >> priority;
-            bool complete;
-            getline(parts, holder, delimiter);
-            std::stringstream makeComplete(holder);
-            makeComplete >> complete;
-            Task *newTask = new Task(idIn, title, dueDate, complete);
-            masterList->addToList(newTask);
+            if (holder == ""){}
+            else {
+                int idIn;
+                getline(parts, holder, delimiter);
+                std::string title = holder;
+                std::stringstream makeID(holder);
+                makeID >> idIn;
+                int dueDate;
+                getline(parts, holder, delimiter);
+                std::stringstream makeDue(holder);
+                makeDue >> dueDate;
+                int priority;
+                getline(parts, holder, delimiter);
+                std::stringstream priorityS(holder);
+                priorityS >> priority;
+                bool complete;
+                getline(parts, holder, delimiter);
+                std::stringstream makeComplete(holder);
+                makeComplete >> complete;
+                Task *newTask = new Task(idIn, title, dueDate, complete);
+                masterList->addToList(newTask);
+            }
         }
     }
     fin.close();
+    return masterList;
 }
 
 
-
-//    fin>>textIn;
-//    std::stringstream parts(textIn);
-//
-//    std::cout<<textIn;
-//
-//
-//
-//    char delimiter = ',';
-//    while(parts){
-//        std::string holder;
-//        getline(parts,holder,delimiter);
-//        int idIn;
-//        getline(parts,holder,delimiter);
-//        std::string title=holder;
-//        std::stringstream makeID(holder);
-//        makeID>>idIn;
-//        int dueDate;
-//        getline(parts,holder,delimiter);
-//        std::stringstream makeDue(holder);
-//        makeDue>>dueDate;
-//        int priority;
-//        getline(parts,holder,delimiter);
-//        std::stringstream priorityS(holder);
-//        priorityS>>priority;
-//        bool complete;
-//        getline(parts,holder,delimiter);
-//        std::stringstream makeComplete(holder);
-//        makeComplete>>complete;
-//        Task *newTask = new Task(idIn, title, dueDate, complete);
-//        masterList->addToList(newTask);
-//
-//    }
-//
-//
-//
-//
-//
-//
-//
-
-//    return masterList;
 
 
 
@@ -405,7 +368,7 @@ void printPartsToFile(std::string lineToPrint, char delimiter){
         std::stringstream parts(lineToPrint);
         while(parts){
             std::string part;
-            getline(parts,part);
+            getline(parts,part,delimiter);
             fout<<part<<std::endl;
         }
         fout.close();
@@ -416,6 +379,8 @@ void printPartsToFile(std::string lineToPrint, char delimiter){
 
 
 }
+
+
 
 
 void writeFile(TaskList* masterList){
@@ -565,10 +530,10 @@ void PrototypeController() {
 int main() {
 
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
-    //TaskList* fileRead = readFile();
-    //std::cout << fileRead->toString() << "\n\n";
+    TaskList* fileRead = readFile();
+    std::cout << fileRead->toString() << "\n\n";
 
-     PrototypeController();
+    // PrototypeController();
 
 
 //    if(TestLinkedList() && TestArrayList()) {
