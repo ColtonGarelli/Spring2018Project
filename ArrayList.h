@@ -39,7 +39,7 @@ public:
 
     ArrayList(TaskList* importList);
 
-   ArrayList(int initialCapacity=2);
+    ArrayList();
 
     //Copy Constructor
     ArrayList(const ArrayList& arrayListToCopy);

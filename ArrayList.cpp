@@ -11,25 +11,38 @@
  * creates an arrayList
  * @param: initialCapacity (the starting size of the array, defaults to size 5
  */
+
+ArrayList::ArrayList(){
+    currCapacity=5;
+    currItemCount=0;
+    array= new Task*[currCapacity];
+    for(int i=0;i<currCapacity;i++){
+        array[i]= nullptr;
+    }
+}
+
 ArrayList::ArrayList(TaskList* importList){
-    this->currCapacity=importList->itemCount();
+    this->currCapacity=5;
     array=new Task*[currCapacity];
     currItemCount=0;
     for(int i=0; i<importList->itemCount();i++){
+        if(i>currCapacity){
+            this->doubleCapacity();
+        }
         this->array[i]=importList->getTaskByIndex(i);
         this->currItemCount++;
     }
         //write to create arraylist upon import
 }
 
-ArrayList::ArrayList(int initialCapacity){
-    if(initialCapacity < 2){
-        initialCapacity = 2;
-    }
-    this -> currCapacity = initialCapacity;
-    array = new Task*[currCapacity];
-    currItemCount = 0;
-}
+//ArrayList::ArrayList(int initialCapacity){
+//    if(initialCapacity < 2){
+//        initialCapacity = 2;
+//    }
+//    this -> currCapacity = initialCapacity;
+//    array = new Task*[currCapacity];
+//    currItemCount = 0;
+//}
 
 ////Copy Constructor
 ArrayList::ArrayList(const ArrayList& arrayListToCopy){
@@ -109,7 +122,7 @@ void ArrayList::addToList(Task* taskToAdd){
 //            index=array[i];
 //        }
         insertAtEnd(taskToAdd);
-        currItemCount++;
+
 //    }
 }
 
@@ -121,10 +134,19 @@ void ArrayList::addToList(Task* taskToAdd){
  */
 void ArrayList::insertAtEnd(Task* taskToAdd){
     if(currItemCount < currCapacity){
-        array[currItemCount] = taskToAdd;
-    } else{
+        if(currItemCount==0) {
+            array[0]=taskToAdd;
+            currItemCount++;
+        }
+        else{
+            array[currItemCount] = taskToAdd;
+            currItemCount++;
+        }
+    }
+    else{
         this->doubleCapacity();
-        array[currItemCount] = taskToAdd;
+        array[currItemCount-1] = taskToAdd;
+        currItemCount++;
     }
 }
 
