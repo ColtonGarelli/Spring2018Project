@@ -4,6 +4,6 @@ int main(){
     srand(time(NULL));
     std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
     Controller UI = Controller();
-    UI.runStuff();
+    UI.runTaskManager();
     return 0;
 }

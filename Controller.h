@@ -30,7 +30,7 @@ public:
 
     void taskHandler();
 
-    void runStuff();
+    void runTaskManager();
 
     TaskList* readFile();
 

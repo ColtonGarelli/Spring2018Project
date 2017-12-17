@@ -20,7 +20,7 @@ Controller::Controller(){
 }
 
 //responsible for deleting arrayLists
-void Controller::runStuff(){
+void Controller::runTaskManager(){
     masterList=readFile();
     std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
     int userDirection=-1;
