@@ -53,73 +53,111 @@ void Controller::view(){
         masterView = new ArrayList(masterList);
         thisView = new ArrayList();
         viewRequest = selectView();
+        bool empty= true;
         if (viewRequest == 1) {
-            viewToday();
+            empty=viewToday();
         }//tomorrow's tasks
         else if (viewRequest == 2) {
-            viewTomorrow();
+            empty=viewTomorrow();
 
         } else if (viewRequest == 3) {
-            viewThisWeek();
+            empty=viewThisWeek();
 
         } else if (viewRequest == 4) {
-            viewIncomplete();
+            empty=viewIncomplete();
 
         }//view completed tasks
         else if (viewRequest == 5) {
-            viewComplete();
+            empty=viewComplete();
         }
-        taskHandler();
-        delete thisView;
-        thisView = nullptr;
-        taskToMod = nullptr;
+        if(!empty) {
+            taskHandler();
+            delete thisView;
+            thisView = nullptr;
+            taskToMod = nullptr;
+        }
+        else if(viewRequest!=0){
+            std::cout<<"The list is empty."<<std::endl;
+        }
     }
 }
 
 
-void Controller::viewIncomplete(){
+bool Controller::viewIncomplete(){
     for (int i = 0; i < masterView->itemCount(); i++) {
         if (!masterView->getTaskByIndex(i)->getComplete()) {
             thisView->addToList(masterView->getTaskByIndex(i));
         }
+    }if (thisView->itemCount() == 0) {
+        std::cout<<"No incomplete tasks."<<std::endl;
+        return true;
+    }else {
+        std::cout << "All Incomplete Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
     }
-    std::cout << "All Incomplete Tasks:\n\n" << thisView->toString() << std::endl;
-
-}
-void Controller::viewToday(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() ==0 &&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "Today's Tasks:\n\n" << thisView->toString() << std::endl;
-}
-void Controller::viewTomorrow(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() ==1 &&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "Tomoorow's Tasks:\n\n" << thisView->toString() << std::endl;
 }
 
-void Controller::viewComplete(){
+bool Controller::viewToday() {
     for (int i = 0; i < masterView->itemCount(); i++) {
-        if(masterView->getTaskByIndex(i)->getComplete()) {
+        if (masterView->getTaskByIndex(i)->getDueDate() == 0 && !masterView->getTaskByIndex(i)->getComplete()) {
             thisView->addToList(masterView->getTaskByIndex(i));
         }
     }
-    std::cout << "Completed Tasks:\n\n" << thisView->toString() << std::endl;
-}
-void Controller::viewThisWeek(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() < 7&&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
+    if (thisView->itemCount() == 0) {
+        std::cout << "No tasks due today." << std::endl;
+        return true;
+    }else {
+
+        std::cout << "Today's Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
     }
-    std::cout << "This Week's Tasks:\n\n" << thisView->toString() << std::endl;
 }
 
+bool Controller::viewTomorrow() {
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getDueDate() == 1 && !masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    if (thisView->itemCount() == 0) {
+        std::cout << "No tasks due tomorrow." << std::endl;
+        return true;
+    }else {
+        std::cout << "Tomoorow's Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
+    }
+}
+
+bool Controller::viewComplete() {
+
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    if (thisView->itemCount() == 0) {
+        std::cout<<"No complete tasks."<<std::endl;
+        return true;
+    } else {
+        std::cout << "Completed Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
+    }
+}
+
+bool Controller::viewThisWeek() {
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getDueDate() < 7 && !masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    if (thisView->itemCount() == 0) {
+        std::cout << "No tasks due this week." << std::endl;
+        return true;
+    } else {
+        std::cout << "This Week's Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
+    }
+}
 
 //completes task or calls parameterChange to edit tasks
 void Controller::taskHandler(){
@@ -242,26 +280,29 @@ Task* Controller::taskIn(int& uniqueID){
 
 
 //select the desired ArrayList (view)
-int Controller::selectView(){
-    std::cout<<"Enter\n1: To view today's tasks"
-            "\n2: To view tomorrow's tasks"
-            "\n3: To view this week's tasks"
-            "\n4: To view all incomplete tasks"
-            "\n5: To view all completed tasks"
-            "\n0: To return to menu"<<std::endl;
-    int userIn=intEntry();
-    while(userIn>5||userIn<0){
-        std::cout<<"Enter\n1: To view today's tasks"
+int Controller::selectView() {
+
+//    //todo problem here check thisview itemCount
+//    if (thisView->itemCount() != 0) {
+        std::cout << "Enter\n1: To view today's tasks"
                 "\n2: To view tomorrow's tasks"
                 "\n3: To view this week's tasks"
                 "\n4: To view all incomplete tasks"
                 "\n5: To view all completed tasks"
-                "\n0: To return to menu"<<std::endl;
-        userIn=intEntry();
-    }
-    return userIn;
+                "\n0: To return to menu" << std::endl;
+        int userIn = intEntry();
+        while (userIn > 5 || userIn < 0) {
+            std::cout << "Enter\n1: To view today's tasks"
+                    "\n2: To view tomorrow's tasks"
+                    "\n3: To view this week's tasks"
+                    "\n4: To view all incomplete tasks"
+                    "\n5: To view all completed tasks"
+                    "\n0: To return to menu" << std::endl;
+            userIn = intEntry();
+        }
+        return userIn;
+    //}
 }
-
 
 //generic integer entry function to make sure ints are entered
 int Controller::intEntry(){
@@ -305,7 +346,7 @@ int Controller::optionEntry() {
     bool invalid = false;
     if (convertor.fail()) {
         invalid = true;
-    }
+    }//print statement from here kind of weird consider changing
     while (invalid) {
         std::cout << "\nPlease enter a valid number."
                 "\nEnter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;

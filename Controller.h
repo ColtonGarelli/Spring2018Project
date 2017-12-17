@@ -50,11 +50,11 @@ public:
 
     void view();
 
-    void viewToday();
-    void viewIncomplete();
-    void viewTomorrow();
-    void viewComplete();
-    void viewThisWeek();
+    bool viewToday();
+    bool viewIncomplete();
+    bool viewTomorrow();
+    bool viewComplete();
+    bool viewThisWeek();
 
     void taskToChange();
 
