@@ -15,7 +15,7 @@
 class Controller {
 private:
 
-    int uniqueID=0;
+    int uniqueID;
     TaskList* masterList;
     //thisView must always be deleted and set back to nullptr
     ArrayList* thisView;
