@@ -161,12 +161,12 @@ bool Controller::viewThisWeek() {
 
 //completes task or calls parameterChange to edit tasks
 void Controller::taskHandler(){
-    //selects task, parameterToChange uses taskToMod to access
     //choose complete or edit
-    int action=-1; //=modifier();
+    int action=-1;
     while(action!=0) {
         action=modifier();
         if (action == 1) {
+            //selects task, editTask uses taskToMod to access
             taskToChange();
             if (taskToMod->getComplete()) {
                 std::cout << "This task has already been completed\n" << std::endl;
@@ -182,26 +182,25 @@ void Controller::taskHandler(){
             std::cout << taskToMod->toString() << std::endl;
         }
         std::cout<<thisView->toString()<<std::endl;
-
-        //parameter to change calls edit task which actually changes
     }
-//ask to change other parameters in parameter to change
-
 }
 
 
 //User can choose to complete, edit, or return to view
 int Controller::modifier(){
-    std::cout<<"To complete a task enter 1\n\nTo edit a task enter 2\n\nTo return to view enter 0"<<std::endl;
+    std::cout<<"To complete a task enter 1\n\n"
+            "To edit a task enter 2\n\n"
+            "To return to view enter 0"<<std::endl;
     int userIn=intEntry();
     if(userIn!=0) {
         std::cout << thisView->toString() << std::endl;
         while (userIn > 2 || userIn < 0) {
             std::cout << thisView->toString() << std::endl;
             std::cout
-                    << "Invalid Entry.\nTo complete a task enter 1\n\nTo edit a task enter 2\n\nTo return to view enter 0"
+                    << "Invalid Entry.\nTo complete a task enter 1\n\n"
+                            "To edit a task enter 2\n\n"
+                            "To return to view enter 0"
                     << std::endl;
-
             userIn = intEntry();
         }
     }
@@ -211,10 +210,13 @@ int Controller::modifier(){
 
 //select which taask of the list displayed to change
 void Controller::taskToChange(){
-    std::cout<<"Enter the number associated with a task, or enter 0 to exit"<<std::endl;
+    std::cout<<"Enter the number associated with a task,"
+            " or enter 0 to exit"<<std::endl;
     int taskSelect=intEntry();
     while(taskSelect>(thisView->itemCount()) ||taskSelect<0){
-        std::cout<<"Invalid Entry.\nEnter the number associated with a task, or enter 0 to exit"<<std::endl;
+        std::cout<<"Invalid Entry.\n"
+                "Enter the number associated with a task,"
+                " or enter 0 to exit"<<std::endl;
         taskSelect=intEntry();
     }
     taskToMod=thisView->getTaskByIndex(taskSelect-1);
@@ -225,12 +227,18 @@ void Controller::taskToChange(){
 void Controller::editTask(){
     int pToChange=-1;
     while(pToChange!=0){
-        std::cout<<"Enter\n1: Change task title\n2: Change task due date\n3: Change task priority\n0: Return to list view"<<std::endl;
+        std::cout<<"Enter\n1: Change task title\n"
+                "2: Change task due date\n"
+                "3: Change task priority\n"
+                "0: Return to list view"<<std::endl;
         pToChange=intEntry();
         while(pToChange>3||pToChange<0){
-            std::cout<<"\nInvalid entry.\n\nEnter\n"
-                    "1: Change task title\n2: Change task due date\n"
-                    "3: Change task priority\n0: To go back to view"<<std::endl;
+            std::cout<<"\nInvalid entry.\n\n"
+                    "Enter\n"
+                    "1: Change task title\n"
+                    "2: Change task due date\n"
+                    "3: Change task priority\n"
+                    "0: To go back to view"<<std::endl;
             pToChange=intEntry();
         }
         if(pToChange==1){
@@ -281,27 +289,23 @@ Task* Controller::taskIn(int& uniqueID){
 
 //select the desired ArrayList (view)
 int Controller::selectView() {
-
-//    //todo problem here check thisview itemCount
-//    if (thisView->itemCount() != 0) {
-        std::cout << "Enter\n1: To view today's tasks"
-                "\n2: To view tomorrow's tasks"
-                "\n3: To view this week's tasks"
-                "\n4: To view all incomplete tasks"
-                "\n5: To view all completed tasks"
-                "\n0: To return to menu" << std::endl;
-        int userIn = intEntry();
-        while (userIn > 5 || userIn < 0) {
-            std::cout << "Enter\n1: To view today's tasks"
-                    "\n2: To view tomorrow's tasks"
-                    "\n3: To view this week's tasks"
-                    "\n4: To view all incomplete tasks"
-                    "\n5: To view all completed tasks"
-                    "\n0: To return to menu" << std::endl;
-            userIn = intEntry();
-        }
-        return userIn;
-    //}
+    std::cout << "Enter\n1: To view today's tasks\n"
+            "2: To view tomorrow's tasks\n"
+            "3: To view this week's tasks\n"
+            "4: To view all incomplete tasks\n"
+            "5: To view all completed tasks\n"
+            "0: To return to menu" << std::endl;
+    int userIn = intEntry();
+    while (userIn > 5 || userIn < 0) {
+        std::cout << "Enter\n1: To view today's tasks\n"
+                "2: To view tomorrow's tasks\n"
+                "3: To view this week's tasks\n"
+                "4: To view all incomplete tasks\n"
+                "5: To view all completed tasks\n"
+                "0: To return to menu" << std::endl;
+        userIn = intEntry();
+    }
+    return userIn;
 }
 
 //generic integer entry function to make sure ints are entered
@@ -348,8 +352,8 @@ int Controller::optionEntry() {
         invalid = true;
     }//print statement from here kind of weird consider changing
     while (invalid) {
-        std::cout << "\nPlease enter a valid number."
-                "\nEnter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+        std::cout << "\nPlease enter a valid number.\n"
+                "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
         std::cin >> userString;
         std::stringstream convertor;
         convertor << userString;
