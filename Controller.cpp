@@ -14,7 +14,7 @@
 Controller::Controller(){
     ArrayList* masterView= nullptr;
     int uniqueID = 0;
-    TaskList* masterList= nullptr;
+    TaskLinkedList* masterList= nullptr;
     ArrayList* thisView= nullptr;
     Task* taskToMod=nullptr;
 }
@@ -53,7 +53,7 @@ void Controller::runTaskManager(){
             taskToChange();
             masterList->removeTaskById(taskToMod->getId());
             delete taskToMod;
-            taskToMod == nullptr;
+            taskToMod = nullptr;
             std::cout << "Would you like to delete any more tasks before quitting?" << std::endl;
         }
     }
@@ -100,6 +100,9 @@ void Controller::view(){
 }
 
 bool Controller::viewAll(){
+    if(thisView== nullptr){
+        thisView=new ArrayList();
+    }
     for (int i = 0; i < masterView->itemCount(); i++) {
             thisView->addToList(masterView->getTaskByIndex(i));
     }if (thisView->itemCount() == 0) {
@@ -445,15 +448,14 @@ TaskList* Controller::readFile(){
                 masterList->addToList(newTask);
             }
         }
-        int maxId=1;
-        for(int i=0;i<masterList->itemCount();i++){
-            if(maxId>uniqueID) {
-                maxId = (masterList->getTaskByIndex(i)->getId());
-            }
-        }
-        uniqueID=maxId+1;
     }
-
+    int maxId=1;
+    for(int i=0;i<masterList->itemCount();i++){
+        if(maxId>uniqueID) {
+            maxId = (masterList->getTaskByIndex(i)->getId());
+        }
+    }
+    uniqueID=maxId+1;
     fin.close();
     return masterList;
 }

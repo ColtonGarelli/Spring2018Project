@@ -23,9 +23,13 @@ ArrayList::ArrayList(TaskList* importList){
     currCapacity=importList->itemCount();
     array=new Task*[currCapacity];
     currItemCount=0;
-    for(int i=0; i<importList->itemCount();i++){
-        array[i]=importList->getTaskByIndex(i);
-        this->currItemCount++;
+    for(int i=0; i< sizeof(array);i++){
+        if(importList->itemCount()>i) {
+            array[i] = importList->getTaskByIndex(i);
+            this->currItemCount++;
+        }else{
+            array[i]= nullptr;
+        }
     }
         //write to create arraylist upon import
 }

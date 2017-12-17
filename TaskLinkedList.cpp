@@ -266,8 +266,6 @@ TaskLinkedList::TaskLinkedList(int itemCount){
 
     Task* TaskLinkedList::getTaskByIndex(int index) {
         //todo test this
-
-
         if (index < 0 || index > currLength-1) {
             throw std::out_of_range("index not defined in List");
         } else if (index == 0) {
