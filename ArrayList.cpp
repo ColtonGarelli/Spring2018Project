@@ -48,6 +48,7 @@ ArrayList::ArrayList(const ArrayList& arrayListToCopy){
 ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
     if( this != &arrayListToCopy){
         delete[] array;
+        array= nullptr;
         currCapacity = arrayListToCopy.currCapacity;
         currItemCount = arrayListToCopy.currItemCount;
         for(int i = 0; i < currItemCount; i++){
@@ -135,7 +136,7 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
     }
     else{
         this->doubleCapacity();
-        array[currItemCount-1] = taskToAdd;
+        array[currItemCount] = taskToAdd;
         currItemCount++;
     }
 }

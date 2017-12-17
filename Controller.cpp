@@ -113,7 +113,7 @@ void Controller::view(){
 
 bool Controller::viewAll(){
     if(masterList!= nullptr) {
-        thisView = new ArrayList(masterView);
+        thisView=masterView;
         std::cout << "All Tasks:\n\n" << thisView->toString() << std::endl;
         return false;
     }else{

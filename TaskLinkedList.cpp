@@ -324,7 +324,6 @@ TaskLinkedList::TaskLinkedList(int itemCount){
                 delPtr = prvPtr->getNext();
                 tempReturn = new Task(delPtr->getTask());
                 prvPtr->setNext(delPtr->getNext());
-
                 delete delPtr;
             }
             currLength--;
