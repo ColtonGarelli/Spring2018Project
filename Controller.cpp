@@ -63,7 +63,7 @@ void Controller::viewIncomplete(){
 }
 void Controller::viewToday(){
     for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() == 0) {
+        if (masterView->getTaskByIndex(i)->getDueDate() ==0 &&!masterView->getTaskByIndex(i)->getComplete()) {
             thisView->addToList(masterView->getTaskByIndex(i));
         }
     }
@@ -71,7 +71,7 @@ void Controller::viewToday(){
 }
 void Controller::viewTomorrow(){
     for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() == 1) {
+        if (masterView->getTaskByIndex(i)->getDueDate() ==1 &&!masterView->getTaskByIndex(i)->getComplete()) {
             thisView->addToList(masterView->getTaskByIndex(i));
         }
     }
@@ -91,7 +91,7 @@ void Controller::viewComplete(){
 
 void Controller::viewThisWeek(){
     for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() < 7) {
+        if (masterView->getTaskByIndex(i)->getDueDate() < 7&&!masterView->getTaskByIndex(i)->getComplete()) {
             thisView->addToList(masterView->getTaskByIndex(i));
         }
     }
@@ -148,7 +148,7 @@ void Controller::taskHandler(){
         }
         else if (action == 2) {
             taskToChange();
-
+            parameterToChange();
             std::cout << taskToMod->toString() << std::endl;
         }
         std::cout<<thisView->toString()<<std::endl;
@@ -167,10 +167,11 @@ int Controller::modifier(){
     if(userIn!=0) {
         std::cout << thisView->toString() << std::endl;
         while (userIn > 2 || userIn < 0) {
+            std::cout << thisView->toString() << std::endl;
             std::cout
                     << "Invalid Entry.\nTo complete a task enter 1\n\nTo edit a task enter 2\n\nTo return to view enter 0"
                     << std::endl;
-            std::cout << thisView->toString() << std::endl;
+
             userIn = intEntry();
         }
     }
@@ -187,7 +188,6 @@ void Controller::taskToChange(){
         taskSelect=intEntry();
     }
     taskToMod=thisView->getTaskByIndex(taskSelect-1);
-    parameterToChange();
 }
 
 
@@ -260,7 +260,7 @@ Task* Controller::taskIn(int& uniqueID){
 int Controller::selectView(){
     std::cout<<"Enter\n1: To view today's tasks\n2: To view tomorrow's tasks\n3: To view this week's tasks\n4: To view all incomplete tasks\n5: To view all completed tasks\n0: To return to menu"<<std::endl;
     int userIn=intEntry();
-    while(userIn>5||userIn<1){
+    while(userIn>5||userIn<0){
         std::cout<<"Please select a valid option.\n\nEnter\n1: To view today's tasks\n2: To view tomorrow's tasks\n3: To view this week's tasks\n4: To view all tasks"<<std::endl;
         userIn=intEntry();
     }
