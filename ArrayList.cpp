@@ -26,7 +26,7 @@ ArrayList::ArrayList(TaskList* importList){
     array=new Task*[currCapacity];
     currItemCount=0;
     for(int i=0; i<importList->itemCount();i++){
-        if(i>currCapacity){
+        if(i==currCapacity){
             this->doubleCapacity();
         }
         this->array[i]=importList->getTaskByIndex(i);
@@ -89,7 +89,6 @@ void ArrayList::doubleCapacity(){
     Task** tempArray = new Task*[doubCap];
     for (int i = 0;  i < currCapacity; i++){
         tempArray[i] = array[i];
-        array[i] = nullptr;
     }
     currCapacity = doubCap;
     delete[] array;

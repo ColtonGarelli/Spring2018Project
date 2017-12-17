@@ -17,13 +17,11 @@ Controller::Controller(){
     TaskList* masterList= nullptr;
     ArrayList* thisView= nullptr;
     Task* taskToMod=nullptr;
-
-
 }
 
 //responsible for deleting arrayLists
 void Controller::runStuff(){
-    masterList=readFile(uniqueID);
+    masterList=readFile();
     std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
     int userDirection=-1;
     //must create empty list of tasks, add first task to that
@@ -31,7 +29,7 @@ void Controller::runStuff(){
     while (userDirection != 0) {
         userDirection = optionEntry();
         if (userDirection == 1) {
-            Task* newTask=taskIn(uniqueID);
+            Task* newTask=taskIn();
             uniqueID++;
             masterList->addToList(newTask);
         }
@@ -266,7 +264,7 @@ void Controller::editTask(){
 
 
 //add a task to the master list
-Task* Controller::taskIn(int& uniqueID){
+Task* Controller::taskIn(){
     std::string inTitle;
     std::string input;
     //print directions
@@ -275,14 +273,14 @@ Task* Controller::taskIn(int& uniqueID){
     inTitle = inTitle + input;
     std::cout << "Enter days until due: " << std::endl;
     int dueDate = intEntry();
-    std::cout<<"Enter priority: 1-5"<<std::endl;
+    std::cout<<"Enter priority: 1-5, 5 being top priority, 1 being low"<<std::endl;
     int priority=intEntry();
     while(priority>5 || priority<1){
-        std::cout<<"Please enter a number 1-5, 5 being top priority, 1 being low"<<std::endl;
+        std::cout<<"Please enter a number 1-5"<<std::endl;
         priority=intEntry();
     }
-    int ID = uniqueID;
-    Task *newTask = new Task(ID, inTitle, dueDate, priority);
+    uniqueID+=1;
+    Task *newTask = new Task(uniqueID, inTitle, dueDate, priority);
     return newTask;
 }
 
@@ -364,7 +362,7 @@ int Controller::optionEntry() {
             invalid = false;
         }
     }
-    while (userDirection < 0 || userDirection > 3) {
+    while (userDirection < 0 || userDirection > 2) {
         std::cout << "Invalid entry."
                   << std::endl;
         userDirection = optionEntry();
@@ -374,7 +372,7 @@ int Controller::optionEntry() {
 
 
 //reads file in to masterList
-TaskList* Controller::readFile(int uniqueID){
+TaskList* Controller::readFile(){
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
     std::ifstream fin("storetasks.txt");
@@ -410,7 +408,15 @@ TaskList* Controller::readFile(int uniqueID){
                 masterList->addToList(newTask);
             }
         }
+        int maxId=1;
+        for(int i=0;i<masterList->itemCount();i++){
+            if(maxId>uniqueID) {
+                maxId = (masterList->getTaskByIndex(i)->getId());
+            }
+        }
+        uniqueID=maxId+1;
     }
+
     fin.close();
     return masterList;
 }
@@ -429,10 +435,8 @@ void Controller::printPartsToFile(std::string lineToPrint, char delimiter){
         fout.close();
     }
     else{
-        std::cout<<"error in opening parts";
+        std::cout<<"Error in opening file. Please contact Jeremy Taylor or Colton";
     }
-
-
 }
 
 
@@ -447,9 +451,6 @@ void Controller::writeFile(TaskList* masterList){
         line+=","+std::to_string(taskToCopy->getDueDate());
         line+=","+std::to_string(taskToCopy->getPriority());
         line+=","+std::to_string(taskToCopy->getComplete())+"\n";
-
     }
     printPartsToFile(line,'\n');
-
-
 }

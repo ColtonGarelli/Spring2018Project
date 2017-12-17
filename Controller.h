@@ -32,7 +32,7 @@ public:
 
     void runStuff();
 
-    TaskList* readFile(int uniqueID);
+    TaskList* readFile();
 
     void printPartsToFile(std::string lineToPrint, char delimiter);
 
@@ -42,7 +42,7 @@ public:
 
     int optionEntry();
 
-    Task* taskIn(int& uniqueID);
+    Task* taskIn();
 
     void editTask();
 
