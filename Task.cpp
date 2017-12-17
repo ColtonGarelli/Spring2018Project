@@ -102,12 +102,13 @@ int Task::getPriority() {
     return priority;
 }
 
-bool Task::completeTask(){
+bool Task::setTaskCompletion(){
     //TODO think about what this will throw if task already completed
     if(completed == false){
         completed = true;
+    }else{
+        completed= false;
     }
-
     return completed;
 }
 
@@ -130,7 +131,7 @@ std::string Task::toString() {
     printable +=this->getTitle() + "\n";
     printable += "Due Date: "+std::to_string(this->dueDate) + "\n";
     printable += "Priority: "+std::to_string(this->getPriority()) + "\n";
-    if(!completeTask()){
+    if(!getComplete()){
         printable += "Complete: No \n\n";
     }
     else{

@@ -62,7 +62,7 @@ public:
      * @return task.completed
      * @throws - todo Should do something?
      */
-    bool completeTask();
+    bool setTaskCompletion();
 
     bool getComplete();
 

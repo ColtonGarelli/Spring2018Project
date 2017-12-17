@@ -50,6 +50,8 @@ public:
 
     void view();
 
+    bool viewAll();
+
     bool viewToday();
     bool viewIncomplete();
     bool viewTomorrow();

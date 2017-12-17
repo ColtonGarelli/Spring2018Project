@@ -19,13 +19,14 @@ Controller::Controller(){
     Task* taskToMod=nullptr;
 }
 
-//responsible for deleting arrayLists
+
 void Controller::runTaskManager(){
     masterList=readFile();
     std::cout << "\nImporting from last session:\n" << masterList->toString() << "\n\n";
     int userDirection=-1;
     //must create empty list of tasks, add first task to that
     //add to task
+    masterView = new ArrayList(masterList);
     while (userDirection != 0) {
         userDirection = optionEntry();
         if (userDirection == 1) {
@@ -39,7 +40,26 @@ void Controller::runTaskManager(){
         }
         // enter 0 to quit program
     }
+    int toDelete=-1;
+    std::cout<<"Would you like to delete any tasks before quitting?"
+            "\n\nEnter 1 to delete tasks, or 0 to quit program"<<std::endl;
+    while(toDelete!=0) {
+        toDelete=intEntry();
+        while (toDelete>1||toDelete<0){
+            std::cout<<"\nPlease enter 1 to delete tasks or 0 to quit program.\n"<<std::endl;
+            toDelete=intEntry();
+        }if(toDelete!=0) {
+            viewAll();
+            taskToChange();
+            masterList->removeTaskById(taskToMod->getId());
+            delete taskToMod;
+            taskToMod == nullptr;
+            std::cout << "Would you like to delete any more tasks before quitting?" << std::endl;
+        }
+    }
+
     //upon quit writes to file
+
     writeFile(masterList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
 }
@@ -48,7 +68,6 @@ void Controller::runTaskManager(){
 void Controller::view(){
     int viewRequest=-1;
     while(viewRequest!=0) {
-        masterView = new ArrayList(masterList);
         thisView = new ArrayList();
         viewRequest = selectView();
         bool empty= true;
@@ -78,6 +97,19 @@ void Controller::view(){
             std::cout<<"The list is empty."<<std::endl;
         }
     }
+}
+
+bool Controller::viewAll(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+    }if (thisView->itemCount() == 0) {
+        std::cout<<"No tasks."<<std::endl;
+        return true;
+    }else {
+        std::cout << "All Tasks:\n\n" << thisView->toString() << std::endl;
+        return false;
+    }
+
 }
 
 
@@ -170,7 +202,7 @@ void Controller::taskHandler(){
                 std::cout << "This task has already been completed\n" << std::endl;
                 std::cout << taskToMod->toString() << std::endl;
             } else {
-                taskToMod->completeTask();
+                taskToMod->setTaskCompletion();
                 std::cout << taskToMod->toString() << std::endl;
             }
         }
@@ -228,14 +260,16 @@ void Controller::editTask(){
         std::cout<<"Enter\n1: Change task title\n"
                 "2: Change task due date\n"
                 "3: Change task priority\n"
+                "4: Change completion status\n"
                 "0: Return to list view"<<std::endl;
         pToChange=intEntry();
-        while(pToChange>3||pToChange<0){
+        while(pToChange>4||pToChange<0){
             std::cout<<"\nInvalid entry.\n\n"
                     "Enter\n"
                     "1: Change task title\n"
                     "2: Change task due date\n"
                     "3: Change task priority\n"
+                    "4: Change completion status\n"
                     "0: To go back to view"<<std::endl;
             pToChange=intEntry();
         }
@@ -258,6 +292,9 @@ void Controller::editTask(){
                 priority = intEntry();
             }
             taskToMod->setPriority(priority);
+        }
+        else if(pToChange==4){
+            taskToMod->setTaskCompletion();
         }
     }
 }

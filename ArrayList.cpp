@@ -13,7 +13,7 @@
  */
 
 ArrayList::ArrayList(){
-    currCapacity=5;
+    currCapacity=2;
     currItemCount=0;
     array= new Task*[currCapacity];
     for(int i=0;i<currCapacity;i++){
@@ -22,27 +22,16 @@ ArrayList::ArrayList(){
 }
 
 ArrayList::ArrayList(TaskList* importList){
-    this->currCapacity=5;
+    //this->currCapacity=importList->itemCount();
+    currCapacity=importList->itemCount();
     array=new Task*[currCapacity];
     currItemCount=0;
     for(int i=0; i<importList->itemCount();i++){
-        if(i==currCapacity){
-            this->doubleCapacity();
-        }
-        this->array[i]=importList->getTaskByIndex(i);
+        array[i]=importList->getTaskByIndex(i);
         this->currItemCount++;
     }
         //write to create arraylist upon import
 }
-
-//ArrayList::ArrayList(int initialCapacity){
-//    if(initialCapacity < 2){
-//        initialCapacity = 2;
-//    }
-//    this -> currCapacity = initialCapacity;
-//    array = new Task*[currCapacity];
-//    currItemCount = 0;
-//}
 
 ////Copy Constructor
 ArrayList::ArrayList(const ArrayList& arrayListToCopy){
@@ -83,17 +72,22 @@ ArrayList::~ArrayList() {
  * @post: array points to a new array of twice the size with values copied from the old one,
  *        the old array is deleted.
  **/
-void ArrayList::doubleCapacity(){
+void ArrayList::doubleCapacity() {
     //tested and Working!
     int doubCap = (currCapacity * 2);
-    Task** tempArray = new Task*[doubCap];
-    for (int i = 0;  i < currCapacity; i++){
-        tempArray[i] = array[i];
+    Task** tempArray=new Task*[doubCap];
+    for (int i = 0; i < currCapacity; i++) {
+        if(i<currItemCount) {
+            tempArray[i] = array[i];
+        }else{
+            tempArray[i]= nullptr;
+        }
     }
     currCapacity = doubCap;
     delete[] array;
     array = tempArray;
     tempArray = nullptr;
+
 }
 
 
