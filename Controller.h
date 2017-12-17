@@ -44,9 +44,7 @@ public:
 
     Task* taskIn(int& uniqueID);
 
-    void parameterToChange();
-
-    void editTask(int taskToChange);
+    void editTask();
 
     int selectView();
 

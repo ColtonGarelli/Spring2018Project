@@ -44,58 +44,6 @@ void Controller::runStuff(){
     //upon quit writes to file
     writeFile(masterList);
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
-
-
-}
-//generic view
-//handles asking user to enter which view they wnat, and if they'd like to edit a task or complete a task
-
-
-
-void Controller::viewIncomplete(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "All Incomplete Tasks:\n\n" << thisView->toString() << std::endl;
-
-}
-void Controller::viewToday(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() ==0 &&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "Today's Tasks:\n\n" << thisView->toString() << std::endl;
-}
-void Controller::viewTomorrow(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() ==1 &&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "Tomoorow's Tasks:\n\n" << thisView->toString() << std::endl;
-
-}
-
-void Controller::viewComplete(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if(masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "Completed Tasks:\n\n" << thisView->toString() << std::endl;
-
-}
-
-void Controller::viewThisWeek(){
-    for (int i = 0; i < masterView->itemCount(); i++) {
-        if (masterView->getTaskByIndex(i)->getDueDate() < 7&&!masterView->getTaskByIndex(i)->getComplete()) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-        }
-    }
-    std::cout << "This Week's Tasks:\n\n" << thisView->toString() << std::endl;
 }
 
 
@@ -129,7 +77,51 @@ void Controller::view(){
 }
 
 
+void Controller::viewIncomplete(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (!masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    std::cout << "All Incomplete Tasks:\n\n" << thisView->toString() << std::endl;
 
+}
+void Controller::viewToday(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getDueDate() ==0 &&!masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    std::cout << "Today's Tasks:\n\n" << thisView->toString() << std::endl;
+}
+void Controller::viewTomorrow(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getDueDate() ==1 &&!masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    std::cout << "Tomoorow's Tasks:\n\n" << thisView->toString() << std::endl;
+}
+
+void Controller::viewComplete(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if(masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    std::cout << "Completed Tasks:\n\n" << thisView->toString() << std::endl;
+}
+void Controller::viewThisWeek(){
+    for (int i = 0; i < masterView->itemCount(); i++) {
+        if (masterView->getTaskByIndex(i)->getDueDate() < 7&&!masterView->getTaskByIndex(i)->getComplete()) {
+            thisView->addToList(masterView->getTaskByIndex(i));
+        }
+    }
+    std::cout << "This Week's Tasks:\n\n" << thisView->toString() << std::endl;
+}
+
+
+//completes task or calls parameterChange to edit tasks
 void Controller::taskHandler(){
     //selects task, parameterToChange uses taskToMod to access
     //choose complete or edit
@@ -148,7 +140,7 @@ void Controller::taskHandler(){
         }
         else if (action == 2) {
             taskToChange();
-            parameterToChange();
+            editTask();
             std::cout << taskToMod->toString() << std::endl;
         }
         std::cout<<thisView->toString()<<std::endl;
@@ -160,7 +152,7 @@ void Controller::taskHandler(){
 }
 
 
-
+//User can choose to complete, edit, or return to view
 int Controller::modifier(){
     std::cout<<"To complete a task enter 1\n\nTo edit a task enter 2\n\nTo return to view enter 0"<<std::endl;
     int userIn=intEntry();
@@ -179,7 +171,7 @@ int Controller::modifier(){
 }
 
 
-
+//select which taask of the list displayed to change
 void Controller::taskToChange(){
     std::cout<<"Enter the number associated with a task, or enter 0 to exit"<<std::endl;
     int taskSelect=intEntry();
@@ -191,8 +183,8 @@ void Controller::taskToChange(){
 }
 
 
-
-void Controller::parameterToChange(){
+//User in: which parameter to change, and edits that task
+void Controller::editTask(){
     int pToChange=-1;
     while(pToChange!=0){
         std::cout<<"Enter\n1: Change task title\n2: Change task due date\n3: Change task priority\n0: Return to list view"<<std::endl;
@@ -203,38 +195,31 @@ void Controller::parameterToChange(){
                     "3: Change task priority\n0: To go back to view"<<std::endl;
             pToChange=intEntry();
         }
-        editTask(pToChange);
-    }
-}
-
-
-
-void Controller::editTask(int pToChange){
-    //change title
-    if(pToChange==1){
-        std::string inTitle;
-        std::string input;
-        std::cout<<"Enter a new task name: "<<std::endl;
-        std::getline(std::cin>>inTitle,input);
-        taskToMod->setTitle(inTitle);
-    }//change due date
-    else if(pToChange==2){
-        std::cout << "Enter new due date: " << std::endl;
-        taskToMod->setDueDate(intEntry());
-    }//change priority
-    else if(pToChange==3) {
-        std::cout << "Enter new priority: " << std::endl;
-        int priority = intEntry();
-        while(priority>5||priority<1){
-            std::cout << "Please enter a valid priority: " << std::endl;
-            priority = intEntry();
+        if(pToChange==1){
+            std::string inTitle;
+            std::string input;
+            std::cout<<"Enter a new task name: "<<std::endl;
+            std::getline(std::cin>>inTitle,input);
+            taskToMod->setTitle(inTitle);
+        }//change due date
+        else if(pToChange==2){
+            std::cout << "Enter new due date: " << std::endl;
+            taskToMod->setDueDate(intEntry());
+        }//change priority
+        else if(pToChange==3) {
+            std::cout << "Enter new priority: " << std::endl;
+            int priority = intEntry();
+            while(priority>5||priority<1){
+                std::cout << "Please enter a valid priority: " << std::endl;
+                priority = intEntry();
+            }
+            taskToMod->setPriority(priority);
         }
-        taskToMod->setPriority(priority);
     }
 }
 
 
-
+//add a task to the master list
 Task* Controller::taskIn(int& uniqueID){
     std::string inTitle;
     std::string input;
@@ -256,19 +241,29 @@ Task* Controller::taskIn(int& uniqueID){
 }
 
 
-
+//select the desired ArrayList (view)
 int Controller::selectView(){
-    std::cout<<"Enter\n1: To view today's tasks\n2: To view tomorrow's tasks\n3: To view this week's tasks\n4: To view all incomplete tasks\n5: To view all completed tasks\n0: To return to menu"<<std::endl;
+    std::cout<<"Enter\n1: To view today's tasks"
+            "\n2: To view tomorrow's tasks"
+            "\n3: To view this week's tasks"
+            "\n4: To view all incomplete tasks"
+            "\n5: To view all completed tasks"
+            "\n0: To return to menu"<<std::endl;
     int userIn=intEntry();
     while(userIn>5||userIn<0){
-        std::cout<<"Please select a valid option.\n\nEnter\n1: To view today's tasks\n2: To view tomorrow's tasks\n3: To view this week's tasks\n4: To view all tasks"<<std::endl;
+        std::cout<<"Enter\n1: To view today's tasks"
+                "\n2: To view tomorrow's tasks"
+                "\n3: To view this week's tasks"
+                "\n4: To view all incomplete tasks"
+                "\n5: To view all completed tasks"
+                "\n0: To return to menu"<<std::endl;
         userIn=intEntry();
     }
     return userIn;
 }
 
 
-
+//generic integer entry function to make sure ints are entered
 int Controller::intEntry(){
     int userDirection=-1;
     std::string userString;
@@ -298,7 +293,7 @@ int Controller::intEntry(){
 }
 
 
-
+//select adding a task, viewing a task, or quit the program
 int Controller::optionEntry() {
     int userDirection = -1;
     std::cout << "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
@@ -312,7 +307,8 @@ int Controller::optionEntry() {
         invalid = true;
     }
     while (invalid) {
-        std::cout << "\nPlease enter a valid number.\nEnter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+        std::cout << "\nPlease enter a valid number."
+                "\nEnter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
         std::cin >> userString;
         std::stringstream convertor;
         convertor << userString;
@@ -332,7 +328,7 @@ int Controller::optionEntry() {
 }
 
 
-
+//reads file in to masterList
 TaskList* Controller::readFile(int uniqueID){
     TaskList* masterList = new TaskLinkedList();
     std::string textIn;
@@ -375,7 +371,7 @@ TaskList* Controller::readFile(int uniqueID){
 }
 
 
-
+//creates strings to write to file
 void Controller::printPartsToFile(std::string lineToPrint, char delimiter){
     std::ofstream fout("storetasks.txt"); //writes to file storetasks.txt
     if(fout){
@@ -395,7 +391,7 @@ void Controller::printPartsToFile(std::string lineToPrint, char delimiter){
 }
 
 
-
+//writes to file
 void Controller::writeFile(TaskList* masterList){
     //ArrayList passed in should be master
     std::string line;//=(std::to_string(masterList->itemCount())+" ");
