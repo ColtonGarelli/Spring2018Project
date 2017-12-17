@@ -16,9 +16,6 @@ ArrayList::ArrayList(){
     currCapacity=2;
     currItemCount=0;
     array= new Task*[currCapacity];
-    for(int i=0;i<currCapacity;i++){
-        array[i]= nullptr;
-    }
 }
 
 ArrayList::ArrayList(TaskList* importList){
@@ -77,11 +74,7 @@ void ArrayList::doubleCapacity() {
     int doubCap = (currCapacity * 2);
     Task** tempArray=new Task*[doubCap];
     for (int i = 0; i < currCapacity; i++) {
-        if(i<currItemCount) {
-            tempArray[i] = array[i];
-        }else{
-            tempArray[i]= nullptr;
-        }
+        tempArray[i]=array[i];
     }
     currCapacity = doubCap;
     delete[] array;
