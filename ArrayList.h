@@ -12,10 +12,10 @@
 #include "Task.h"
 
 
-class ArrayList : public TaskList{
+class ArrayList : public TaskList {
 private:
     //pointer to the start of the array
-    Task** array;
+    Task **array;
     //count of the number of valid items currently stored in the array
     int currItemCount;
     //size of the current array
@@ -37,24 +37,25 @@ public:
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
 
-    ArrayList(TaskList* importList);
+    ArrayList(TaskList *importList);
 
     ArrayList();
 
     //Copy Constructor
-    ArrayList(const ArrayList& arrayListToCopy);
+    ArrayList(const ArrayList &arrayListToCopy);
 
     //Overloaded Assignment Operator
-    ArrayList& operator=(const ArrayList& arrayListToCopy);
+    ArrayList &operator=(const ArrayList &arrayListToCopy);
 
     //Destructor
     ~ArrayList();
+
 /**
  * adds Task to the list
  * @param taskToAdd - pointer to the Task to be added to the List
  * @post the List has an additional Task in it, Ordered by Priority (highest to lowest priority)
  **/
-    void addToList(Task* taskToAdd);
+    void addToList(Task *taskToAdd);
 
     /**
      * Extends the end of the List to point at taskToAdd
@@ -62,14 +63,14 @@ public:
      * @post the list has an additional Task in it, at the end
 
      */
-    void insertAtEnd(Task* taskToAdd);
+    void insertAtEnd(Task *taskToAdd);
 
     /**
      * Shifts all Tasks down the List and adds pointer to Task at front
      * @param taskToAdd - pointer to the Task to be added to the List
      * @post the list has an additional Task in it
      */
-    void insertAtFront(Task* tasktoAdd);
+    void insertAtFront(Task *tasktoAdd);
 
     /**
      * adds Task to the list, at index specified
@@ -77,7 +78,7 @@ public:
      * @param index - the index in the List to add the task, everything after it gets shifted down
      * @post the list has an additional Task in it
      */
-    void insertAt(Task* taskToAdd, int index);
+    void insertAt(Task *taskToAdd, int index);
 
 //    /**
 //      * Searches a List for a passed id, returns a pointer to the task with that Id
@@ -116,7 +117,7 @@ public:
      * @throws out_of_range exception if index is not in List
      */
 
-    Task* getTaskByIndex(int index);
+    Task *getTaskByIndex(int index);
 
     /**
      * removes the Task from the List
@@ -128,7 +129,7 @@ public:
      * @returns the only pointer to the item at index
      * @throws out_of_range exception if id is not in List
      */
-    Task* removeTaskById(int idToFind);
+    Task *removeTaskById(int idToFind);
 
     /**
      * checks if there are any valid items in the list
@@ -157,10 +158,23 @@ public:
      * ...
      */
     std::string toString();
+    /**
+     * gets a value from the list
+     * @param index the location from which to get the value
+     * @returns a copy of the item at index
+     * @throws out_of_range exception if index is invalid
+     */
+    Task *getValueAt(int index);
 
 
-
-
+    /**
+     * removes the item at index from the list, and returns a copy of that item
+     * @param index the location from which to get the value
+     * @post the item at index is removed from the list, everything else is shifted down one
+     * @returns a copy of the item at index
+     * @throws out_of_range exception if index is invalid
+     */
+    Task* removeValueAt(int index);
 
 };
 

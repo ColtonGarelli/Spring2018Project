@@ -95,26 +95,7 @@ void ArrayList::doubleCapacity() {
 * @post the List has an additional Task in it
 */
 void ArrayList::addToList(Task* taskToAdd){
-//    if(array[0] == nullptr){
-//        insertAtFront(taskToAdd);
-//        currItemCount++;
-//        array[0]=taskToAdd;
-//    }
-//    else{
-//        Task* index = array[0];
-//        int searchPriority = taskToAdd->getPriority();
-//        for(int i = 0; i < currItemCount; i++){
-//            if(searchPriority < index->getPriority()){
-//                insertAt(taskToAdd,i);
-//            }
-//            else if(searchPriority >= index->getPriority()){
-//                insertAtEnd(taskToAdd);
-//            }
-//            index=array[i];
-//        }
         insertAtEnd(taskToAdd);
-
-//    }
 }
 
 /**
@@ -178,19 +159,6 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
     }
 }
 
-//    /**
-//      * Searches a List for a passed id, returns a pointer to the task with that Id
-//      * @returns pointer to the first occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
-//      */
-//    virtual Task* findTaskById(int id)=0;
-//
-//    /**
-//     * Searches an list for a certain id
-//     * @returns pointer to the last occurrence of a task with specified id if it is present, otherwise throws Bad_Task_Id error
-//     */
-//    virtual Task* findLastTaskById(int id)=0;
-//    //todo do we need a findLast or find function? probably good idea to have them just to beable to scan through the id's of the tasks in a list
-
 /**
  * returns the id of the first Task with the passed Priority
  * @param lookFor - the priority to look for
@@ -207,7 +175,6 @@ int ArrayList::findFirstPriority(int lookFor){
 
 /**
  * returns the id of the last Task with the passed priority
- //TODO the controller should call this function more often with +1 priority when looking to add a Task.
  * @param lookFor - the priority to look for
  * @return the id of the last Task in the list with the passed priority.
  */
@@ -220,7 +187,6 @@ int ArrayList::findFirstPriority(int lookFor){
     return -1;
 }
 
-//todo reverse order?, findFirstDate, findLastDate
 
 /**
  * gets a pointer to a Task in the list
@@ -322,10 +288,6 @@ int ArrayList::findFirstPriority(int lookFor){
  * 3. Task_title3
  * ...
  */
-
-
-
-
 std::string ArrayList::toString() {
 
     std::string printable = "To Do:\n\n";
@@ -342,4 +304,45 @@ std::string ArrayList::toString() {
 
     }
     return printable;
+}
+
+/**
+ * gets a value from the list
+ * @param index the location from which to get the value
+ * @returns a copy of the item at index
+ * @throws out_of_range exception if index is invalid
+ */
+Task* ArrayList::getValueAt(int index) {
+    if (index < 0) {
+        throw std::out_of_range("<index not in range>");
+    } else if (index > currItemCount) {
+        throw std::out_of_range("<index not in range>");
+    } else {
+        return array[index];
+    }
+}
+
+/**
+ * removes the item at index from the list, and returns a copy of that item
+ * @param index the location from which to get the value
+ * @post the item at index is removed from the list, everything else is shifted down one
+ * @returns a copy of the item at index
+ * @throws out_of_range exception if index is invalid
+ */
+Task* ArrayList::removeValueAt(int index) {
+    if (index < 0) {
+        throw std::out_of_range("<index not in range>");
+    } else if (index > currItemCount) {
+        throw std::out_of_range("<index not in range>");
+    }
+    Task* in = array[index];
+    if (index <= currItemCount) {
+        if (currItemCount <= currCapacity) {
+            for (int i = index; i < currItemCount; i++) {
+                array[i] = array[i + 1];
+            }
+            currItemCount--;
+        }
+    }
+    return in;
 }
