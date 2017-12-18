@@ -15,9 +15,10 @@
 class ArrayList : public TaskList {
 private:
     //pointer to the start of the array
-    Task **array;
+
     //count of the number of valid items currently stored in the array
     int currItemCount;
+    Task **array;
     //size of the current array
     int currCapacity;
 

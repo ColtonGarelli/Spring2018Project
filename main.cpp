@@ -26,6 +26,7 @@ void doubleCapacityTest(){
         delete testList.removeTaskById(i);
     }
 }
+
 void rangeErrorTests(ArrayList& list){
     bool errors = false;
     std::cout << ("Testing out of range errors:\n");
