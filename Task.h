@@ -16,7 +16,7 @@ class Task {
 private:
     int Id;
     std::string title;
-    //int duration;
+//    int duration;
     //Task* dependant;
     int dueDate;//days till due not including today (today = 0, tomorrow = 1, yesterday = -1)
     int priority; //Will be a number from 1-5

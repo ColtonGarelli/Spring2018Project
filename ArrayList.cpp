@@ -40,6 +40,7 @@ ArrayList::ArrayList(const ArrayList& arrayListToCopy){
     currCapacity = arrayListToCopy.currCapacity;
     array = new Task*[currCapacity];
     for(int i = 0; i < currItemCount; i++){
+        //array[i] gets a copy of the pointer to same memory
         array[i] = arrayListToCopy.array[i];
     }
 }
@@ -51,6 +52,7 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
         array= nullptr;
         currCapacity = arrayListToCopy.currCapacity;
         currItemCount = arrayListToCopy.currItemCount;
+        array = new Task*[currCapacity];
         for(int i = 0; i < currItemCount; i++){
             array[i] = arrayListToCopy.array[i];
         }
@@ -241,7 +243,6 @@ int ArrayList::findFirstPriority(int lookFor){
                 }
                 return returnTask;
             }
-
             currItemCount--;
         }
         return nullptr;
@@ -275,7 +276,7 @@ int ArrayList::findFirstPriority(int lookFor){
  */
  void ArrayList::clearList(){
     for(int i = 0; i < currItemCount;i++){
-        array[i] = 0;
+        array[i] = nullptr;
     }
     currItemCount = 0;
 }
@@ -313,9 +314,7 @@ std::string ArrayList::toString() {
  * @throws out_of_range exception if index is invalid
  */
 Task* ArrayList::getValueAt(int index) {
-    if (index < 0) {
-        throw std::out_of_range("<index not in range>");
-    } else if (index > currItemCount) {
+    if (index < 0 || index > currItemCount) {
         throw std::out_of_range("<index not in range>");
     } else {
         return array[index];
@@ -330,19 +329,14 @@ Task* ArrayList::getValueAt(int index) {
  * @throws out_of_range exception if index is invalid
  */
 Task* ArrayList::removeValueAt(int index) {
-    if (index < 0) {
+    if (index < 0 || index > currItemCount) {
         throw std::out_of_range("<index not in range>");
-    } else if (index > currItemCount) {
-        throw std::out_of_range("<index not in range>");
-    }
-    Task* in = array[index];
-    if (index <= currItemCount) {
-        if (currItemCount <= currCapacity) {
-            for (int i = index; i < currItemCount; i++) {
-                array[i] = array[i + 1];
-            }
-            currItemCount--;
+    } else {
+        Task *in = array[index];
+        for (int i = index; i < currItemCount; i++) {
+            array[i] = array[i + 1];
         }
+        currItemCount--;
+        return in;
     }
-    return in;
 }

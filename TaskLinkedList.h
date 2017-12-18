@@ -124,7 +124,7 @@ public:
      *       everything else is shifted down one,
      *       Caller will need to delete returned Task
      * @returns a copy of the Task at index
-     * @throws out_of_range exception if id is invalid/not in list
+     * @throws out_of_range exception if id is invalid/not in list, or list is empty
      */
     Task *removeTaskById(int idToFind);
 

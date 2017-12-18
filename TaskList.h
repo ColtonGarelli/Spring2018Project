@@ -92,7 +92,7 @@ public:
      *      whoever catches task needs to delete task.
      *      Task is set to complete.
      * @returns copy of the task with id and deletes original ptr in List
-     * @throws out_of_range exception if id is not in List
+     * @throws out_of_range exception if id is invalid/not in list, or list is empty
      */
     virtual Task* removeTaskById(int idToFind)=0;
     

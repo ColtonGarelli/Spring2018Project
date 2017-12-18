@@ -301,9 +301,6 @@ TaskLinkedList::TaskLinkedList(int itemCount){
     }
 
     Task* TaskLinkedList::removeTaskById(int idToFind) {
-        //todo test still do not pass
-        //todo this needs to deal with end ptr when nothing is left in the list or
-        //todo if front and end are pointed at the same (only) node in the list.
         if(front != nullptr) {
             LinkedNode *delPtr;
             Task *tempReturn;
@@ -342,12 +339,10 @@ TaskLinkedList::TaskLinkedList(int itemCount){
     }
 
     bool TaskLinkedList::isEmpty() {
-        //todo test this
         return currLength == 0;
     }
 
     int TaskLinkedList::itemCount() {
-        //todo test this
         return currLength;
     }
 
