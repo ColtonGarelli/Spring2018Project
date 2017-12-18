@@ -28,6 +28,7 @@ void Controller::runTaskManager(){
     //add to task
     masterView = new ArrayList(masterList);
     while (userDirection != 0) {
+        masterView = new ArrayList(masterList);
         userDirection = optionEntry();
         if (userDirection == 1) {
             Task* newTask=taskIn();
@@ -38,6 +39,8 @@ void Controller::runTaskManager(){
         else if (userDirection == 2) {
             view();
         }
+        delete masterView;
+        masterView= nullptr;
         // enter 0 to quit program
     }
     int toDelete=-1;
