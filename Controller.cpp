@@ -42,19 +42,31 @@ void Controller::runTaskManager(){
     }
     int toDelete=-1;
     std::cout<<"Would you like to delete any tasks before quitting?"
-            "\n\nEnter 1 to delete tasks, or 0 to quit program"<<std::endl;
+            "\n\nEnter\n"
+            "1: To delete tasks\n"
+            "0: To quit program"<<std::endl;
     while(toDelete!=0) {
         toDelete=intEntry();
         while (toDelete>1||toDelete<0){
-            std::cout<<"\nPlease enter 1 to delete tasks or 0 to quit program.\n"<<std::endl;
+            std::cout<<"\nPlease Enter\n"
+                    "1: To delete tasks\n"
+                    "0: To exit Task Manager.\n"<<std::endl;
             toDelete=intEntry();
-        }if(toDelete!=0) {
-            viewAll();
-            taskToChange();
-            masterList->removeTaskById(taskToMod->getId());
-            delete taskToMod;
-            taskToMod = nullptr;
-            std::cout << "Would you like to delete any more tasks before quitting?" << std::endl;
+        }while(toDelete!=0) {
+            if(!viewAll())
+            {
+                taskToChange();
+                Task* taskRemoved= masterList->removeTaskById(taskToMod->getId());
+                //taskToMod = nullptr;
+                std::cout<<"\n\nTask deleted:\n"<<taskRemoved->toString()<<std::endl;
+                std::cout << "Would you like to delete any more tasks before quitting?\n\nEnter\n"
+                        "1: To delete another task.\n"
+                        "0: To quit" << std::endl;
+            }else{
+                std::cout<<"\n\n\nThere are no tasks in the Task Manager."<<std::endl;
+                toDelete=0;
+            }
+            toDelete=intEntry();
         }
     }
 
@@ -100,19 +112,13 @@ void Controller::view(){
 }
 
 bool Controller::viewAll(){
-    if(thisView== nullptr){
-        thisView=new ArrayList();
-    }
-    for (int i = 0; i < masterView->itemCount(); i++) {
-            thisView->addToList(masterView->getTaskByIndex(i));
-    }if (thisView->itemCount() == 0) {
-        std::cout<<"No tasks."<<std::endl;
-        return true;
-    }else {
+    if(masterList!= nullptr) {
+        thisView=masterView;
         std::cout << "All Tasks:\n\n" << thisView->toString() << std::endl;
         return false;
+    }else{
+        return true;
     }
-
 }
 
 
@@ -444,7 +450,6 @@ TaskList* Controller::readFile(){
                 std::stringstream makeComplete(holder);
                 makeComplete >> complete;
                 Task *newTask = new Task(idIn, title, dueDate, priority,complete);
-                uniqueID = idIn+1;
                 masterList->addToList(newTask);
             }
         }

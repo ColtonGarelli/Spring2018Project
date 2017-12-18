@@ -311,7 +311,6 @@ TaskLinkedList::TaskLinkedList(int itemCount){
                 delPtr = front;
                 tempReturn = new Task(delPtr->getTask());
                 front = front->getNext();
-
                 delete delPtr;
             } else if(idToFind == end->getTask()->getId()){
                 delPtr = end; //define a node that needs to be removed
@@ -319,14 +318,12 @@ TaskLinkedList::TaskLinkedList(int itemCount){
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind); //find the node that points at end
                 end = prvPtr;
                 end->setNext(nullptr);
-
                 delete delPtr;
             } else {
                 LinkedNode *prvPtr = findNextNodeWithId(front, idToFind);
                 delPtr = prvPtr->getNext();
                 tempReturn = new Task(delPtr->getTask());
                 prvPtr->setNext(delPtr->getNext());
-
                 delete delPtr;
             }
             currLength--;
