@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include "Controller.h"
+#include "Task.h"
 
 
 
@@ -288,8 +289,21 @@ void Controller::editTask(){
         if(pToChange==1){
             std::string inTitle;
             std::string input;
-            std::cout<<"Enter a new task name: "<<std::endl;
+            std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
+            bool commas= true;
+            while(commas) {
+                commas= false;
+                std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
+                std::getline(std::cin >> inTitle, input);
+                inTitle = inTitle + input;
+                for (int i = 0; i < inTitle.size(); i++) {
+                    if (inTitle[i] == ',') {
+                        commas= true;
+                        i=inTitle.size();
+                    }
+                }
+            }
             taskToMod->setTitle(inTitle);
         }//change due date
         else if(pToChange==2){
@@ -317,9 +331,19 @@ Task* Controller::taskIn(){
     std::string inTitle;
     std::string input;
     //print directions
-    std::cout << "Enter the name of the task: " << std::endl;
-    std::getline(std::cin >> inTitle, input);
-    inTitle = inTitle + input;
+    bool commas= true;
+    while(commas) {
+        commas= false;
+        std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
+        std::getline(std::cin >> inTitle, input);
+        inTitle = inTitle + input;
+        for (int i = 0; i < inTitle.size(); i++) {
+            if (inTitle[i] == ',') {
+                commas= true;
+                i=inTitle.size();
+            }
+        }
+    }
     std::cout << "Enter days until due: " << std::endl;
     int dueDate = intEntry();
     std::cout<<"Enter priority: 1-5, 5 being top priority, 1 being low"<<std::endl;

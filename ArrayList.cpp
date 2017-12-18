@@ -21,9 +21,9 @@ ArrayList::ArrayList(){
 ArrayList::ArrayList(TaskList* importList){
     //this->currCapacity=importList->itemCount();
     currCapacity=importList->itemCount();
-    array=new Task*[currCapacity];
+    array= new Task* [currCapacity];
     currItemCount=0;
-    for(int i=0; i< sizeof(array);i++){
+    for(int i=0; i< currCapacity;i++){
         if(importList->itemCount()>i) {
             array[i] = importList->getTaskByIndex(i);
             this->currItemCount++;

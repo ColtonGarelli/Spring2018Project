@@ -207,10 +207,10 @@ void testAssnOperator(){
 int main(){
     std::cout << ("\n*************************\nTESTER:\n");
 
-    doubleCapacityTest();
-    insertAtTester();
-    testCopyConstructor();
-    testAssnOperator();
+//    doubleCapacityTest();
+//    insertAtTester();
+//    testCopyConstructor();
+//    testAssnOperator();
 
 
     srand(time(NULL));
