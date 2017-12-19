@@ -29,19 +29,18 @@ void Controller::runTaskManager(){
     //add to task
     masterView = new ArrayList(masterList);
     while (userDirection != 0) {
+        delete masterView;
+        masterView= nullptr;
         masterView = new ArrayList(masterList);
         userDirection = optionEntry();
         if (userDirection == 1) {
             Task* newTask=taskIn();
-//            uniqueID++;
             masterList->addToList(newTask);
         }
             //complete tasks
         else if (userDirection == 2) {
             view();
         }
-        delete masterView;
-        masterView= nullptr;
         // enter 0 to quit program
     }
     int toDelete=-1;
@@ -61,7 +60,6 @@ void Controller::runTaskManager(){
             {
                 taskToChange();
                 Task* taskRemoved= masterList->removeTaskById(taskToMod->getId());
-                //taskToMod = nullptr;
                 std::cout<<"\n\nTask deleted:\n"<<taskRemoved->toString()<<std::endl;
                 std::cout << "Would you like to delete any more tasks before quitting?\n\nEnter\n"
                         "1: To delete another task.\n"
