@@ -1,6 +1,5 @@
 # Pro-ject
 
-#Trying to push pleeeeeeaaaassseeeeee
 The Project management Tool that makes you the pro at projecting your projects
 
 
@@ -15,17 +14,11 @@ the structure of this program is three parts
 A `Task` has the following private data members
 
 
+* `ID` - unique int for refrenceing in other structures
 * `title` - String representing the task
-* `project` - int (for now) integer id of the project that the task corresponds to.
 * `dueDate` - int (for now) represents the number of days left to complete the task.
   * (negative numbers are days that have passed, 0 is today, and positive numbers are coming up)
-  * [ ] - will need to decide how to make a task without a deadline
-* `duration` - int (for now) the number of days it will take to complete a task
-  * [ ] - does this utilize the Task Time class?
 * `priority` - int between 1-4 for the importance of the task. This is calculated and stored in each task each day.
-* `dependant` - A task that comes after this one
-* `root` - A task that must be started before this task can be started
-  * [ ] - may not be helpful to hold onto and could cause for more confusion.
 * `completed` - Bool True- task complete, False(default)- task to be completed
 
 
@@ -36,11 +29,7 @@ Each view can help to structure the tasks into lists that need to be completed f
 
 
 ##### "today"
-* The `Tasks` would be added to this List and displayed to the user if the task was due today or yester ( `dueDate <= 0` )
-##### "Project 1"
-* The `Task` would be added to this list and displayed to the user if it was from project 1 ( `project == 1` )
-##### "Do Now"
-* The `Task` would be added to the list and displayed to the user if it's roots are complete and there is enough time to complete that task.
+* The `Tasks` would be added to this List and displayed to the user if the task was due today ( `dueDate == 0` )
 ##### "etc..."
 * Of course there would be other views too. This class should not have any data members. just methods for displaying the controller's `activeView`
 

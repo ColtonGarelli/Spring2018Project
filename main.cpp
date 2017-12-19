@@ -11,7 +11,7 @@ int main() {
         *  ... Run the Application:
         */
         srand(time(NULL));
-        std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
+        std::cout << "\n\nWelcome to the JTC TaskManager\n" << std::endl;
         Controller UI = Controller();
         UI.runTaskManager();
     } else {

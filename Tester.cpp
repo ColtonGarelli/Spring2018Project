@@ -12,7 +12,7 @@
 #include "ArrayList.h"
 
 bool Tester::removeValueAtLLTest() {
-    std::cout << "\nremoveTaskByIDTest for Linked List () \n---------------------------------------" << std::endl;
+    std::cout << "\nremoveTaskTest for Linked List () \n---------------------------------------" << std::endl;
     TaskList *l1 = new TaskLinkedList();
 
     std::cout << "fill the list with 6 tasks" << std::endl;
@@ -164,7 +164,7 @@ bool Tester::insertAtTester(){
     //std::cout << ("Adding to a bunch of indexes\n");
     //fill up a list with 1-5
     bool errors = false;
-    ArrayList tester;
+    ArrayList tester = ArrayList();
     for (int j = 0; j < 5; j++) {
         Task* testTask = new Task(j,"testTask");
         tester.insertAtEnd(testTask);
@@ -173,9 +173,7 @@ bool Tester::insertAtTester(){
         Task* testTask = new Task(i,"testTask");
         tester.insertAt(testTask, i);
     }
-    //std::cout << tester.toString() <<std::endl;
     for (int i=0; i < tester.itemCount()-1; i+=2) {
-        //std::cout << tester.get(i) <<std::endl;
         if (tester.getValueAt(i)->getId() != tester.getValueAt(i+1)->getId()) {
             errors = true;
             std::cout << ("FAIL: Two tasks do not match\n");
@@ -315,13 +313,6 @@ bool Tester::testAssnOperator(){
         std::cout << "pass"<<std::endl;
     }
 
-    //When this function ends, they'll both be deleted, which will check they don't have shared memory
-    while(!original.isEmpty()){
-        delete original.removeValueAt(0);
-    }
-    while (!listToSet.isEmpty()){
-        delete listToSet.removeValueAt(0);
-    }
     if (numErrors == 0 ) {
         return false;
     } else{
@@ -351,6 +342,7 @@ bool Tester::testArrayList(){
     error4 = testCopyConstructor();
     error5 = testAssnOperator();
     //if any tests have an error, return false for testArrayList
+    std::cout<<" ---- Array List Tests Complete ----"<<std::endl;
     if(error1 || error2 || error3 || error4 || error5){
         return false;
     }else{
@@ -364,4 +356,5 @@ bool Tester::testAll(){
     }else{
         return false;
     }
+
 }

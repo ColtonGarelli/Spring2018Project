@@ -132,7 +132,7 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
  **/
  void ArrayList::insertAtFront(Task* tasktoAdd){
     if(currItemCount == currCapacity){
-        this->doubleCapacity();
+        doubleCapacity();
     }
     for (int i = currItemCount; i >0; i--){
         array[i] = array[i-1];
@@ -154,6 +154,9 @@ void ArrayList::insertAtEnd(Task* taskToAdd){
         throw std::out_of_range("<Error:index not in range>");
     }
     else{
+        if(currItemCount == currCapacity){
+            doubleCapacity();
+        }
         for(int i = currItemCount; i > index; i--){
             array[i] = array[i - 1];
         }
@@ -328,6 +331,7 @@ Task* ArrayList::removeValueAt(int index) {
         Task *in = array[index];
         for (int i = index; i < currItemCount; i++) {
             array[i] = array[i + 1];
+            array[i+1] = nullptr;
         }
         currItemCount--;
         return in;
