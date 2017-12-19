@@ -120,9 +120,9 @@ void Controller::view(){
             thisView = nullptr;
             taskToMod = nullptr;
         }
-//        else if(viewRequest!=0){
-////            std::cout<<"The list is empty."<<std::endl;
-//        }
+        else if(viewRequest!=0){
+            std::cout<<"The list is empty."<<std::endl;
+        }
     }
 }
 
@@ -236,7 +236,6 @@ void Controller::taskHandler(){
             taskToChange();
             if(taskToMod != nullptr){
                 editTask();
-//                std::cout << taskToMod->toString() << std::endl;
             } else{
                 std::cout << "Stopping Task Modification" << std::endl;
             }
@@ -524,11 +523,6 @@ TaskList* Controller::readFile(){
         }
     }
     fin.close();
-//    for(int i=0;i<masterList->itemCount();i++){
-//        if(maxId>uniqueID) {
-//            maxId = (masterList->getTaskByIndex(i)->getId());
-//        }
-//    }
     uniqueID=maxId;
     return masterList;
 }
