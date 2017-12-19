@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Controller.h"
-#include "LinkedListTester.h"
 
 
 void doubleCapacityTest(){
@@ -22,10 +21,8 @@ void doubleCapacityTest(){
     else {
         std::cout << "FAIL:" << numErrors << " errors in double Capacity Test" << std::endl;
     }
-    //clear memory
-    for (int i=0;i<100; i++){
-        delete testList.removeTaskById(i);
-    }
+    //since this would be a problem with dangling pointers, the problem will likely appear as a memory error
+    //and so this test might pass but you might see other problems.
 }
 
 void rangeErrorTests(ArrayList& list){
@@ -81,20 +78,19 @@ void insertAtTester(){
         tester.insertAt(testTask, i);
     }
     //std::cout << tester.toString() <<std::endl;
-    for (int i=0; i < tester.itemCount()-1; i+=2) {
+    //check to see if 333 is at every other index
+    for (int i=0; i < tester.itemCount(); i+=2) {
         //std::cout << tester.get(i) <<std::endl;
-        if (tester.getValueAt(i)->getId() != tester.getValueAt(i+1)->getId()) {
+        if (tester.getValueAt(i)->getId() != 333) {
             errors = true;
-            std::cout << ("FAIL: Two tasks do not match\n");
+            std::cout << ("FAIL: missing an add of 333\n");
         }
     }
     if (!errors){
         std::cout << "pass"<<std::endl;
     }
-    //clear memory
-    for(int i = 0; i < tester.itemCount();i++){
-        delete tester.getTaskByIndex(i);
-    }
+    errors = false;
+
 }
 
 void testCopyConstructor(){
@@ -123,29 +119,18 @@ void testCopyConstructor(){
     Task* testTask2 = new Task(5,"testTask2");
     original.insertAtEnd(testTask2);
     //check that they're different
-    if (!( original.getTaskByIndex(0)->getId() == copy.getTaskByIndex(2)->getId())){
+    if (!( original.toString() == "{2, 3, 4, 5}")){
         std::cout << "FAIL: error in changing original, it is now:" <<original.toString() << std::endl;
         numErrors++;
     }
-    if (!( original.getTaskByIndex(1)->getId() == copy.getTaskByIndex(3)->getId())){
-        std::cout << "FAIL: error in changing original, it is now:" <<original.toString() << std::endl;
-        numErrors++;
-    }
-    if (( original.getTaskByIndex(2)->getId() == copy.getTaskByIndex(2)->getId())){
-        std::cout << "FAIL: error in changing original, it is now:" <<original.toString() << std::endl;
-        numErrors++;
-    }
-    if (( original.getTaskByIndex(3)->getId() == copy.getTaskByIndex(3)->getId())){
-        std::cout << "FAIL: error in changing original, it is now:" <<original.toString() << std::endl;
+    if (!( copy.toString() == "{0, 1, 2, 3}")){
+        std::cout << "FAIL: error in copy after changes, it is now" << copy.toString() <<  std::endl;
         numErrors++;
     }
     if (numErrors == 0){
         std::cout << "pass"<<std::endl;
     }
     //When this function ends, they'll both be deleted, which will check they don't have shared memory
-    while(!original.isEmpty()){
-        delete original.removeValueAt(0);
-    }
 }
 
 void testAssnOperator(){
@@ -219,22 +204,13 @@ void testAssnOperator(){
 
 
 
-
-
-
-
-
-
 int main(){
     std::cout << ("\n*************************\nTESTER:\n");
 
-    //todo ask the user if they want to run the tests or the program
-    doubleCapacityTest();
-    insertAtTester();
-    testCopyConstructor();
-    testAssnOperator();
-    LinkedListTester llt = LinkedListTester();
-    llt.TestLinkedList();
+//    doubleCapacityTest();
+//    insertAtTester();
+//    testCopyConstructor();
+//    testAssnOperator();
 
 
     srand(time(NULL));

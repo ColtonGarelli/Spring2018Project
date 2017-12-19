@@ -1,6 +1,5 @@
 //
 // Created by Colton Garelli on 12/15/17.
-// Modified slightly by Jeremy Block on 12/18/17
 //
 
 #include <iostream>
@@ -307,6 +306,7 @@ void Controller::editTask(){
             std::string input;
             std::cout<<"Please don't use commas.\n\nEnter a new task name: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
+            inTitle+=input;
             bool commas = hasCommas(inTitle+input);
             while(commas) {
                 commas= false;
