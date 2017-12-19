@@ -215,7 +215,7 @@ void Controller::taskHandler(){
                 std::cout << "This task has already been completed\n" << std::endl;
                 std::cout << taskToMod->toString() << std::endl;
             } else {
-                taskToMod->setTaskCompletion();
+                taskToMod->toggleTaskCompletion();
                 std::cout << taskToMod->toString() << std::endl;
             }
         }
@@ -320,7 +320,7 @@ void Controller::editTask(){
             taskToMod->setPriority(priority);
         }
         else if(pToChange==4){
-            taskToMod->setTaskCompletion();
+            taskToMod->toggleTaskCompletion();
         }
     }
 }
