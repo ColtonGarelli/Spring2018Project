@@ -78,9 +78,10 @@ ArrayList::~ArrayList() {
  **/
 void ArrayList::doubleCapacity() {
     //tested and Working!
+    int currCap = currCapacity;
     int doubCap = (currCapacity * 2);
     Task** tempArray=new Task*[doubCap];
-    for (int i = 0; i < currCapacity; i++) {
+    for (int i = 0; i < currCap; i++) {
         tempArray[i]=array[i];
     }
     currCapacity = doubCap;
