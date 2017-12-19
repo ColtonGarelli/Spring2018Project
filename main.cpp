@@ -210,12 +210,9 @@ int main(){
 //    doubleCapacityTest();
 //    insertAtTester();
 //    testCopyConstructor();
-//    testAssnOperator();
-
-
-    srand(time(NULL));
-    std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
-    Controller UI = Controller();
-    UI.runTaskManager();
+    testAssnOperator();
+//    std::cout << "Welcome to the JTC TaskManager\n" << std::endl;
+//    Controller UI = Controller();
+//    UI.runTaskManager();
     return 0;
 }

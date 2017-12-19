@@ -54,7 +54,8 @@ ArrayList& ArrayList::operator=(const ArrayList& arrayListToCopy){
         currItemCount = arrayListToCopy.currItemCount;
         array = new Task*[currCapacity];
         for(int i = 0; i < currItemCount; i++){
-            array[i] = arrayListToCopy.array[i];
+            Task* newTask= new Task(arrayListToCopy.array[i]);
+            array[i] = newTask;
         }
     }
     return *this;
