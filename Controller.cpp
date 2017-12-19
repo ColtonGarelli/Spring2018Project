@@ -20,9 +20,9 @@ Controller::Controller(){
     Task* taskToMod=nullptr;
 }
 void Controller::help(){
-    std::cout<<"Help Menu:\n\n1: Add a new task with a title, due date, priority, and automatically sets it to incomplete."
-            "\n2: Presents an array of viewing options sorted by due date and completion."
-            "\n0: Quits the program, prompts the user to delete tasks they would not like to save, and saves any remaining tasks."<<std::endl;
+    std::cout<<"Help Menu:\n\n\n1: Add a new task with a title, due date, priority, and automatically sets it to incomplete."
+            "\n\n2: Presents an array of viewing options sorted by due date and completion."
+            "\n\n0: Quits the program, prompts the user to delete tasks they would not like to save, and saves any remaining tasks.\n"<<std::endl;
 }
 
 
