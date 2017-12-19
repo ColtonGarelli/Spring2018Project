@@ -1,5 +1,6 @@
 //
 // Created by Colton Garelli on 12/15/17.
+// Modified slightly by Jeremy Block on 12/18/17
 //
 
 #include <iostream>
@@ -33,7 +34,7 @@ void Controller::runTaskManager(){
         userDirection = optionEntry();
         if (userDirection == 1) {
             Task* newTask=taskIn();
-            uniqueID++;
+//            uniqueID++;
             masterList->addToList(newTask);
         }
             //complete tasks
@@ -109,9 +110,9 @@ void Controller::view(){
             thisView = nullptr;
             taskToMod = nullptr;
         }
-        else if(viewRequest!=0){
-            std::cout<<"The list is empty."<<std::endl;
-        }
+//        else if(viewRequest!=0){
+////            std::cout<<"The list is empty."<<std::endl;
+//        }
     }
 }
 
@@ -166,7 +167,7 @@ bool Controller::viewTomorrow() {
         std::cout << "No tasks due tomorrow." << std::endl;
         return true;
     }else {
-        std::cout << "Tomoorow's Tasks:\n\n" << thisView->toString() << std::endl;
+        std::cout << "Tomorrow's Tasks:\n\n" << thisView->toString() << std::endl;
         return false;
     }
 }
@@ -211,38 +212,47 @@ void Controller::taskHandler(){
         if (action == 1) {
             //selects task, editTask uses taskToMod to access
             taskToChange();
-            if (taskToMod->getComplete()) {
-                std::cout << "This task has already been completed\n" << std::endl;
-                std::cout << taskToMod->toString() << std::endl;
-            } else {
-                taskToMod->toggleTaskCompletion();
-                std::cout << taskToMod->toString() << std::endl;
+            if(taskToMod != nullptr){
+                if (taskToMod->getComplete()) {
+                    std::cout << taskToMod->getTitle() << " has already been completed\nCompletion status unchanged" << std::endl;
+                } else {
+                    taskToMod->toggleTaskCompletion();
+                    std::cout << taskToMod->getTitle() << " is now complete" << std::endl;
+                }
             }
+            std::cout<<"__The Current View__\n"<<thisView->toString()<<std::endl;
         }
         else if (action == 2) {
             taskToChange();
-            editTask();
-            std::cout << taskToMod->toString() << std::endl;
+            if(taskToMod != nullptr){
+                editTask();
+//                std::cout << taskToMod->toString() << std::endl;
+            } else{
+                std::cout << "Stopping Task Modification" << std::endl;
+            }
+            std::cout<<"__The Current View__\n"<<thisView->toString()<<std::endl;
+
         }
-        std::cout<<thisView->toString()<<std::endl;
+//        std::cout<<'\n'<<thisView->toString()<<std::endl;
+
     }
 }
 
 
 //User can choose to complete, edit, or return to view
 int Controller::modifier(){
-    std::cout<<"To complete a task enter 1\n\n"
-            "To edit a task enter 2\n\n"
-            "To return to view enter 0"<<std::endl;
+    std::cout<<"||To complete a task enter 1\n"
+            "||To edit a task enter 2\n"
+            "||To return to view selection enter 0"<<std::endl;
     int userIn=intEntry();
     if(userIn!=0) {
-        std::cout << thisView->toString() << std::endl;
+//        std::cout << thisView->toString() << std::endl;
         while (userIn > 2 || userIn < 0) {
             std::cout << thisView->toString() << std::endl;
             std::cout
-                    << "Invalid Entry.\nTo complete a task enter 1\n\n"
-                            "To edit a task enter 2\n\n"
-                            "To return to view enter 0"
+                    << "Invalid Entry.\n||To complete a task enter 1\n"
+                            "||To edit a task enter 2\n"
+                            "||To return to view selection enter 0"
                     << std::endl;
             userIn = intEntry();
         }
@@ -251,24 +261,30 @@ int Controller::modifier(){
 }
 
 
-//select which taask of the list displayed to change
+//select which task of the list displayed to change
 void Controller::taskToChange(){
     std::cout<<"Enter the number associated with a task,"
             " or enter 0 to exit"<<std::endl;
     int taskSelect=intEntry();
+    //repeat command if the number is not between 0 and length of list
     while(taskSelect>(thisView->itemCount()) ||taskSelect<0){
         std::cout<<"Invalid Entry.\n"
                 "Enter the number associated with a task,"
                 " or enter 0 to exit"<<std::endl;
         taskSelect=intEntry();
     }
-    taskToMod=thisView->getTaskByIndex(taskSelect-1);
+    if (taskSelect != 0 ){ //check if user entered 0
+        taskToMod=thisView->getTaskByIndex(taskSelect-1);
+    } else {//if 0 entered just finish function
+        taskToMod = nullptr;
+    }
 }
 
 
 //User in: which parameter to change, and edits that task
 void Controller::editTask(){
     int pToChange=-1;
+    std::cout <<"---Current Task Selected:---\n\t" << taskToMod->toPrint() <<std::endl;
     while(pToChange!=0){
         std::cout<<"Enter\n1: Change task title\n"
                 "2: Change task due date\n"
@@ -289,26 +305,22 @@ void Controller::editTask(){
         if(pToChange==1){
             std::string inTitle;
             std::string input;
-            std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
+            std::cout<<"Please don't use commas.\n\nEnter a new task name: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
-            bool commas= true;
+            bool commas = hasCommas(inTitle+input);
             while(commas) {
                 commas= false;
-                std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
+                std::cout<<"I'm sorry, Please don't use commas.\n\nEnter the new task name: "<<std::endl;
                 std::getline(std::cin >> inTitle, input);
-                inTitle = inTitle + input;
-                for (int i = 0; i < inTitle.size(); i++) {
-                    if (inTitle[i] == ',') {
-                        commas= true;
-                        i=inTitle.size();
-                    }
-                }
+                commas = hasCommas(inTitle + input);
             }
             taskToMod->setTitle(inTitle);
+            std::cout << ">>>Title Updated to: \"" << taskToMod->getTitle() << "\"<<<"<< std::endl;
         }//change due date
         else if(pToChange==2){
             std::cout << "Enter new due date: " << std::endl;
             taskToMod->setDueDate(intEntry());
+            std::cout << ">>>Dated Updated, Task now due in : " << taskToMod->getDueDate() << " day(s) <<<" << std::endl;
         }//change priority
         else if(pToChange==3) {
             std::cout << "Enter new priority: " << std::endl;
@@ -318,9 +330,12 @@ void Controller::editTask(){
                 priority = intEntry();
             }
             taskToMod->setPriority(priority);
+            std::cout << ">>>Priority Updated to: " << taskToMod->getPriority() << "<<<" << std::endl;
         }
         else if(pToChange==4){
             taskToMod->toggleTaskCompletion();
+            std::cout << ">>>Task Completion is now: " << std::to_string(taskToMod->getComplete()) << "<<<" << std::endl;
+
         }
     }
 }
@@ -334,7 +349,7 @@ Task* Controller::taskIn(){
     bool commas= true;
     while(commas) {
         commas= false;
-        std::cout<<"Please don't use commas.\n\nEnter a  task name: "<<std::endl;
+        std::cout<<"Please don't use commas.\n\nEnter a task name: "<<std::endl;
         std::getline(std::cin >> inTitle, input);
         inTitle = inTitle + input;
         for (int i = 0; i < inTitle.size(); i++) {
@@ -354,6 +369,7 @@ Task* Controller::taskIn(){
     }
     uniqueID+=1;
     Task *newTask = new Task(uniqueID, inTitle, dueDate, priority);
+    std::cout<<">>>Task Added to List<<<"<<std::endl;
     return newTask;
 }
 
@@ -377,6 +393,17 @@ int Controller::selectView() {
         userIn = intEntry();
     }
     return userIn;
+}
+
+bool Controller::hasCommas(const std::string &inString) const {
+    bool commas;
+    for (int i = 0; i < inString.size(); i++) {
+        if (inString[i] == ',') {
+            commas = true;
+            i = inString.size(); // automatically ends the loop
+        }
+    }
+    return commas;
 }
 
 //generic integer entry function to make sure ints are entered
@@ -447,6 +474,7 @@ int Controller::optionEntry() {
 //reads file in to masterList
 TaskList* Controller::readFile(){
     TaskList* masterList = new TaskLinkedList();
+    int maxId=1;
     std::string textIn;
     std::ifstream fin("storetasks.txt");
     while (!fin.eof()) {
@@ -462,6 +490,9 @@ TaskList* Controller::readFile(){
                 int idIn;
                 std::stringstream makeID(holder);
                 makeID >> idIn;
+                if(idIn > maxId){
+                    maxId = idIn;
+                }
                 getline(parts, holder, delimiter);
                 std::string title = holder;
                 int dueDate;
@@ -481,14 +512,13 @@ TaskList* Controller::readFile(){
             }
         }
     }
-    int maxId=1;
-    for(int i=0;i<masterList->itemCount();i++){
-        if(maxId>uniqueID) {
-            maxId = (masterList->getTaskByIndex(i)->getId());
-        }
-    }
-    uniqueID=maxId+1;
     fin.close();
+//    for(int i=0;i<masterList->itemCount();i++){
+//        if(maxId>uniqueID) {
+//            maxId = (masterList->getTaskByIndex(i)->getId());
+//        }
+//    }
+    uniqueID=maxId;
     return masterList;
 }
 

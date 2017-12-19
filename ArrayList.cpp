@@ -292,33 +292,9 @@ int ArrayList::findFirstPriority(int lookFor){
 std::string ArrayList::toString() {
     std::string priotiryStr;
     std::string completedStr;
-    std::string printable = "To Do:\n\n";
+    std::string printable = "";
     for(int i = 0; i < currItemCount; i++){
-//        printable += std::to_string(i + 1) + ". " + array[i]->getTitle() + "\n";
-//        printable += "Due Date: "+std::to_string(array[i]->getDueDate()) + "\n";
-//        printable += "Priority: "+std::to_string(array[i]->getPriority()) + "\n";
-//        if(!array[i]->getComplete()){
-//            printable += "Complete: No \n\n";
-//        }
-//        else{
-//            printable+="Complete: Yes \n\n";
-//        }
-        printable += std::to_string(i)+".) "+array[i]->toPrint();
-//        priotiryStr = "";
-//
-//        for (int i = 0; i < array[i]->getPriority(); i++) {
-//            priotiryStr += "!";
-//        }
-//        completedStr = "";
-//
-//        if(array[i]->getComplete()){
-//            completedStr = "Task has been completed :-)";
-//        } else{
-//            completedStr = "Task is not Complete";
-//        }
-//
-//        printable += "\nTask ID: " + std::to_string(array[i]->getId()) + "\n" + array[i]->getTitle() + " is due in " + std::to_string(array[i]->getDueDate()) +
-//               " days.\nPriority: " + priotiryStr + "\t "+completedStr+"\n";
+        printable += std::to_string(i+1)+".) "+array[i]->toPrint();
     }
     return printable;
 }

@@ -1,4 +1,6 @@
 1,Feed the Cat,1,1,0
-2,Water Plants,2,4,0
-3,Find a time machine and fix your grade,2,5,0
-
+2,Water Plants,1,4,0
+3,Buy new shoes,2,4,0
+4,Make A To Do List,0,5,1
+6,Check off one Item on List,0,5,1
+5,Find a time machine and fix your grade,-1,5,0

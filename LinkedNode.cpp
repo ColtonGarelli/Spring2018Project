@@ -11,7 +11,6 @@ LinkedNode::LinkedNode(Task* item){
 }
 
 LinkedNode::LinkedNode(const LinkedNode& nodeToCopy){
-    //todo readthrough this and call the task cunstructor
     item = nodeToCopy.item;
     next = nullptr;
 }
@@ -28,7 +27,6 @@ int LinkedNode::getId(){
 }
 
 LinkedNode* LinkedNode::getNext(){
-
     return next;
 }
 

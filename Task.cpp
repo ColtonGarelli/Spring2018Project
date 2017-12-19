@@ -160,8 +160,8 @@ std::string Task::toPrint(){
     } else{
         completedStr = "Task is not Complete";
     }
-    return "\n" + title + " is due in " + std::to_string(dueDate) +
-           " days.\nPriority: " + priorityStr + "\t "+completedStr+"\n";
+    return "" + title + " is due in " + std::to_string(dueDate) +
+           " days.\n\tPriority: " + priorityStr + "\t "+completedStr+"\n";
 }
 std::string Task::toFile() {
         return std::to_string(Id) + "," + title + "," + std::to_string(dueDate) + "," + std::to_string(priority) + "," +

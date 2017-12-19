@@ -37,6 +37,12 @@ public:
     void printPartsToFile(std::string lineToPrint, char delimiter);
 
     void writeFile(TaskList* masterList);
+    /**
+     * Checks to see if the passed string/line has commas in it
+     * @param reference to a line of input from the user
+     * @return true - commas were found in string, false otherwise;
+     */
+    bool hasCommas(const std::string &inString) const;
 
     int intEntry();
 
