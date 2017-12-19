@@ -26,8 +26,10 @@ private:
 
 public:
 
+
     Controller();
 
+    void help();
     void taskHandler();
 
     void runTaskManager();

@@ -1,6 +1,5 @@
 //
 // Created by Colton Garelli on 12/15/17.
-// Modified slightly by Jeremy Block on 12/18/17
 //
 
 #include <iostream>
@@ -20,6 +19,11 @@ Controller::Controller(){
     ArrayList* thisView= nullptr;
     Task* taskToMod=nullptr;
 }
+void Controller::help(){
+    std::cout<<"Help Menu:\n\n\n1: Add a new task with a title, due date, priority, and automatically sets it to incomplete."
+            "\n\n2: Presents an array of viewing options sorted by due date and completion."
+            "\n\n0: Quits the program, prompts the user to delete tasks they would not like to save, and saves any remaining tasks.\n"<<std::endl;
+}
 
 
 void Controller::runTaskManager(){
@@ -30,6 +34,8 @@ void Controller::runTaskManager(){
     //add to task
     masterView = new ArrayList(masterList);
     while (userDirection != 0) {
+        delete masterView;
+        masterView= nullptr;
         masterView = new ArrayList(masterList);
         userDirection = optionEntry();
         if (userDirection == 1) {
@@ -40,8 +46,9 @@ void Controller::runTaskManager(){
         else if (userDirection == 2) {
             view();
         }
-        delete masterView;
-        masterView= nullptr;
+        else if(userDirection==3){
+            help();
+        }
         // enter 0 to quit program
     }
     int toDelete=-1;
@@ -57,11 +64,13 @@ void Controller::runTaskManager(){
                     "0: To exit Task Manager.\n"<<std::endl;
             toDelete=intEntry();
         }while(toDelete!=0) {
+            if(masterView== nullptr){
+                masterView= new ArrayList(masterList);
+            }
             if(!viewAll())
             {
                 taskToChange();
                 Task* taskRemoved= masterList->removeTaskById(taskToMod->getId());
-                //taskToMod = nullptr;
                 std::cout<<"\n\nTask deleted:\n"<<taskRemoved->toString()<<std::endl;
                 std::cout << "Would you like to delete any more tasks before quitting?\n\nEnter\n"
                         "1: To delete another task.\n"
@@ -70,6 +79,8 @@ void Controller::runTaskManager(){
                 std::cout<<"\n\n\nThere are no tasks in the Task Manager."<<std::endl;
                 toDelete=0;
             }
+            delete masterView;
+            masterView= nullptr;
             toDelete=intEntry();
         }
     }
@@ -305,6 +316,7 @@ void Controller::editTask(){
             std::string input;
             std::cout<<"Please don't use commas.\n\nEnter a new task name: "<<std::endl;
             std::getline(std::cin>>inTitle,input);
+            inTitle+=input;
             bool commas = hasCommas(inTitle+input);
             while(commas) {
                 commas= false;
@@ -437,7 +449,7 @@ int Controller::intEntry(){
 //select adding a task, viewing a task, or quit the program
 int Controller::optionEntry() {
     int userDirection = -1;
-    std::cout << "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+    std::cout << "Enter 1 to add a new task, 2 to view tasks, 3 for help, or 0 to quit: " << std::endl;
     std::string userString;
     std::cin >> userString;
     std::stringstream convertor;
@@ -460,7 +472,7 @@ int Controller::optionEntry() {
             invalid = false;
         }
     }
-    while (userDirection < 0 || userDirection > 2) {
+    while (userDirection < 0 || userDirection > 3) {
         std::cout << "Invalid entry."
                   << std::endl;
         userDirection = optionEntry();
