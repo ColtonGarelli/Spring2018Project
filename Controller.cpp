@@ -19,6 +19,11 @@ Controller::Controller(){
     ArrayList* thisView= nullptr;
     Task* taskToMod=nullptr;
 }
+void Controller::help(){
+    std::cout<<"Help Menu:\n\n1: Add a new task with a title, due date, priority, and automatically sets it to incomplete."
+            "\n2: Presents an array of viewing options sorted by due date and completion."
+            "\n0: Quits the program, prompts the user to delete tasks they would not like to save, and saves any remaining tasks."<<std::endl;
+}
 
 
 void Controller::runTaskManager(){
@@ -41,6 +46,9 @@ void Controller::runTaskManager(){
         else if (userDirection == 2) {
             view();
         }
+        else if(userDirection==3){
+            help();
+        }
         // enter 0 to quit program
     }
     int toDelete=-1;
@@ -56,6 +64,9 @@ void Controller::runTaskManager(){
                     "0: To exit Task Manager.\n"<<std::endl;
             toDelete=intEntry();
         }while(toDelete!=0) {
+            if(masterView== nullptr){
+                masterView= new ArrayList(masterList);
+            }
             if(!viewAll())
             {
                 taskToChange();
@@ -68,6 +79,8 @@ void Controller::runTaskManager(){
                 std::cout<<"\n\n\nThere are no tasks in the Task Manager."<<std::endl;
                 toDelete=0;
             }
+            delete masterView;
+            masterView= nullptr;
             toDelete=intEntry();
         }
     }
@@ -437,7 +450,7 @@ int Controller::intEntry(){
 //select adding a task, viewing a task, or quit the program
 int Controller::optionEntry() {
     int userDirection = -1;
-    std::cout << "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+    std::cout << "Enter 1 to add a new task, 2 to view tasks, 3 for help, or 0 to quit: " << std::endl;
     std::string userString;
     std::cin >> userString;
     std::stringstream convertor;
@@ -460,7 +473,7 @@ int Controller::optionEntry() {
             invalid = false;
         }
     }
-    while (userDirection < 0 || userDirection > 2) {
+    while (userDirection < 0 || userDirection > 3) {
         std::cout << "Invalid entry."
                   << std::endl;
         userDirection = optionEntry();
