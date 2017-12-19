@@ -294,7 +294,7 @@ std::string ArrayList::toString() {
     std::string completedStr;
     std::string printable = "";
     for(int i = 0; i < currItemCount; i++){
-        printable += std::to_string(i+1)+".) "+array[i]->toPrint();
+        printable += "\n"+std::to_string(i+1)+".) "+array[i]->toPrint();
     }
     return printable;
 }
