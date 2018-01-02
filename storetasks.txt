@@ -1,7 +1,6 @@
-1,Feed the Cat,1,1,0
-2,Water Plants,1,4,0
-3,Buy new shoes,2,4,0
-4,Make A To Do List,0,5,1
-6,Check off one Item on List,0,5,1
-5,Find a time machine and fix your grade,-1,5,0
+3,Fill out comp project doc,2,4,0
+4,Submit TA hours,2,5,0
+5,Ellis Lab Schedule,4,4,0
+6,Get life together,2,5,0
+7,Clean out car,3,4,0
 

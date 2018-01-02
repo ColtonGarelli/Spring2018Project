@@ -31,6 +31,7 @@ public:
 
     void help();
     void taskHandler();
+    void deleteTask();
 
     void runTaskManager();
 

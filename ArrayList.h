@@ -36,9 +36,10 @@ public:
      * creates an arrayList
      * @param: initialCapacity (the starting size of the array, defaults to size 5
      */
-
+    //Import Constructor
     ArrayList(TaskList *importList);
 
+    //Default Constructor
     ArrayList();
 
     //Copy Constructor

@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include "ArrayList.h"
-#include<sstream>
+#include <sstream>
 
 
 /**

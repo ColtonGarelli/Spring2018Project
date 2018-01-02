@@ -22,6 +22,7 @@ Controller::Controller(){
 void Controller::help(){
     std::cout<<"Help Menu:\n\n\n1: Add a new task with a title, due date, priority, and automatically sets it to incomplete."
             "\n\n2: Presents an array of viewing options sorted by due date and completion."
+            "\n\n3: Delete any tasks"
             "\n\n0: Quits the program, prompts the user to delete tasks they would not like to save, and saves any remaining tasks.\n"<<std::endl;
 }
 
@@ -47,43 +48,15 @@ void Controller::runTaskManager(){
             view();
         }
         else if(userDirection==3){
+            deleteTask();
+        }
+        else if(userDirection==4){
             help();
         }
+
         // enter 0 to quit program
     }
-    int toDelete=-1;
-    std::cout<<"Would you like to delete any tasks before quitting?"
-            "\n\nEnter\n"
-            "1: To delete tasks\n"
-            "0: To quit program"<<std::endl;
-    while(toDelete!=0) {
-        toDelete=intEntry();
-        while (toDelete>1||toDelete<0){
-            std::cout<<"\nPlease Enter\n"
-                    "1: To delete tasks\n"
-                    "0: To exit Task Manager.\n"<<std::endl;
-            toDelete=intEntry();
-        }while(toDelete!=0) {
-            if(masterView== nullptr){
-                masterView= new ArrayList(masterList);
-            }
-            if(!viewAll())
-            {
-                taskToChange();
-                Task* taskRemoved= masterList->removeTaskById(taskToMod->getId());
-                std::cout<<"\n\nTask deleted:\n"<<taskRemoved->toString()<<std::endl;
-                std::cout << "Would you like to delete any more tasks before quitting?\n\nEnter\n"
-                        "1: To delete another task.\n"
-                        "0: To quit" << std::endl;
-            }else{
-                std::cout<<"\n\n\nThere are no tasks in the Task Manager."<<std::endl;
-                toDelete=0;
-            }
-            delete masterView;
-            masterView= nullptr;
-            toDelete=intEntry();
-        }
-    }
+    deleteTask();
 
     //upon quit writes to file
 
@@ -91,6 +64,41 @@ void Controller::runTaskManager(){
     std::cout << "\n\nThank you for using the JTC TaskManager." << std::endl;
 }
 
+void Controller::deleteTask() {
+    int toDelete = -1;
+    std::cout <<
+            "\n\nEnter\n"
+            "1: To delete tasks\n"
+            "0: To quit" << std::endl;
+    while (toDelete != 0) {
+        toDelete = intEntry();
+        while (toDelete > 1 || toDelete < 0) {
+            std::cout << "\nPlease Enter\n"
+                    "1: To delete tasks\n"
+                    "0: To quit.\n" << std::endl;
+            toDelete = intEntry();
+        }
+        while (toDelete != 0) {
+            if (masterView == nullptr) {
+                masterView = new ArrayList(masterList);
+            }
+            if (!viewAll()) {
+                taskToChange();
+                Task *taskRemoved = masterList->removeTaskById(taskToMod->getId());
+                std::cout << "\n\nTask deleted:\n" << taskRemoved->toString() << std::endl;
+                std::cout << "Would you like to delete any more tasks before quitting?\n\nEnter\n"
+                        "1: To delete another task.\n"
+                        "0: To quit" << std::endl;
+            } else {
+                std::cout << "\n\n\nThere are no tasks in the Task Manager." << std::endl;
+                toDelete = 0;
+            }
+            delete masterView;
+            masterView = nullptr;
+            toDelete = intEntry();
+        }
+    }
+}
 
 void Controller::view(){
     int viewRequest=-1;
@@ -449,7 +457,7 @@ int Controller::intEntry(){
 //select adding a task, viewing a task, or quit the program
 int Controller::optionEntry() {
     int userDirection = -1;
-    std::cout << "Enter 1 to add a new task, 2 to view tasks, 3 for help, or 0 to quit: " << std::endl;
+    std::cout << "Enter 1 to add a new task, 2 to view tasks, 3 to delete tasks, 4 for help, or 0 to quit: " << std::endl;
     std::string userString;
     std::cin >> userString;
     std::stringstream convertor;
@@ -461,7 +469,7 @@ int Controller::optionEntry() {
     }//print statement from here kind of weird consider changing
     while (invalid) {
         std::cout << "\nPlease enter a valid number.\n"
-                "Enter 1 to add a new task, 2 to view tasks, 0 to quit: " << std::endl;
+                "Enter 1 to add a new task, 2 to view tasks, 3 to delete tasks, 4 for help, 0 to quit: " << std::endl;
         std::cin >> userString;
         std::stringstream convertor;
         convertor << userString;
